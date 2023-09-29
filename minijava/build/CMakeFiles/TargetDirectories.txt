@@ -1,0 +1,6 @@
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/CMakeFiles/edit_cache.dir
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/CMakeFiles/rebuild_cache.dir
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/src/CMakeFiles/MiniJavaCompiler-generated.dir
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/src/CMakeFiles/MiniJavaCompiler.dir
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/src/CMakeFiles/edit_cache.dir
+/mnt/e/SynologyDrive/Programming/GitCloning/MiniJavaCompiler/minijava/build/src/CMakeFiles/rebuild_cache.dir

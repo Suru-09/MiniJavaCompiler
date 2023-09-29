@@ -1,0 +1,22 @@
+options {
+    OUTPUT_LANGUAGE = "c++";
+    OUTPUT_DIRECTORY = "parser_generated_files";
+}
+
+PARSER_BEGIN(Example)
+
+PARSER_END(Example)
+
+/** Root production. */
+void Input() :
+{}
+{
+  MatchedBraces() ("\n"|"\r")* <EOF>
+}
+
+/** Brace matching production. */
+void MatchedBraces() :
+{}
+{
+  "{" [ MatchedBraces() ] "}"
+}
