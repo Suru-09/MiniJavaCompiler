@@ -1,0 +1,9 @@
+.vscode
+.DS_Store
+
+*/.vscode/*
+*/.idea/*
+*/.vs/*
+*/.git/*
+*/.gradle/*
+
