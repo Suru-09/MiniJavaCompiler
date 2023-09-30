@@ -1,3 +1,7 @@
+# ignore build files
+build/
+cmake-build-debug/
+
 # Prerequisites
 *.d
 
