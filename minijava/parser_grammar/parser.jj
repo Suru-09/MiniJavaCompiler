@@ -1,22 +1,224 @@
 options {
     OUTPUT_LANGUAGE = "c++";
-    OUTPUT_DIRECTORY = "parser_generated_files";
+    OUTPUT_DIRECTORY = "generated";
+    LOOKAHEAD = 2;
+    CHOICE_AMBIGUITY_CHECK = 3;
+    OTHER_AMBIGUITY_CHECK = 3;
+    STOP_ON_FIRST_ERROR = false;
 }
 
-PARSER_BEGIN(Example)
+PARSER_BEGIN(MiniJavaParser)
 
-PARSER_END(Example)
+PARSER_END(MiniJavaParser)
 
-/** Root production. */
-void Input() :
-{}
+
+SKIP :
 {
-  MatchedBraces() ("\n"|"\r")* <EOF>
+  " " | "\t" | "\n" | "\r" | "\f"
 }
 
-/** Brace matching production. */
-void MatchedBraces() :
+TOKEN: 
+{
+  < INT: "int" >
+| < BOOLEAN: "boolean" >
+| < INTEGER_LITERAL: (["0"-"9"])+ >
+| < CLASS: "class" >
+| < PUBLIC: "public" >
+| < STATIC: "static" >
+| < VOID: "void" >
+| < MAIN: "main" >
+| < STRING: "String" >
+| < EXTENDS: "extends" >
+| < TRUE: "true" >
+| < FALSE: "false" >
+| < THIS: "this" >
+| < NEW: "new" >
+| < IF: "if" >
+| < ELSE: "else" >
+| < WHILE: "while" >
+| < SYSTEM_OUT_PRINTLN: "System.out.println" >
+| < LENGTH: "length" >
+| < NOT: "!" >
+| < RETURN: "return" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < ASSIGN: "=" >
+| < EQ: "==" >
+| < NEQ: "!=" >
+| < LT: "<" >
+| < LTE: "<=" >
+| < GT: ">" >
+| < GTE: ">=" >
+| < PLUS: "+" >
+| < MINUS: "-" >
+| < MULT: "*" >
+| < DIV: "/" >
+| < AND: "&&" >
+| < OR: "||" >
+| < IDENTIFIER: <IDENT_START> (<IDENT_BODY>)* >
+| 
+  <IDENT_START:
+    [
+      "A"-"Z",
+      "_",
+      "a"-"z"
+    ]
+  >
+|
+  <IDENT_BODY:
+    [
+      "0"-"9",
+      "A"-"Z",
+      "_",
+      "a"-"z"
+    ]
+  >
+}
+
+/** Program beginning */
+void Program() :
 {}
 {
-  "{" [ MatchedBraces() ] "}"
+  MainClass()
+  ( ClassDecl() )*
+  <EOF>
+}
+
+void MainClass() :
+{}
+{
+  <CLASS> <IDENTIFIER> <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> <IDENTIFIER> <RPAREN> 
+  <LBRACE>
+  Statement()
+  <RBRACE>
+  <RBRACE>
+}
+
+void ClassDecl() :
+{}
+{
+  <CLASS> <IDENTIFIER> ( <EXTENDS> <IDENTIFIER> )? <LBRACE>
+  ( VarDecl() )*
+  ( MethodDecl() )*
+  <RBRACE>
+}
+
+void VarDecl() :
+{}
+{
+  Type() <IDENTIFIER> <SEMICOLON>
+}
+
+void MethodDecl() :
+{}
+{
+  <PUBLIC> Type() <IDENTIFIER> <LPAREN> FormalList() <RPAREN> <LBRACE>
+  ( VarDecl() )*
+  ( Statement() )*
+  <RETURN> Exp() <SEMICOLON>
+  <RBRACE>
+}
+
+void FormalList() :
+{}
+{
+  Type() <IDENTIFIER> ( FormalRest() )*
+}
+
+void FormalRest() :
+{}
+{
+  <COMMA> Type() <IDENTIFIER>
+}
+
+void Type() :
+{}
+{
+  ( <INT> <LBRACKET> <RBRACKET> | <BOOLEAN> | <INT> | <IDENTIFIER> )
+}
+
+void Statement() :
+{}
+{
+  <LBRACE>
+  ( Statement() )*
+  <RBRACE>
+| <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()
+| <WHILE> <LPAREN> Exp() <RPAREN> Statement()
+| <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
+| <IDENTIFIER> <ASSIGN> Exp() <SEMICOLON>
+| <IDENTIFIER> <LBRACKET> Exp() <RBRACKET> <ASSIGN> Exp() <SEMICOLON>
+}
+
+void Exp() :
+{}
+{
+  Exp1() ( ( <AND> | <OR> ) Exp1() )*
+}
+
+void Exp1() :
+{}
+{
+  Exp2() ( ( <EQ> | <NEQ> ) Exp2() )*
+}
+
+void Exp2() :
+{}
+{
+  Exp3() ( ( <LT> | <LTE> | <GT> | <GTE> ) Exp3() )*
+}
+
+void Exp3() :
+{}
+{
+  Exp4() ( ( <PLUS> | <MINUS> ) Exp4() )*
+}
+
+void Exp4() :
+{}
+{
+  Exp5() ( ( <MULT> | <DIV> ) Exp5() )*
+}
+
+void Exp5() :
+{}
+{
+  <NOT> Exp6()
+| Exp6()
+}
+
+void Exp6() :
+{}
+{
+  Exp7() <DOT> <LENGTH>
+| Exp7() <DOT> <IDENTIFIER> <LPAREN> ExpList() <RPAREN>
+| Exp7()
+}
+
+void Exp7() :
+{}
+{
+  <INTEGER_LITERAL>
+| <TRUE>
+| <FALSE>
+| <IDENTIFIER>
+| <THIS>
+| <NEW> <INT> <LBRACKET> Exp() <RBRACKET>
+| <NEW> <IDENTIFIER> <LPAREN> <RPAREN>
+| <LPAREN> Exp() <RPAREN>
+| <IDENTIFIER> <LBRACKET> Exp() <RBRACKET>
+| <IDENTIFIER> <DOT> <IDENTIFIER> <LPAREN> ExpList() <RPAREN>
+}
+
+void ExpList() :
+{}
+{
+  Exp() ( <COMMA> Exp() )*
 }

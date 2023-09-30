@@ -12,7 +12,7 @@ then
     cmake ../ -G Ninja DBUILD_SHARED_LIBS:BOOL=OFF;
 elif [ "${MACHINE_TYPE}" == "x86_64" ]
 then
-    cmake ../ -G Ninja  -DBUILD_SHARED_LIBS:BOOL=ON;
+    cmake ../ -G Ninja  -DBUILD_SHARED_LIBS:BOOL=OFF;
 fi
 
 CORES=""

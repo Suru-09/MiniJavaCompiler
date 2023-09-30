@@ -11,10 +11,10 @@
 
 JJSimpleString addUnicodeEscapes(const JJString& str);
 
-  class Example;
+  class MiniJavaParser;
   class ErrorHandler {
-    friend class ExampleTokenManager;
-    friend class Example;
+    friend class MiniJavaParserTokenManager;
+    friend class MiniJavaParser;
     protected:
       int error_count;
     public:
@@ -23,7 +23,7 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
       // expectedKind - token kind that the parser was trying to consume.
       // expectedToken - the image of the token - tokenImages[expectedKind].
       // actual - the actual token that the parser got instead.
-      virtual void handleUnexpectedToken(int expectedKind, const JJString& expectedToken, Token *actual, Example *parser) {
+      virtual void handleUnexpectedToken(int expectedKind, const JJString& expectedToken, Token *actual, MiniJavaParser *parser) {
         error_count++;
         fprintf(stderr, "Expecting %s at: %d:%d but got %s\n", addUnicodeEscapes(expectedToken).c_str(), actual->beginLine, actual->beginColumn, addUnicodeEscapes(actual->image).c_str());
       }
@@ -31,23 +31,23 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
       // last - the last token successfully parsed.
       // unexpected - the token at which the error occurs.
       // production - the production in which this error occurs.
-      virtual void handleParseError(Token *last, Token *unexpected, const JJSimpleString& production, Example *parser) {
+      virtual void handleParseError(Token *last, Token *unexpected, const JJSimpleString& production, MiniJavaParser *parser) {
         error_count++;
         fprintf(stderr, "Encountered: %s at: %d:%d while parsing: %s\n", addUnicodeEscapes(unexpected->image).c_str(), unexpected->beginLine, unexpected->beginColumn, production.c_str());
       }
       virtual int getErrorCount() {
         return error_count;
       }
-      virtual void handleOtherError(const JJString& message, Example *parser) {
+      virtual void handleOtherError(const JJString& message, MiniJavaParser *parser) {
         fprintf(stderr, "Error: %s\n", (char*)message.c_str());
       }
       virtual ~ErrorHandler() {}
       ErrorHandler() { error_count = 0; }
   };
 
-  class ExampleTokenManager;
+  class MiniJavaParserTokenManager;
   class TokenManagerErrorHandler {
-    friend class ExampleTokenManager;
+    friend class MiniJavaParserTokenManager;
     protected:
       int error_count;
     public:
@@ -61,11 +61,11 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
        //    errorAfter  : prefix that was seen before this error occurred
        //    curchar     : the offending character
        //
-       virtual void lexicalError(bool EOFSeen, int lexState, int errorLine, int errorColumn, const JJString& errorAfter, JJChar curChar, ExampleTokenManager* token_manager) {
+       virtual void lexicalError(bool EOFSeen, int lexState, int errorLine, int errorColumn, const JJString& errorAfter, JJChar curChar, MiniJavaParserTokenManager* token_manager) {
         // by default, we just print an error message and return.
         fprintf(stderr, "Lexical error at: %d:%d. Encountered: %c after: %s.\n", errorLine, errorColumn, curChar, (EOFSeen? "EOF" : (const char*)errorAfter.c_str()));
       }
-       virtual void lexicalError(const JJString& errorMessage, ExampleTokenManager* token_manager) {
+       virtual void lexicalError(const JJString& errorMessage, MiniJavaParserTokenManager* token_manager) {
         fprintf(stderr, "%s\n", (char*)errorMessage.c_str());
       }
       virtual ~TokenManagerErrorHandler() {}
@@ -74,4 +74,4 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
 
 #endif
 
-/* JavaCC - OriginalChecksum=be1c2d1fc1c9a518529216f06f113ed1 (do not edit this line) */
+/* JavaCC - OriginalChecksum=8d87093f7b5e0e4c3373b7500c41d103 (do not edit this line) */
