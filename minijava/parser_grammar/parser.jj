@@ -129,7 +129,7 @@ void MethodDecl() :
 void FormalList() :
 {}
 {
-  Type() <IDENTIFIER> ( FormalRest() )*
+  ( Type() <IDENTIFIER> ( FormalRest() )* ) ?
 }
 
 void FormalRest() :

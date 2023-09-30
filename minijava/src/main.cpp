@@ -1,36 +1,32 @@
 #include <iostream>
+#include <memory>
+#include <filesystem>
 
 #include "MiniJavaParser.h"
 #include "CharStream.h"
 #include "MiniJavaParserTokenManager.h"
 #include "ErrorHandler.h"
+#include "ParseException.h"
+
+#include "utils.h"
 
 int main(int argc, char* argv[]) {
-    std::string codeExampleThatShouldWork = R"(
-class Main {
-    public static void main(String[] args) {
-        System.out.println(5);
+    std::filesystem::path testFilePath = "../testing_files/Week_1_2/SimpleClass.java";
+    std::string fileContent = utils::readStringFromFile(testFilePath);
+
+    try {    
+        auto stream = std::make_unique<CharStream>(fileContent.c_str(), fileContent.size(), 0, 0);
+        auto scanner = std::make_unique<MiniJavaParserTokenManager>(stream.get());
+        MiniJavaParser parser(scanner.get());
+        parser.setErrorHandler(new ErrorHandler());
+        parser.Program();
+    } catch (ParseException& e) {
+        std::cout << "Parse exception" << std::endl;
     }
-}
-
-class SPL {
-    int ciocan;
-    bool nicovala;
-}
-)";
-
-std::string codeExampleThatShouldNotWork = R"(
-class Main {
-    public static void main(String[] args) {
-        System.out.println(5
+    catch(...)
+    {
+        std::cout << "Unknown exception" << std::endl;
     }
-}
-)";
 
-    CharStream *stream = new CharStream(codeExampleThatShouldWork.c_str(), codeExampleThatShouldWork.size(), 0, 0);
-    MiniJavaParserTokenManager *scanner = new MiniJavaParserTokenManager(stream);
-    MiniJavaParser parser(scanner);
-    parser.setErrorHandler(new ErrorHandler());
-    parser.Program();
     return 0;
 }
