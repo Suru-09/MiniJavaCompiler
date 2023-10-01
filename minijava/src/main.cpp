@@ -9,6 +9,7 @@
 #include "ParseException.h"
 
 #include "utils.h"
+#include "logger/Logger.h"
 
 int main(int argc, char* argv[]) {
     std::filesystem::path testFilePath = "../testing_files/Week_1_2/SimpleClass.java";
@@ -20,6 +21,8 @@ int main(int argc, char* argv[]) {
         MiniJavaParser parser(scanner.get());
         parser.setErrorHandler(new ErrorHandler());
         parser.Program();
+
+        logger::log(logger::log_level::Info, "Parsing finished successfully");
     } catch (ParseException& e) {
         std::cout << "Parse exception" << std::endl;
     }

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED 17)
+
 # Finding all generated files by JavaCC
 file(GLOB_RECURSE GENERATED_FILES
     ${CMAKE_SOURCE_DIR}/generated/*.cc

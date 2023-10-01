@@ -24,8 +24,13 @@ std::string utils::readStringFromFile(const std::filesystem::path& path)
         exit(1);
     }
 
-    std::stringstream buffer;
-    buffer << inputFile.rdbuf();
+    std::string buffer;
+    while(inputFile)
+    {
+        std::string line;
+        std::getline(inputFile, line);
+        buffer += line + "\n";
+    }
 
-    return buffer.str();
+    return buffer;
 }

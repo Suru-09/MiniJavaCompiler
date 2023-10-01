@@ -1,10 +1,11 @@
 options {
     OUTPUT_LANGUAGE = "c++";
     OUTPUT_DIRECTORY = "generated";
-    LOOKAHEAD = 2;
+    LOOKAHEAD = 4;
     CHOICE_AMBIGUITY_CHECK = 3;
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = false;
+    /** FORCE_LA_CHECK = true; */
 }
 
 PARSER_BEGIN(MiniJavaParser)
@@ -141,7 +142,12 @@ void FormalRest() :
 void Type() :
 {}
 {
-  ( <INT> <LBRACKET> <RBRACKET> | <BOOLEAN> | <INT> | <IDENTIFIER> )
+( 
+  <INT> <LBRACKET> <RBRACKET> 
+| <BOOLEAN> 
+| <INT> 
+| <IDENTIFIER> 
+)
 }
 
 void Statement() :

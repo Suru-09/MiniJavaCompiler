@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(MiniJavaCompiler LANGUAGES CXX C)
+project(MiniJavaCompiler LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED 20)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED 17)
 
 # Generate parser
 set(PARSER_JAVACC_FILE "${CMAKE_SOURCE_DIR}/generate_parser.sh")
