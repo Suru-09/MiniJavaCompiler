@@ -21,9 +21,9 @@ set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
 
 if(GEN_RESULT EQUAL 0)
-    message("Script executed successfully. Output: ${GEN_OUTPUT}")
+    message("Script executed successfully.Output:\n${GEN_OUTPUT}")
 else()
-    message("Script execution failed with error code ${GEN_RESULT}. Error: ${GEN_ERROR}")
+    message("Script execution failed with error code ${GEN_RESULT}. Error:\n${GEN_ERROR}")
 endif()
 
 set(CXX_FLAGS 

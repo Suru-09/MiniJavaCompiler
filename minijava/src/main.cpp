@@ -3,7 +3,7 @@
 #include <filesystem>
 
 #include "MiniJavaParser.h"
-#include "CharStream.h"
+#include "MiniJavaParserTree.h"
 #include "MiniJavaParserTokenManager.h"
 #include "ErrorHandler.h"
 #include "ParseException.h"
@@ -23,12 +23,12 @@ int main(int argc, char* argv[]) {
         parser.Program();
 
         logger::log(logger::log_level::Info, "Parsing finished successfully");
+
     } catch (ParseException& e) {
-        std::cout << "Parse exception" << std::endl;
+        logger::log(logger::log_level::Error, "Parse exception");
     }
-    catch(...)
-    {
-        std::cout << "Unknown exception" << std::endl;
+    catch(...) {
+        logger::log(logger::log_level::Error, "Unknown exception");
     }
 
     return 0;
