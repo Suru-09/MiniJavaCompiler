@@ -166,49 +166,55 @@ void Statement() :
 void Exp() :
 {}
 {
-  Exp1() ( ( <AND> | <OR> ) Exp1() )*
+  AndExp() ( <OR> AndExp() )*
 }
 
-void Exp1() :
+void AndExp() :
 {}
 {
-  Exp2() ( ( <EQ> | <NEQ> ) Exp2() )*
+  EqNeqExp() ( <AND> EqNeqExp() )*
 }
 
-void Exp2() :
+void EqNeqExp() :
 {}
 {
-  Exp3() ( ( <LT> | <LTE> | <GT> | <GTE> ) Exp3() )*
+  RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
 }
 
-void Exp3() :
+void RelExp() :
 {}
 {
-  Exp4() ( ( <PLUS> | <MINUS> ) Exp4() )*
+  AddExp() ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() )*
 }
 
-void Exp4() :
+void AddExp() :
 {}
 {
-  Exp5() ( ( <MULT> | <DIV> ) Exp5() )*
+  MulExp() ( ( <PLUS> | <MINUS> ) MulExp() )*
 }
 
-void Exp5() :
+void MulExp() :
 {}
 {
-  <NOT> Exp6()
-| Exp6()
+  UnaryExp() ( ( <MULT> | <DIV> ) UnaryExp() )*
 }
 
-void Exp6() :
+void UnaryExp() :
 {}
 {
-  Exp7() <DOT> <LENGTH>
-| Exp7() <DOT> <IDENTIFIER> <LPAREN> ExpList() <RPAREN>
-| Exp7()
+  <NOT> AccessorExp()
+| AccessorExp()
 }
 
-void Exp7() :
+void AccessorExp() :
+{}
+{
+  PrimaryExp() <DOT> <LENGTH>
+| PrimaryExp() <DOT> <IDENTIFIER> <LPAREN> ExpList() <RPAREN>
+| PrimaryExp()
+}
+
+void PrimaryExp() :
 {}
 {
   <INTEGER_LITERAL>

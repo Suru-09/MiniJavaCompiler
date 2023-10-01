@@ -408,7 +408,7 @@ void MiniJavaParser::Statement() {
 
 void MiniJavaParser::Exp() {
     if (!hasError) {
-    Exp1();
+    AndExp();
     }
     if (!hasError) {
     while (!hasError) {
@@ -418,21 +418,10 @@ void MiniJavaParser::Exp() {
         goto end_label_8;
       }
       if (!hasError) {
-      if (jj_2_21(4)) {
-        if (!hasError) {
-        jj_consume_token(AND);
-        }
-      } else if (jj_2_22(4)) {
-        if (!hasError) {
-        jj_consume_token(OR);
-        }
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-      }
+      jj_consume_token(OR);
       }
       if (!hasError) {
-      Exp1();
+      AndExp();
       }
     }
     end_label_8: ;
@@ -440,23 +429,46 @@ void MiniJavaParser::Exp() {
 }
 
 
-void MiniJavaParser::Exp1() {
+void MiniJavaParser::AndExp() {
     if (!hasError) {
-    Exp2();
+    EqNeqExp();
     }
     if (!hasError) {
     while (!hasError) {
-      if (jj_2_23(4)) {
+      if (jj_2_21(4)) {
         ;
       } else {
         goto end_label_9;
       }
       if (!hasError) {
-      if (jj_2_24(4)) {
+      jj_consume_token(AND);
+      }
+      if (!hasError) {
+      EqNeqExp();
+      }
+    }
+    end_label_9: ;
+    }
+}
+
+
+void MiniJavaParser::EqNeqExp() {
+    if (!hasError) {
+    RelExp();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      if (jj_2_22(4)) {
+        ;
+      } else {
+        goto end_label_10;
+      }
+      if (!hasError) {
+      if (jj_2_23(4)) {
         if (!hasError) {
         jj_consume_token(EQ);
         }
-      } else if (jj_2_25(4)) {
+      } else if (jj_2_24(4)) {
         if (!hasError) {
         jj_consume_token(NEQ);
         }
@@ -466,39 +478,39 @@ void MiniJavaParser::Exp1() {
       }
       }
       if (!hasError) {
-      Exp2();
+      RelExp();
       }
     }
-    end_label_9: ;
+    end_label_10: ;
     }
 }
 
 
-void MiniJavaParser::Exp2() {
+void MiniJavaParser::RelExp() {
     if (!hasError) {
-    Exp3();
+    AddExp();
     }
     if (!hasError) {
     while (!hasError) {
-      if (jj_2_26(4)) {
+      if (jj_2_25(4)) {
         ;
       } else {
-        goto end_label_10;
+        goto end_label_11;
       }
       if (!hasError) {
-      if (jj_2_27(4)) {
+      if (jj_2_26(4)) {
         if (!hasError) {
         jj_consume_token(LT);
         }
-      } else if (jj_2_28(4)) {
+      } else if (jj_2_27(4)) {
         if (!hasError) {
         jj_consume_token(LTE);
         }
-      } else if (jj_2_29(4)) {
+      } else if (jj_2_28(4)) {
         if (!hasError) {
         jj_consume_token(GT);
         }
-      } else if (jj_2_30(4)) {
+      } else if (jj_2_29(4)) {
         if (!hasError) {
         jj_consume_token(GTE);
         }
@@ -508,31 +520,31 @@ void MiniJavaParser::Exp2() {
       }
       }
       if (!hasError) {
-      Exp3();
+      AddExp();
       }
     }
-    end_label_10: ;
+    end_label_11: ;
     }
 }
 
 
-void MiniJavaParser::Exp3() {
+void MiniJavaParser::AddExp() {
     if (!hasError) {
-    Exp4();
+    MulExp();
     }
     if (!hasError) {
     while (!hasError) {
-      if (jj_2_31(4)) {
+      if (jj_2_30(4)) {
         ;
       } else {
-        goto end_label_11;
+        goto end_label_12;
       }
       if (!hasError) {
-      if (jj_2_32(4)) {
+      if (jj_2_31(4)) {
         if (!hasError) {
         jj_consume_token(PLUS);
         }
-      } else if (jj_2_33(4)) {
+      } else if (jj_2_32(4)) {
         if (!hasError) {
         jj_consume_token(MINUS);
         }
@@ -542,31 +554,31 @@ void MiniJavaParser::Exp3() {
       }
       }
       if (!hasError) {
-      Exp4();
+      MulExp();
       }
     }
-    end_label_11: ;
+    end_label_12: ;
     }
 }
 
 
-void MiniJavaParser::Exp4() {
+void MiniJavaParser::MulExp() {
     if (!hasError) {
-    Exp5();
+    UnaryExp();
     }
     if (!hasError) {
     while (!hasError) {
-      if (jj_2_34(4)) {
+      if (jj_2_33(4)) {
         ;
       } else {
-        goto end_label_12;
+        goto end_label_13;
       }
       if (!hasError) {
-      if (jj_2_35(4)) {
+      if (jj_2_34(4)) {
         if (!hasError) {
         jj_consume_token(MULT);
         }
-      } else if (jj_2_36(4)) {
+      } else if (jj_2_35(4)) {
         if (!hasError) {
         jj_consume_token(DIV);
         }
@@ -576,25 +588,25 @@ void MiniJavaParser::Exp4() {
       }
       }
       if (!hasError) {
-      Exp5();
+      UnaryExp();
       }
     }
-    end_label_12: ;
+    end_label_13: ;
     }
 }
 
 
-void MiniJavaParser::Exp5() {
-    if (jj_2_37(4)) {
+void MiniJavaParser::UnaryExp() {
+    if (jj_2_36(4)) {
       if (!hasError) {
       jj_consume_token(NOT);
       }
       if (!hasError) {
-      Exp6();
+      AccessorExp();
       }
-    } else if (jj_2_38(4)) {
+    } else if (jj_2_37(4)) {
       if (!hasError) {
-      Exp6();
+      AccessorExp();
       }
     } else {
       jj_consume_token(-1);
@@ -603,10 +615,10 @@ void MiniJavaParser::Exp5() {
 }
 
 
-void MiniJavaParser::Exp6() {
-    if (jj_2_39(4)) {
+void MiniJavaParser::AccessorExp() {
+    if (jj_2_38(4)) {
       if (!hasError) {
-      Exp7();
+      PrimaryExp();
       }
       if (!hasError) {
       jj_consume_token(DOT);
@@ -614,9 +626,9 @@ void MiniJavaParser::Exp6() {
       if (!hasError) {
       jj_consume_token(LENGTH);
       }
-    } else if (jj_2_40(4)) {
+    } else if (jj_2_39(4)) {
       if (!hasError) {
-      Exp7();
+      PrimaryExp();
       }
       if (!hasError) {
       jj_consume_token(DOT);
@@ -633,9 +645,9 @@ void MiniJavaParser::Exp6() {
       if (!hasError) {
       jj_consume_token(RPAREN);
       }
-    } else if (jj_2_41(4)) {
+    } else if (jj_2_40(4)) {
       if (!hasError) {
-      Exp7();
+      PrimaryExp();
       }
     } else {
       jj_consume_token(-1);
@@ -644,28 +656,28 @@ void MiniJavaParser::Exp6() {
 }
 
 
-void MiniJavaParser::Exp7() {
-    if (jj_2_42(4)) {
+void MiniJavaParser::PrimaryExp() {
+    if (jj_2_41(4)) {
       if (!hasError) {
       jj_consume_token(INTEGER_LITERAL);
       }
-    } else if (jj_2_43(4)) {
+    } else if (jj_2_42(4)) {
       if (!hasError) {
       jj_consume_token(TRUE);
       }
-    } else if (jj_2_44(4)) {
+    } else if (jj_2_43(4)) {
       if (!hasError) {
       jj_consume_token(FALSE);
       }
-    } else if (jj_2_45(4)) {
+    } else if (jj_2_44(4)) {
       if (!hasError) {
       jj_consume_token(IDENTIFIER);
       }
-    } else if (jj_2_46(4)) {
+    } else if (jj_2_45(4)) {
       if (!hasError) {
       jj_consume_token(THIS);
       }
-    } else if (jj_2_47(4)) {
+    } else if (jj_2_46(4)) {
       if (!hasError) {
       jj_consume_token(NEW);
       }
@@ -681,7 +693,7 @@ void MiniJavaParser::Exp7() {
       if (!hasError) {
       jj_consume_token(RBRACKET);
       }
-    } else if (jj_2_48(4)) {
+    } else if (jj_2_47(4)) {
       if (!hasError) {
       jj_consume_token(NEW);
       }
@@ -694,7 +706,7 @@ void MiniJavaParser::Exp7() {
       if (!hasError) {
       jj_consume_token(RPAREN);
       }
-    } else if (jj_2_49(4)) {
+    } else if (jj_2_48(4)) {
       if (!hasError) {
       jj_consume_token(LPAREN);
       }
@@ -704,7 +716,7 @@ void MiniJavaParser::Exp7() {
       if (!hasError) {
       jj_consume_token(RPAREN);
       }
-    } else if (jj_2_50(4)) {
+    } else if (jj_2_49(4)) {
       if (!hasError) {
       jj_consume_token(IDENTIFIER);
       }
@@ -717,7 +729,7 @@ void MiniJavaParser::Exp7() {
       if (!hasError) {
       jj_consume_token(RBRACKET);
       }
-    } else if (jj_2_51(4)) {
+    } else if (jj_2_50(4)) {
       if (!hasError) {
       jj_consume_token(IDENTIFIER);
       }
@@ -749,10 +761,10 @@ void MiniJavaParser::ExpList() {
     }
     if (!hasError) {
     while (!hasError) {
-      if (jj_2_52(4)) {
+      if (jj_2_51(4)) {
         ;
       } else {
-        goto end_label_13;
+        goto end_label_14;
       }
       if (!hasError) {
       jj_consume_token(COMMA);
@@ -761,7 +773,7 @@ void MiniJavaParser::ExpList() {
       Exp();
       }
     }
-    end_label_13: ;
+    end_label_14: ;
     }
 }
 
@@ -823,7 +835,7 @@ Token * MiniJavaParser::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < 51; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -917,7 +929,7 @@ int MiniJavaParser::jj_ntk_f(){
 
   void MiniJavaParser::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 52; i++) {
+    for (int i = 0; i < 51; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
@@ -974,7 +986,6 @@ int MiniJavaParser::jj_ntk_f(){
             case 48: jj_3_49(); break;
             case 49: jj_3_50(); break;
             case 50: jj_3_51(); break;
-            case 51: jj_3_52(); break;
           }
         }
         p = p->next;
