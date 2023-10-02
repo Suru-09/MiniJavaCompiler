@@ -1,780 +1,1873 @@
 /* MiniJavaParser.cc */
 #include "MiniJavaParser.h"
 #include "TokenMgrError.h"
+#include "SimpleNode.h"
+  unsigned int jj_la1_0[] = {
+0x1000,0x40000,0xc00,0x2000,0x46f80c40,0x46f80c40,0x0,0xc00,0xc00,0x0,0xc00,0x46f80040,0x46f80040,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10780040,0x380040,0x0,0xc00,0x180040,0x0,};
+  unsigned int jj_la1_1[] = {
+0x0,0x0,0x100000,0x0,0x100011,0x100011,0x20,0x100000,0x100000,0x4,0x0,0x100011,0x100011,0x80,0x80000,0x40000,0x300,0x300,0x3c00,0x3c00,0xc000,0xc000,0x30000,0x30000,0x100001,0x100001,0x45,0x100000,0x0,0x20,};
 
   /** Constructor with user supplied TokenManager. */
 
 
 
 
-void MiniJavaParser::Program() {
-    if (!hasError) {
-    MainClass();
+SimpleNode          * MiniJavaParser::Program() {
+#if !defined ERROR_RET_Program
+#define ERROR_RET_Program NULL
+#endif
+#define __ERROR_RET__ ERROR_RET_Program
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("Program"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("Program"); });
+    try {
+/*@bgen(jjtree) Program */
+  SimpleNode *jjtn000 = new SimpleNode(JJTPROGRAM);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        MainClass();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case CLASS:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[0] = jj_gen;
+            goto end_label_1;
+          }
+          ClassDecl();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_1: ;
+        jj_consume_token(0);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+jjtree.closeNodeScope(jjtn000, true);
+    jjtc000 = false;
+return jjtn000;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_1(4)) {
-        ;
-      } else {
-        goto end_label_1;
       }
-      if (!hasError) {
-      ClassDecl();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_1: ;
-    }
-    if (!hasError) {
-    jj_consume_token(0);
-    }
+    } catch(...) { }
+assert(false);
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::MainClass() {
-    if (!hasError) {
-    jj_consume_token(CLASS);
+#if !defined ERROR_RET_MainClass
+#define ERROR_RET_MainClass 
+#endif
+#define __ERROR_RET__ ERROR_RET_MainClass
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("MainClass"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("MainClass"); });
+    try {
+/*@bgen(jjtree) MainClass */
+  SimpleNode *jjtn000 = new SimpleNode(JJTMAINCLASS);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(CLASS);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(PUBLIC);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(STATIC);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(VOID);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(MAIN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(STRING);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LBRACKET);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RBRACKET);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    if (!hasError) {
-    jj_consume_token(LBRACE);
-    }
-    if (!hasError) {
-    jj_consume_token(PUBLIC);
-    }
-    if (!hasError) {
-    jj_consume_token(STATIC);
-    }
-    if (!hasError) {
-    jj_consume_token(VOID);
-    }
-    if (!hasError) {
-    jj_consume_token(MAIN);
-    }
-    if (!hasError) {
-    jj_consume_token(LPAREN);
-    }
-    if (!hasError) {
-    jj_consume_token(STRING);
-    }
-    if (!hasError) {
-    jj_consume_token(LBRACKET);
-    }
-    if (!hasError) {
-    jj_consume_token(RBRACKET);
-    }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
-    }
-    if (!hasError) {
-    jj_consume_token(RPAREN);
-    }
-    if (!hasError) {
-    jj_consume_token(LBRACE);
-    }
-    if (!hasError) {
-    Statement();
-    }
-    if (!hasError) {
-    jj_consume_token(RBRACE);
-    }
-    if (!hasError) {
-    jj_consume_token(RBRACE);
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::ClassDecl() {
-    if (!hasError) {
-    jj_consume_token(CLASS);
-    }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
-    }
-    if (!hasError) {
-    if (jj_2_2(4)) {
-      if (!hasError) {
-      jj_consume_token(EXTENDS);
-      }
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
+#if !defined ERROR_RET_ClassDecl
+#define ERROR_RET_ClassDecl 
+#endif
+#define __ERROR_RET__ ERROR_RET_ClassDecl
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("ClassDecl"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("ClassDecl"); });
+    try {
+/*@bgen(jjtree) ClassDecl */
+  SimpleNode *jjtn000 = new SimpleNode(JJTCLASSDECL);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(CLASS);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case EXTENDS:{
+          jj_consume_token(EXTENDS);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[1] = jj_gen;
+          ;
+        }
+        jj_consume_token(LBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case INT:
+          case BOOLEAN:
+          case IDENTIFIER:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[2] = jj_gen;
+            goto end_label_2;
+          }
+          VarDecl();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_2: ;
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case PUBLIC:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[3] = jj_gen;
+            goto end_label_3;
+          }
+          MethodDecl();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_3: ;
+        jj_consume_token(RBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      ;
+      jjtree.popNode();
     }
-    }
-    if (!hasError) {
-    jj_consume_token(LBRACE);
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_3(4)) {
-        ;
-      } else {
-        goto end_label_2;
       }
-      if (!hasError) {
-      VarDecl();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_2: ;
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_4(4)) {
-        ;
-      } else {
-        goto end_label_3;
-      }
-      if (!hasError) {
-      MethodDecl();
-      }
-    }
-    end_label_3: ;
-    }
-    if (!hasError) {
-    jj_consume_token(RBRACE);
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::VarDecl() {
-    if (!hasError) {
-    Type();
+#if !defined ERROR_RET_VarDecl
+#define ERROR_RET_VarDecl 
+#endif
+#define __ERROR_RET__ ERROR_RET_VarDecl
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("VarDecl"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("VarDecl"); });
+    try {
+/*@bgen(jjtree) VarDecl */
+  SimpleNode *jjtn000 = new SimpleNode(JJTVARDECL);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        Type();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(SEMICOLON);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    if (!hasError) {
-    jj_consume_token(SEMICOLON);
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::MethodDecl() {
-    if (!hasError) {
-    jj_consume_token(PUBLIC);
+#if !defined ERROR_RET_MethodDecl
+#define ERROR_RET_MethodDecl 
+#endif
+#define __ERROR_RET__ ERROR_RET_MethodDecl
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("MethodDecl"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("MethodDecl"); });
+    try {
+/*@bgen(jjtree) MethodDecl */
+  SimpleNode *jjtn000 = new SimpleNode(JJTMETHODDECL);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(PUBLIC);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Type();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        FormalList();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case INTEGER_LITERAL:
+          case INT:
+          case BOOLEAN:
+          case TRUE:
+          case FALSE:
+          case THIS:
+          case NEW:
+          case IF:
+          case WHILE:
+          case SYSTEM_OUT_PRINTLN:
+          case LBRACE:
+          case LPAREN:
+          case SEMICOLON:
+          case IDENTIFIER:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[4] = jj_gen;
+            goto end_label_4;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case INTEGER_LITERAL:
+          case TRUE:
+          case FALSE:
+          case THIS:
+          case NEW:
+          case IF:
+          case WHILE:
+          case SYSTEM_OUT_PRINTLN:
+          case LBRACE:
+          case LPAREN:
+          case SEMICOLON:
+          case IDENTIFIER:{
+            Statement();
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case INT:
+          case BOOLEAN:{
+            VarDecl();
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          default:
+            jj_la1[5] = jj_gen;
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+        }
+        end_label_4: ;
+        jj_consume_token(RETURN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(SEMICOLON);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    Type();
-    }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
-    }
-    if (!hasError) {
-    jj_consume_token(LPAREN);
-    }
-    if (!hasError) {
-    FormalList();
-    }
-    if (!hasError) {
-    jj_consume_token(RPAREN);
-    }
-    if (!hasError) {
-    jj_consume_token(LBRACE);
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_5(4)) {
-        ;
-      } else {
-        goto end_label_4;
       }
-      if (!hasError) {
-      VarDecl();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_4: ;
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_6(4)) {
-        ;
-      } else {
-        goto end_label_5;
-      }
-      if (!hasError) {
-      Statement();
-      }
-    }
-    end_label_5: ;
-    }
-    if (!hasError) {
-    jj_consume_token(RETURN);
-    }
-    if (!hasError) {
-    Exp();
-    }
-    if (!hasError) {
-    jj_consume_token(SEMICOLON);
-    }
-    if (!hasError) {
-    jj_consume_token(RBRACE);
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::FormalList() {
-    if (!hasError) {
-    if (jj_2_8(4)) {
-      if (!hasError) {
-      Type();
-      }
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      while (!hasError) {
-        if (jj_2_7(4)) {
+#if !defined ERROR_RET_FormalList
+#define ERROR_RET_FormalList 
+#endif
+#define __ERROR_RET__ ERROR_RET_FormalList
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("FormalList"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("FormalList"); });
+    try {
+/*@bgen(jjtree) FormalList */
+  SimpleNode *jjtn000 = new SimpleNode(JJTFORMALLIST);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case INT:
+        case BOOLEAN:
+        case IDENTIFIER:{
+          Type();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          while (!hasError) {
+            switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+            case COMMA:{
+              ;
+              break;
+              }
+            default:
+              jj_la1[6] = jj_gen;
+              goto end_label_5;
+            }
+            FormalRest();
+                { if (hasError) { return __ERROR_RET__; } }
+            
+          }
+          end_label_5: ;
+          break;
+          }
+        default:
+          jj_la1[7] = jj_gen;
           ;
-        } else {
-          goto end_label_6;
         }
-        if (!hasError) {
-        FormalRest();
-        }
-      }
-      end_label_6: ;
-      }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      ;
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::FormalRest() {
-    if (!hasError) {
-    jj_consume_token(COMMA);
+#if !defined ERROR_RET_FormalRest
+#define ERROR_RET_FormalRest 
+#endif
+#define __ERROR_RET__ ERROR_RET_FormalRest
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("FormalRest"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("FormalRest"); });
+    try {
+/*@bgen(jjtree) FormalRest */
+  SimpleNode *jjtn000 = new SimpleNode(JJTFORMALREST);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(COMMA);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Type();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(IDENTIFIER);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    Type();
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    if (!hasError) {
-    jj_consume_token(IDENTIFIER);
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::Type() {
-    if (!hasError) {
-    if (jj_2_9(4)) {
-      if (!hasError) {
-      jj_consume_token(INT);
-      }
-      if (!hasError) {
-      jj_consume_token(LBRACKET);
-      }
-      if (!hasError) {
-      jj_consume_token(RBRACKET);
-      }
-    } else if (jj_2_10(4)) {
-      if (!hasError) {
-      jj_consume_token(BOOLEAN);
-      }
-    } else if (jj_2_11(4)) {
-      if (!hasError) {
-      jj_consume_token(INT);
-      }
-    } else if (jj_2_12(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
+#if !defined ERROR_RET_Type
+#define ERROR_RET_Type 
+#endif
+#define __ERROR_RET__ ERROR_RET_Type
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("Type"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("Type"); });
+    try {
+/*@bgen(jjtree) Type */
+  SimpleNode *jjtn000 = new SimpleNode(JJTTYPE);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case INT:
+        case BOOLEAN:{
+          SimpleType();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case IDENTIFIER:{
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[8] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case LBRACKET:{
+          jj_consume_token(LBRACKET);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(RBRACKET);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[9] = jj_gen;
+          ;
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::SimpleType() {
+#if !defined ERROR_RET_SimpleType
+#define ERROR_RET_SimpleType 
+#endif
+#define __ERROR_RET__ ERROR_RET_SimpleType
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("SimpleType"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("SimpleType"); });
+    try {
+/*@bgen(jjtree) SimpleType */
+  SimpleNode *jjtn000 = new SimpleNode(JJTSIMPLETYPE);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case INT:{
+          jj_consume_token(INT);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case BOOLEAN:{
+          jj_consume_token(BOOLEAN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[10] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::Statement() {
-    if (jj_2_14(4)) {
-      if (!hasError) {
-      jj_consume_token(LBRACE);
-      }
-      if (!hasError) {
-      while (!hasError) {
-        if (jj_2_13(4)) {
-          ;
-        } else {
-          goto end_label_7;
+#if !defined ERROR_RET_Statement
+#define ERROR_RET_Statement 
+#endif
+#define __ERROR_RET__ ERROR_RET_Statement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("Statement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("Statement"); });
+    try {
+/*@bgen(jjtree) Statement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case LBRACE:{
+          BlockStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case INTEGER_LITERAL:
+        case TRUE:
+        case FALSE:
+        case THIS:
+        case NEW:
+        case LPAREN:
+        case IDENTIFIER:{
+          ExpressionInStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(SEMICOLON);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case IF:{
+          IfStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case WHILE:{
+          WhileStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case SYSTEM_OUT_PRINTLN:{
+          PrintStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case SEMICOLON:{
+          EmptyStatement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[11] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
         }
-        if (!hasError) {
-        Statement();
-        }
-      }
-      end_label_7: ;
-      }
-      if (!hasError) {
-      jj_consume_token(RBRACE);
-      }
-    } else if (jj_2_15(4)) {
-      if (!hasError) {
-      jj_consume_token(IF);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-      if (!hasError) {
-      Statement();
-      }
-      if (!hasError) {
-      jj_consume_token(ELSE);
-      }
-      if (!hasError) {
-      Statement();
-      }
-    } else if (jj_2_16(4)) {
-      if (!hasError) {
-      jj_consume_token(WHILE);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-      if (!hasError) {
-      Statement();
-      }
-    } else if (jj_2_17(4)) {
-      if (!hasError) {
-      jj_consume_token(SYSTEM_OUT_PRINTLN);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-      if (!hasError) {
-      jj_consume_token(SEMICOLON);
-      }
-    } else if (jj_2_18(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(ASSIGN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(SEMICOLON);
-      }
-    } else if (jj_2_19(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(LBRACKET);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RBRACKET);
-      }
-      if (!hasError) {
-      jj_consume_token(ASSIGN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(SEMICOLON);
-      }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::BlockStatement() {
+#if !defined ERROR_RET_BlockStatement
+#define ERROR_RET_BlockStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_BlockStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("BlockStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("BlockStatement"); });
+    try {
+/*@bgen(jjtree) BlockStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTBLOCKSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(LBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case INTEGER_LITERAL:
+          case TRUE:
+          case FALSE:
+          case THIS:
+          case NEW:
+          case IF:
+          case WHILE:
+          case SYSTEM_OUT_PRINTLN:
+          case LBRACE:
+          case LPAREN:
+          case SEMICOLON:
+          case IDENTIFIER:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[12] = jj_gen;
+            goto end_label_6;
+          }
+          Statement();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_6: ;
+        jj_consume_token(RBRACE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::IfStatement() {
+#if !defined ERROR_RET_IfStatement
+#define ERROR_RET_IfStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_IfStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("IfStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("IfStatement"); });
+    try {
+/*@bgen(jjtree) IfStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTIFSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(IF);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(ELSE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::WhileStatement() {
+#if !defined ERROR_RET_WhileStatement
+#define ERROR_RET_WhileStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_WhileStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("WhileStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("WhileStatement"); });
+    try {
+/*@bgen(jjtree) WhileStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTWHILESTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(WHILE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::PrintStatement() {
+#if !defined ERROR_RET_PrintStatement
+#define ERROR_RET_PrintStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_PrintStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("PrintStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("PrintStatement"); });
+    try {
+/*@bgen(jjtree) PrintStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTPRINTSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(SYSTEM_OUT_PRINTLN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(SEMICOLON);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::EmptyStatement() {
+#if !defined ERROR_RET_EmptyStatement
+#define ERROR_RET_EmptyStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_EmptyStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("EmptyStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("EmptyStatement"); });
+    try {
+/*@bgen(jjtree) EmptyStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTEMPTYSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(SEMICOLON);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::ExpressionInStatement() {
+#if !defined ERROR_RET_ExpressionInStatement
+#define ERROR_RET_ExpressionInStatement 
+#endif
+#define __ERROR_RET__ ERROR_RET_ExpressionInStatement
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("ExpressionInStatement"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("ExpressionInStatement"); });
+    try {
+/*@bgen(jjtree) ExpressionInStatement */
+  SimpleNode *jjtn000 = new SimpleNode(JJTEXPRESSIONINSTATEMENT);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        PrimaryExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(ASSIGN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        OrExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::Exp() {
-    if (!hasError) {
-    AndExp();
+#if !defined ERROR_RET_Exp
+#define ERROR_RET_Exp 
+#endif
+#define __ERROR_RET__ ERROR_RET_Exp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("Exp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("Exp"); });
+    try {
+/*@bgen(jjtree) Exp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        OrExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case ASSIGN:{
+          jj_consume_token(ASSIGN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          Exp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[13] = jj_gen;
+          ;
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_20(4)) {
-        ;
-      } else {
-        goto end_label_8;
       }
-      if (!hasError) {
-      jj_consume_token(OR);
-      }
-      if (!hasError) {
-      AndExp();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_8: ;
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::OrExp() {
+#if !defined ERROR_RET_OrExp
+#define ERROR_RET_OrExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_OrExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("OrExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("OrExp"); });
+    try {
+/*@bgen(jjtree) OrExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTOREXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        AndExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case OR:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[14] = jj_gen;
+            goto end_label_7;
+          }
+          jj_consume_token(OR);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          AndExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_7: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::AndExp() {
-    if (!hasError) {
-    EqNeqExp();
+#if !defined ERROR_RET_AndExp
+#define ERROR_RET_AndExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_AndExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("AndExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("AndExp"); });
+    try {
+/*@bgen(jjtree) AndExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTANDEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        EqNeqExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case AND:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[15] = jj_gen;
+            goto end_label_8;
+          }
+          jj_consume_token(AND);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          EqNeqExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_8: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_21(4)) {
-        ;
-      } else {
-        goto end_label_9;
       }
-      if (!hasError) {
-      jj_consume_token(AND);
-      }
-      if (!hasError) {
-      EqNeqExp();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_9: ;
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::EqNeqExp() {
-    if (!hasError) {
-    RelExp();
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_22(4)) {
-        ;
-      } else {
-        goto end_label_10;
-      }
-      if (!hasError) {
-      if (jj_2_23(4)) {
-        if (!hasError) {
-        jj_consume_token(EQ);
+#if !defined ERROR_RET_EqNeqExp
+#define ERROR_RET_EqNeqExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_EqNeqExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("EqNeqExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("EqNeqExp"); });
+    try {
+/*@bgen(jjtree) EqNeqExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTEQNEQEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        RelExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case EQ:
+          case NEQ:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[16] = jj_gen;
+            goto end_label_9;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case EQ:{
+            jj_consume_token(EQ);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case NEQ:{
+            jj_consume_token(NEQ);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          default:
+            jj_la1[17] = jj_gen;
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+          RelExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
         }
-      } else if (jj_2_24(4)) {
-        if (!hasError) {
-        jj_consume_token(NEQ);
-        }
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-      }
-      }
-      if (!hasError) {
-      RelExp();
-      }
+        end_label_9: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    end_label_10: ;
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::RelExp() {
-    if (!hasError) {
-    AddExp();
+#if !defined ERROR_RET_RelExp
+#define ERROR_RET_RelExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_RelExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("RelExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("RelExp"); });
+    try {
+/*@bgen(jjtree) RelExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTRELEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        AddExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case LT:
+          case LTE:
+          case GT:
+          case GTE:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[18] = jj_gen;
+            goto end_label_10;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case LT:{
+            jj_consume_token(LT);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case LTE:{
+            jj_consume_token(LTE);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case GT:{
+            jj_consume_token(GT);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case GTE:{
+            jj_consume_token(GTE);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          default:
+            jj_la1[19] = jj_gen;
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+          AddExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_10: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_25(4)) {
-        ;
-      } else {
-        goto end_label_11;
       }
-      if (!hasError) {
-      if (jj_2_26(4)) {
-        if (!hasError) {
-        jj_consume_token(LT);
-        }
-      } else if (jj_2_27(4)) {
-        if (!hasError) {
-        jj_consume_token(LTE);
-        }
-      } else if (jj_2_28(4)) {
-        if (!hasError) {
-        jj_consume_token(GT);
-        }
-      } else if (jj_2_29(4)) {
-        if (!hasError) {
-        jj_consume_token(GTE);
-        }
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-      }
-      }
-      if (!hasError) {
-      AddExp();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_11: ;
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::AddExp() {
-    if (!hasError) {
-    MulExp();
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_30(4)) {
-        ;
-      } else {
-        goto end_label_12;
-      }
-      if (!hasError) {
-      if (jj_2_31(4)) {
-        if (!hasError) {
-        jj_consume_token(PLUS);
+#if !defined ERROR_RET_AddExp
+#define ERROR_RET_AddExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_AddExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("AddExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("AddExp"); });
+    try {
+/*@bgen(jjtree) AddExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTADDEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        MulExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case PLUS:
+          case MINUS:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[20] = jj_gen;
+            goto end_label_11;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case PLUS:{
+            jj_consume_token(PLUS);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case MINUS:{
+            jj_consume_token(MINUS);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          default:
+            jj_la1[21] = jj_gen;
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+          MulExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
         }
-      } else if (jj_2_32(4)) {
-        if (!hasError) {
-        jj_consume_token(MINUS);
-        }
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-      }
-      }
-      if (!hasError) {
-      MulExp();
-      }
+        end_label_11: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    end_label_12: ;
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::MulExp() {
-    if (!hasError) {
-    UnaryExp();
-    }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_33(4)) {
-        ;
-      } else {
-        goto end_label_13;
-      }
-      if (!hasError) {
-      if (jj_2_34(4)) {
-        if (!hasError) {
-        jj_consume_token(MULT);
+#if !defined ERROR_RET_MulExp
+#define ERROR_RET_MulExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_MulExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("MulExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("MulExp"); });
+    try {
+/*@bgen(jjtree) MulExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTMULEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        UnaryExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case MULT:
+          case DIV:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[22] = jj_gen;
+            goto end_label_12;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case MULT:{
+            jj_consume_token(MULT);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          case DIV:{
+            jj_consume_token(DIV);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+            break;
+            }
+          default:
+            jj_la1[23] = jj_gen;
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+          UnaryExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
         }
-      } else if (jj_2_35(4)) {
-        if (!hasError) {
-        jj_consume_token(DIV);
-        }
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-      }
-      }
-      if (!hasError) {
-      UnaryExp();
-      }
+        end_label_12: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    end_label_13: ;
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::UnaryExp() {
-    if (jj_2_36(4)) {
-      if (!hasError) {
-      jj_consume_token(NOT);
-      }
-      if (!hasError) {
-      AccessorExp();
-      }
-    } else if (jj_2_37(4)) {
-      if (!hasError) {
-      AccessorExp();
-      }
-    } else {
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
-    }
-}
+#if !defined ERROR_RET_UnaryExp
+#define ERROR_RET_UnaryExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_UnaryExp
 
-
-void MiniJavaParser::AccessorExp() {
-    if (jj_2_38(4)) {
-      if (!hasError) {
-      PrimaryExp();
-      }
-      if (!hasError) {
-      jj_consume_token(DOT);
-      }
-      if (!hasError) {
-      jj_consume_token(LENGTH);
-      }
-    } else if (jj_2_39(4)) {
-      if (!hasError) {
-      PrimaryExp();
-      }
-      if (!hasError) {
-      jj_consume_token(DOT);
-      }
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      ExpList();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-    } else if (jj_2_40(4)) {
-      if (!hasError) {
-      PrimaryExp();
-      }
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("UnaryExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("UnaryExp"); });
+    try {
+/*@bgen(jjtree) UnaryExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTUNARYEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case NOT:{
+          jj_consume_token(NOT);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          PrimaryExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case INTEGER_LITERAL:
+        case TRUE:
+        case FALSE:
+        case THIS:
+        case NEW:
+        case LPAREN:
+        case IDENTIFIER:{
+          PrimaryExp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[24] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::PrimaryExp() {
-    if (jj_2_41(4)) {
-      if (!hasError) {
-      jj_consume_token(INTEGER_LITERAL);
-      }
-    } else if (jj_2_42(4)) {
-      if (!hasError) {
-      jj_consume_token(TRUE);
-      }
-    } else if (jj_2_43(4)) {
-      if (!hasError) {
-      jj_consume_token(FALSE);
-      }
-    } else if (jj_2_44(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-    } else if (jj_2_45(4)) {
-      if (!hasError) {
-      jj_consume_token(THIS);
-      }
-    } else if (jj_2_46(4)) {
-      if (!hasError) {
-      jj_consume_token(NEW);
-      }
-      if (!hasError) {
-      jj_consume_token(INT);
-      }
-      if (!hasError) {
-      jj_consume_token(LBRACKET);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RBRACKET);
-      }
-    } else if (jj_2_47(4)) {
-      if (!hasError) {
-      jj_consume_token(NEW);
-      }
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-    } else if (jj_2_48(4)) {
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
-    } else if (jj_2_49(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(LBRACKET);
-      }
-      if (!hasError) {
-      Exp();
-      }
-      if (!hasError) {
-      jj_consume_token(RBRACKET);
-      }
-    } else if (jj_2_50(4)) {
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(DOT);
-      }
-      if (!hasError) {
-      jj_consume_token(IDENTIFIER);
-      }
-      if (!hasError) {
-      jj_consume_token(LPAREN);
-      }
-      if (!hasError) {
-      ExpList();
-      }
-      if (!hasError) {
-      jj_consume_token(RPAREN);
-      }
+#if !defined ERROR_RET_PrimaryExp
+#define ERROR_RET_PrimaryExp 
+#endif
+#define __ERROR_RET__ ERROR_RET_PrimaryExp
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("PrimaryExp"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("PrimaryExp"); });
+    try {
+/*@bgen(jjtree) PrimaryExp */
+  SimpleNode *jjtn000 = new SimpleNode(JJTPRIMARYEXP);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        BeforePrimay();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          if (jj_2_1(2)) {
+            ;
+          } else {
+            goto end_label_13;
+          }
+          AfterPrimary();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_13: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
     } else {
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      jjtree.popNode();
     }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::BeforePrimay() {
+#if !defined ERROR_RET_BeforePrimay
+#define ERROR_RET_BeforePrimay 
+#endif
+#define __ERROR_RET__ ERROR_RET_BeforePrimay
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("BeforePrimay"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("BeforePrimay"); });
+    try {
+/*@bgen(jjtree) BeforePrimay */
+  SimpleNode *jjtn000 = new SimpleNode(JJTBEFOREPRIMAY);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case IDENTIFIER:{
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case INTEGER_LITERAL:
+        case TRUE:
+        case FALSE:{
+          Literal();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case THIS:{
+          jj_consume_token(THIS);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case LPAREN:{
+          jj_consume_token(LPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          Exp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(RPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[25] = jj_gen;
+          if (jj_2_2(2)) {
+            AllocateMemory();
+                { if (hasError) { return __ERROR_RET__; } }
+            
+          } else {
+            jj_consume_token(-1);
+            errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+            
+          }
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::AfterPrimary() {
+#if !defined ERROR_RET_AfterPrimary
+#define ERROR_RET_AfterPrimary 
+#endif
+#define __ERROR_RET__ ERROR_RET_AfterPrimary
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("AfterPrimary"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("AfterPrimary"); });
+    try {
+/*@bgen(jjtree) AfterPrimary */
+  SimpleNode *jjtn000 = new SimpleNode(JJTAFTERPRIMARY);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case LBRACKET:{
+          jj_consume_token(LBRACKET);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          Exp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(RBRACKET);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case DOT:{
+          jj_consume_token(DOT);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case LPAREN:{
+          jj_consume_token(LPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          ExpList();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(RPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[26] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::AllocateMemory() {
+#if !defined ERROR_RET_AllocateMemory
+#define ERROR_RET_AllocateMemory 
+#endif
+#define __ERROR_RET__ ERROR_RET_AllocateMemory
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("AllocateMemory"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("AllocateMemory"); });
+    try {
+/*@bgen(jjtree) AllocateMemory */
+  SimpleNode *jjtn000 = new SimpleNode(JJTALLOCATEMEMORY);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(NEW);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case IDENTIFIER:{
+          jj_consume_token(IDENTIFIER);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(LPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          jj_consume_token(RPAREN);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case INT:
+        case BOOLEAN:{
+          SimpleType();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[27] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
+}
+
+
+void MiniJavaParser::Literal() {
+#if !defined ERROR_RET_Literal
+#define ERROR_RET_Literal 
+#endif
+#define __ERROR_RET__ ERROR_RET_Literal
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("Literal"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("Literal"); });
+    try {
+/*@bgen(jjtree) Literal */
+  SimpleNode *jjtn000 = new SimpleNode(JJTLITERAL);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case INTEGER_LITERAL:{
+          jj_consume_token(INTEGER_LITERAL);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case TRUE:{
+          jj_consume_token(TRUE);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case FALSE:{
+          jj_consume_token(FALSE);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        default:
+          jj_la1[28] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc000) {
+    jjtree.clearNodeScope(jjtn000);
+    jjtc000 = false;
+  } else {
+    jjtree.popNode();
+  }
+      }
+if (jjtc000) {
+    jjtree.closeNodeScope(jjtn000, true);
+  }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
 void MiniJavaParser::ExpList() {
-    if (!hasError) {
-    Exp();
+#if !defined ERROR_RET_ExpList
+#define ERROR_RET_ExpList 
+#endif
+#define __ERROR_RET__ ERROR_RET_ExpList
+
+    JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("ExpList"); });
+    JJExit <std::function<void()>> jjexit ([this]() {trace_return("ExpList"); });
+    try {
+/*@bgen(jjtree) ExpList */
+  SimpleNode *jjtn000 = new SimpleNode(JJTEXPLIST);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        while (!hasError) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case COMMA:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[29] = jj_gen;
+            goto end_label_14;
+          }
+          jj_consume_token(COMMA);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          Exp();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        }
+        end_label_14: ;
+      } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    if (!hasError) {
-    while (!hasError) {
-      if (jj_2_51(4)) {
-        ;
-      } else {
-        goto end_label_14;
       }
-      if (!hasError) {
-      jj_consume_token(COMMA);
-      }
-      if (!hasError) {
-      Exp();
-      }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
     }
-    end_label_14: ;
-    }
+    } catch(...) { }
+
+#undef __ERROR_RET__
+
 }
 
 
@@ -802,9 +1895,11 @@ void MiniJavaParser::ReInit(TokenManager* tokenManager){
     jj_gc = 0;
     jj_kind = -1;
     indent = 0;
-    trace = false;
+    trace = true;
     jj_ntk = -1;
+    jjtree.reset();
     jj_gen = 0;
+    for (int i = 0; i < 30; i++) jj_la1[i] = -1;
   }
 
 
@@ -835,7 +1930,7 @@ Token * MiniJavaParser::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 51; i++) {
+        for (int i = 0; i < 2; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -843,6 +1938,7 @@ Token * MiniJavaParser::jj_consume_token(int kind)  {
           }
         }
       }
+      trace_token(token, "");
       return token;
     }
     token = oldToken;
@@ -883,6 +1979,7 @@ Token * MiniJavaParser::getNextToken(){
     else token = token->next = token_source->getNextToken();
     jj_ntk = -1;
     jj_gen++;
+      trace_token(token, " (in getNextToken)");
     return token;
   }
 
@@ -920,16 +2017,55 @@ int MiniJavaParser::jj_ntk_f(){
   }
 
 
-  void MiniJavaParser::enable_tracing()  {
+  void MiniJavaParser::enable_tracing(){
+    trace = true;
+}
+
+
+  void MiniJavaParser::disable_tracing(){
+    trace = false;
+}
+
+
+  void MiniJavaParser::trace_call(const char *s)  {
+    if (trace_enabled()) {
+      for (int i = 0; i < indent; i++) { printf(" "); }
+      printf("Call:   %s\n", s);
+    }
+    indent = indent + 2;
   }
 
-  void MiniJavaParser::disable_tracing()  {
+
+  void MiniJavaParser::trace_return(const char *s)  {
+    indent = indent - 2;
+    if (trace_enabled()) {
+      for (int i = 0; i < indent; i++) { printf(" "); }
+      printf("Return: %s\n", s);
+    }
+  }
+
+
+  void MiniJavaParser::trace_token(Token *t, const char *where)  {
+    if (trace_enabled()) {
+      for (int i = 0; i < indent; i++) { printf(" "); }
+      printf("Consumed token: <kind: %d(%s), \"%s\"", t->kind, addUnicodeEscapes(tokenImage[t->kind]).c_str(), addUnicodeEscapes(t->image).c_str());
+      printf(" at line %d column %d> %s\n", t->beginLine, t->beginColumn, where);
+    }
+  }
+
+
+  void MiniJavaParser::trace_scan(Token *t1, int t2)  {
+    if (trace_enabled()) {
+      for (int i = 0; i < indent; i++) { printf(" "); }
+      printf("Visited token: <Kind: %d(%s), \"%s\"", t1->kind, addUnicodeEscapes(tokenImage[t1->kind]).c_str(), addUnicodeEscapes(t1->image).c_str());
+      printf(" at line %d column %d>; Expected token: %s\n", t1->beginLine, t1->beginColumn, addUnicodeEscapes(tokenImage[t2]).c_str());
+    }
   }
 
 
   void MiniJavaParser::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 51; i++) {
+    for (int i = 0; i < 2; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
@@ -937,55 +2073,6 @@ int MiniJavaParser::jj_ntk_f(){
           switch (i) {
             case 0: jj_3_1(); break;
             case 1: jj_3_2(); break;
-            case 2: jj_3_3(); break;
-            case 3: jj_3_4(); break;
-            case 4: jj_3_5(); break;
-            case 5: jj_3_6(); break;
-            case 6: jj_3_7(); break;
-            case 7: jj_3_8(); break;
-            case 8: jj_3_9(); break;
-            case 9: jj_3_10(); break;
-            case 10: jj_3_11(); break;
-            case 11: jj_3_12(); break;
-            case 12: jj_3_13(); break;
-            case 13: jj_3_14(); break;
-            case 14: jj_3_15(); break;
-            case 15: jj_3_16(); break;
-            case 16: jj_3_17(); break;
-            case 17: jj_3_18(); break;
-            case 18: jj_3_19(); break;
-            case 19: jj_3_20(); break;
-            case 20: jj_3_21(); break;
-            case 21: jj_3_22(); break;
-            case 22: jj_3_23(); break;
-            case 23: jj_3_24(); break;
-            case 24: jj_3_25(); break;
-            case 25: jj_3_26(); break;
-            case 26: jj_3_27(); break;
-            case 27: jj_3_28(); break;
-            case 28: jj_3_29(); break;
-            case 29: jj_3_30(); break;
-            case 30: jj_3_31(); break;
-            case 31: jj_3_32(); break;
-            case 32: jj_3_33(); break;
-            case 33: jj_3_34(); break;
-            case 34: jj_3_35(); break;
-            case 35: jj_3_36(); break;
-            case 36: jj_3_37(); break;
-            case 37: jj_3_38(); break;
-            case 38: jj_3_39(); break;
-            case 39: jj_3_40(); break;
-            case 40: jj_3_41(); break;
-            case 41: jj_3_42(); break;
-            case 42: jj_3_43(); break;
-            case 43: jj_3_44(); break;
-            case 44: jj_3_45(); break;
-            case 45: jj_3_46(); break;
-            case 46: jj_3_47(); break;
-            case 47: jj_3_48(); break;
-            case 48: jj_3_49(); break;
-            case 49: jj_3_50(); break;
-            case 50: jj_3_51(); break;
           }
         }
         p = p->next;

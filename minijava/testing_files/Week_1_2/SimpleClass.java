@@ -4,12 +4,14 @@ class Main {
     }
 }
 
+
 class SimpleNewClass {
     int ciocan;
     int[] ciocanArray;
     bool nicovala;
 
     public int getCiocanValue() {
+        ciocan = 2;
         return ciocan;
     }
 

@@ -8,6 +8,7 @@
 #include "ErrorHandler.h"
 #include "ParseException.h"
 
+
 #include "utils.h"
 #include "logger/Logger.h"
 
@@ -20,8 +21,11 @@ int main(int argc, char* argv[]) {
         auto scanner = std::make_unique<MiniJavaParserTokenManager>(stream.get());
         MiniJavaParser parser(scanner.get());
         parser.setErrorHandler(new ErrorHandler());
-        parser.Program();
-
+        SimpleNode* n = parser.Program();
+        if (n)
+        {
+            n->dump("");
+        }
         logger::log(logger::log_level::Info, "Parsing finished successfully");
 
     } catch (ParseException& e) {
