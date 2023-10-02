@@ -39,6 +39,8 @@ int  jjStartNfa_0(int pos, unsigned long long active0);
  int  jjMoveStringLiteralDfa17_0(unsigned long long old0, unsigned long long active0);
 int jjStartNfaWithStates_0(int pos, int kind, int state);
 int jjMoveNfa_0(int startState, int curPos);
+ int  jjMoveStringLiteralDfa0_1();
+ int  jjMoveStringLiteralDfa1_1(unsigned long long active0);
 Token * jjFillToken();
 
 public:
@@ -93,8 +95,8 @@ public:
   const JJSimpleString jjKindsForStateVector(int lexState, int vec[], int start, int end);
 
   JAVACC_CHARSTREAM*        input_stream;
-  int                       jjrounds[10];
-  int                       jjstateSet[2 * 10];
+  int                       jjrounds[13];
+  int                       jjstateSet[2 * 13];
   JJString                  jjimage;
   JJString                  image;
   int                       jjimageLen;

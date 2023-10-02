@@ -25,10 +25,24 @@ PARSER_BEGIN(MiniJavaParser)
 
 PARSER_END(MiniJavaParser)
 
-
+/* Avoid white spaces of any kind */
 SKIP :
 {
   " " | "\t" | "\n" | "\r" | "\f"
+}
+
+/* COMMENTS */
+
+SKIP :
+{
+  < "//" (~["\r", "\n"])* >
+| < "/*" > : Start_Block_Comment
+}
+
+<Start_Block_Comment> SKIP :
+{
+  < "*/" > : DEFAULT
+| < ~[] >   
 }
 
 TOKEN : /* LITERALS */

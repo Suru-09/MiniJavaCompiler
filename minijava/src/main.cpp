@@ -13,7 +13,7 @@
 #include "logger/Logger.h"
 
 int main(int argc, char* argv[]) {
-    std::filesystem::path testFilePath = "../testing_files/Week_1_2/SimpleClass.java";
+    std::filesystem::path testFilePath = "../testing_files/Week_1_2/ComprehensiveTest.java";
     std::string fileContent = utils::readStringFromFile(testFilePath);
 
     try {    
