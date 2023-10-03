@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED 17)
 # Finding all generated files by JavaCC
 file(GLOB_RECURSE GENERATED_FILES
     ${CMAKE_SOURCE_DIR}/generated/*.cc
+    ${CMAKE_SOURCE_DIR}/generated/*.cpp
 )
 
 # avoid having main.cpp's in this list.

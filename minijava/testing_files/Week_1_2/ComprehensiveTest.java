@@ -113,4 +113,14 @@ class SimpleNewClass {
 
         return 0x123;
     }
+
+    public int testMultipleExpressions() {
+       int a;
+       boolean b;
+        a = 1 + 2 + 3 + 5 + 6 + 8 - 4 * 5 / 6 * 7 + 23 - 4 - 5;
+        // same for bools and comparisons
+        b = false && true && false && true || false && true && false && true;
+        b = 1 < 2 && 2 < 3 && 3 < 4 && 4 < 5 && 5 < 6 || 6 < 7 && 7 < 8 || 8 < 9 || 9 < 10;
+        return a;
+    }
 }

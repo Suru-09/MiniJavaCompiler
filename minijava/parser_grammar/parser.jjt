@@ -2,7 +2,7 @@ options {
     OUTPUT_LANGUAGE = "c++";
     OUTPUT_DIRECTORY = "generated";
     OUTPUT_FILE="parser.jj";
-    LOOKAHEAD = 1;
+    LOOKAHEAD = 2;
     CHOICE_AMBIGUITY_CHECK = 3;
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = true;
@@ -11,13 +11,12 @@ options {
 
     FORCE_LA_CHECK = true;
 
-   /** MULTI=false;
-    NODE_DEFAULT_VOID=true;
-    VISITOR = false;
+    MULTI = true;
+    VISITOR = true;
     
     NODE_DEFAULT_VOID=true;
     VISITOR_DATA_TYPE="void*";
-    VISITOR_RETURN_TYPE="void*";*/
+    VISITOR_RETURN_TYPE="void*";
 }
 
 PARSER_BEGIN(MiniJavaParser)
@@ -126,7 +125,7 @@ TOKEN:
 
 
 /** Program beginning */
-SimpleNode* Program() : {}
+ASTRoot* Program() #Root : {}
 {
   MainClass()
   ( ClassDecl() )*
@@ -137,7 +136,7 @@ SimpleNode* Program() : {}
 void MainClass() :
 {}
 {
-  <CLASS> <IDENTIFIER> <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> <IDENTIFIER> <RPAREN> 
+  <CLASS> Identifier() <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> Identifier() <RPAREN> 
   <LBRACE>
   Statement()
   <RBRACE>
@@ -147,7 +146,7 @@ void MainClass() :
 void ClassDecl() :
 {}
 {
-  <CLASS> <IDENTIFIER> ( <EXTENDS> <IDENTIFIER> )? <LBRACE>
+  <CLASS> Identifier() ( <EXTENDS> Identifier() )? <LBRACE>
   ( VarDecl() )*
   ( MethodDecl() )*
   <RBRACE>
@@ -156,14 +155,15 @@ void ClassDecl() :
 void VarDecl() :
 {}
 {
-  Type() <IDENTIFIER> <SEMICOLON>
+  Type() Identifier() <SEMICOLON>
 }
 
 void MethodDecl() :
 {}
 {
-  <PUBLIC> Type() <IDENTIFIER> <LPAREN> FormalList() <RPAREN> <LBRACE>
-  ( Statement() 
+  <PUBLIC> Type() Identifier() <LPAREN> ArgsList() <RPAREN> <LBRACE>
+  (
+    Statement()
   |
     VarDecl()
   )*
@@ -171,21 +171,21 @@ void MethodDecl() :
   <RBRACE>
 }
 
-void FormalList() :
+void ArgsList() :
 {}
 {
-  ( Type() <IDENTIFIER> ( FormalRest() )* ) ?
+  ( Type() Identifier() ( FormalRest() )* ) ?
 }
 
 void FormalRest() :
 {}
 {
-  <COMMA> Type() <IDENTIFIER>
+  <COMMA> Type() Identifier()
 }
 
 void Type() : {}
 {
-  ( SimpleType() | <IDENTIFIER> ) ( <LBRACKET> <RBRACKET> )?
+  ( SimpleType() | Identifier() ) ( <LBRACKET> <RBRACKET> )?
 }
 
 void SimpleType() : {}
@@ -244,24 +244,35 @@ void ExpressionInStatement() : {}
 
 void Exp() : {}
 {
-  OrExp() [ <ASSIGN> Exp() ]
+  (
+    OrExp() ( 
+    <ASSIGN> OrExp()
+    )*
+  ) #AssignNode
+  
 }
 
 void OrExp() : {}
 {
-  AndExp() ( <OR> AndExp() )*
+  (
+    AndExp() ( <OR> AndExp() )*
+  ) #OrNode
 }
 
 void AndExp() :
 {}
 {
-  EqNeqExp() ( <AND> EqNeqExp() )*
+  (
+    EqNeqExp() ( <AND> EqNeqExp() )*
+  ) #AndNode
 }
 
 void EqNeqExp() :
 {}
 {
-  RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
+  (
+    RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
+  ) #EqNeqNode
 }
 
 void RelExp() :
@@ -299,7 +310,7 @@ void PrimaryExp() :
 
 void BeforePrimay() : {}
 {
-  <IDENTIFIER>
+  Identifier()
 |
   Literal()
 |
@@ -316,7 +327,7 @@ void AfterPrimary() : {}
 {
   <LBRACKET> Exp() <RBRACKET>
 |
-  <DOT> <IDENTIFIER>
+  <DOT> Identifier()
 | 
   <LPAREN> ExpList() <RPAREN>
 }
@@ -326,19 +337,42 @@ void AllocateMemory() : {}
 {
   <NEW> 
   (
-    <IDENTIFIER> <LPAREN> <RPAREN>
+    Identifier() <LPAREN> <RPAREN>
   |
     SimpleType()
   )
 }
 
-void Literal() : {}
+void Literal() #LiteralNode : 
 {
-<INTEGER_LITERAL> 
+  Token* t = NULL;
+}
+{
+  t=<INTEGER_LITERAL> 
+  {
+    jjtThis->setValue(t->image);
+  }
 | 
-  <TRUE>
+  t=<TRUE>
+  {
+    jjtThis->setValue(t->image);
+  }
 | 
-  <FALSE>
+  t=<FALSE>
+  {
+    jjtThis->setValue(t->image);
+  }
+}
+
+void Identifier() #Identifier :
+{
+  Token* t = NULL;
+}
+{
+  t=<IDENTIFIER>
+  {
+    jjtThis->setName(t->image);
+  }
 }
 
 void ExpList() : {}
