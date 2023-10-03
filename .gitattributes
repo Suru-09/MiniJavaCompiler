@@ -1,8 +1,8 @@
 # Generated files from the parser generator
 
-**/generated/*.cpp linguist-vendored
-**/generated/*.h linguist-vendored
-**/generated/*.cc linguist-vendored
+minijava/generated/*.cpp linguist-vendored
+minijava/generated/*.h linguist-vendored
+minijava/generated/*.cc linguist-vendored
 
 # MiniJava source files for testing
-**/testing_files/*.java linguist-vendored
+minijava/testing_files/**/*.java linguist-vendored
