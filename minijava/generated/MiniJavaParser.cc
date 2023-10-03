@@ -513,28 +513,43 @@ void MiniJavaParser::IfStatement() {
     JJEnter<std::function<void()>> jjenter([this]() {trace_call  ("IfStatement"); });
     JJExit <std::function<void()>> jjexit ([this]() {trace_return("IfStatement"); });
     try {
-
-      jj_consume_token(IF);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      jj_consume_token(LPAREN);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      Exp();
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      jj_consume_token(RPAREN);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      Statement();
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      jj_consume_token(ELSE);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      Statement();
-          { if (hasError) { return __ERROR_RET__; } }
-      
+/*@bgen(jjtree) #IfStatementNode(> 1) */
+  ASTIfStatementNode *jjtn000 = new ASTIfStatementNode(JJTIFSTATEMENTNODE);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+      try {
+        jj_consume_token(IF);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(LPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RPAREN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(ELSE);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Statement();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      }
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, jjtree.nodeArity() > 1);
+      }
     } catch(...) { }
 
 #undef __ERROR_RET__
@@ -636,15 +651,30 @@ void MiniJavaParser::ExpressionInStatement() {
     JJExit <std::function<void()>> jjexit ([this]() {trace_return("ExpressionInStatement"); });
     try {
 
-      PrimaryExp();
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      jj_consume_token(ASSIGN);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      OrExp();
-          { if (hasError) { return __ERROR_RET__; } }
-      
+ASTAssignNode *jjtn001 = new ASTAssignNode(JJTASSIGNNODE);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+      try {
+        PrimaryExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(ASSIGN);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        OrExp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
+    }
     } catch(...) { }
 
 #undef __ERROR_RET__
@@ -692,7 +722,7 @@ if (jjtc001) {
     }
       }
 if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
     } catch(...) { }
 
@@ -741,7 +771,7 @@ if (jjtc001) {
     }
       }
 if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
     } catch(...) { }
 
@@ -760,38 +790,23 @@ void MiniJavaParser::AndExp() {
     JJExit <std::function<void()>> jjexit ([this]() {trace_return("AndExp"); });
     try {
 
-ASTAndNode *jjtn001 = new ASTAndNode(JJTANDNODE);
-    bool jjtc001 = true;
-    jjtree.openNodeScope(jjtn001);
-      try {
+      EqNeqExp();
+          { if (hasError) { return __ERROR_RET__; } }
+      
+      while (!hasError) {
+        if (jj_2_24(2)) {
+          ;
+        } else {
+          goto end_label_9;
+        }
+        jj_consume_token(AND);
+            { if (hasError) { return __ERROR_RET__; } }
+        
         EqNeqExp();
             { if (hasError) { return __ERROR_RET__; } }
         
-        while (!hasError) {
-          if (jj_2_24(2)) {
-            ;
-          } else {
-            goto end_label_9;
-          }
-          jj_consume_token(AND);
-              { if (hasError) { return __ERROR_RET__; } }
-          
-          EqNeqExp();
-              { if (hasError) { return __ERROR_RET__; } }
-          
-        }
-        end_label_9: ;
-      } catch ( ...) {
-if (jjtc001) {
-      jjtree.clearNodeScope(jjtn001);
-      jjtc001 = false;
-    } else {
-      jjtree.popNode();
-    }
       }
-if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
-    }
+      end_label_9: ;
     } catch(...) { }
 
 #undef __ERROR_RET__
@@ -849,7 +864,7 @@ if (jjtc001) {
     }
       }
 if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
     } catch(...) { }
 

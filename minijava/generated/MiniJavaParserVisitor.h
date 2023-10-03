@@ -9,9 +9,9 @@ class MiniJavaParserVisitor
   public:
   virtual void* visit(const SimpleNode *node, void* data) = 0;
   virtual void* visit(const ASTRoot *node, void* data) = 0;
+  virtual void* visit(const ASTIfStatementNode *node, void* data) = 0;
   virtual void* visit(const ASTAssignNode *node, void* data) = 0;
   virtual void* visit(const ASTOrNode *node, void* data) = 0;
-  virtual void* visit(const ASTAndNode *node, void* data) = 0;
   virtual void* visit(const ASTEqNeqNode *node, void* data) = 0;
   virtual void* visit(const ASTLiteralNode *node, void* data) = 0;
   virtual void* visit(const ASTIdentifier *node, void* data) = 0;
@@ -26,13 +26,13 @@ public:
   virtual void* visit(const ASTRoot *node, void* data) {
     return defaultVisit(node, data);
   }
+  virtual void* visit(const ASTIfStatementNode *node, void* data) {
+    return defaultVisit(node, data);
+  }
   virtual void* visit(const ASTAssignNode *node, void* data) {
     return defaultVisit(node, data);
   }
   virtual void* visit(const ASTOrNode *node, void* data) {
-    return defaultVisit(node, data);
-  }
-  virtual void* visit(const ASTAndNode *node, void* data) {
     return defaultVisit(node, data);
   }
   virtual void* visit(const ASTEqNeqNode *node, void* data) {
@@ -47,4 +47,4 @@ public:
   ~MiniJavaParserDefaultVisitor() { }
 };
 #endif
-/* JavaCC - OriginalChecksum=1dbfc63744c4a0238eab8ce44882fc6f (do not edit this line) */
+/* JavaCC - OriginalChecksum=8f6f18254d705df5e75132eced97b97d (do not edit this line) */

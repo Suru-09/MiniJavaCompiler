@@ -217,19 +217,19 @@ void BlockStatement() : {}
   <RBRACE>
 }
 
-void IfStatement() : {}
+void IfStatement() #IfStatementNode(>1) : {}
 {
-  <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()
+    <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()
 }
 
 void WhileStatement() : {}
 {
-  <WHILE> <LPAREN> Exp() <RPAREN> Statement()
+    <WHILE> <LPAREN> Exp() <RPAREN> Statement()
 }
 
 void PrintStatement() : {}
 {
-  <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
+    <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
 }
 
 void EmptyStatement() : {}
@@ -239,32 +239,31 @@ void EmptyStatement() : {}
 
 void ExpressionInStatement() : {}
 {
-  PrimaryExp() <ASSIGN> OrExp()
+  (
+    PrimaryExp() <ASSIGN> OrExp()
+  ) #AssignNode(>1)
 }
 
 void Exp() : {}
 {
   (
     OrExp() ( 
-    <ASSIGN> OrExp()
+      <ASSIGN> OrExp()
     )*
-  ) #AssignNode
-  
+  ) #AssignNode(>1)
 }
 
 void OrExp() : {}
 {
   (
     AndExp() ( <OR> AndExp() )*
-  ) #OrNode
+  ) #OrNode(>1)
 }
 
 void AndExp() :
 {}
 {
-  (
     EqNeqExp() ( <AND> EqNeqExp() )*
-  ) #AndNode
 }
 
 void EqNeqExp() :
@@ -272,7 +271,7 @@ void EqNeqExp() :
 {
   (
     RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
-  ) #EqNeqNode
+  ) #EqNeqNode(>1)
 }
 
 void RelExp() :

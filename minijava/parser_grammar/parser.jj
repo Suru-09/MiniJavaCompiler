@@ -242,19 +242,38 @@ void BlockStatement() : {}
   <RBRACE>
 }
 
-void IfStatement() : {}
-{
-  <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()
+void IfStatement()                      : {/*@bgen(jjtree) #IfStatementNode(> 1) */
+  ASTIfStatementNode *jjtn000 = new ASTIfStatementNode(JJTIFSTATEMENTNODE);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) #IfStatementNode(> 1) */
+    try {
+/*@egen*/
+    <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()/*@bgen(jjtree)*/
+    } catch (...) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+    } {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, jjtree.nodeArity() > 1);
+      }
+    }
+/*@egen*/
 }
 
 void WhileStatement() : {}
 {
-  <WHILE> <LPAREN> Exp() <RPAREN> Statement()
+    <WHILE> <LPAREN> Exp() <RPAREN> Statement()
 }
 
 void PrintStatement() : {}
 {
-  <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
+    <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
 }
 
 void EmptyStatement() : {}
@@ -263,12 +282,34 @@ void EmptyStatement() : {}
 }
 
 void ExpressionInStatement() : {}
-{
-  PrimaryExp() <ASSIGN> OrExp()
+{/*@bgen(jjtree) #AssignNode(> 1) */
+  {
+    ASTAssignNode *jjtn001 = new ASTAssignNode(JJTASSIGNNODE);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+  }
+  try {
+/*@egen*/
+  (
+    PrimaryExp() <ASSIGN> OrExp()
+  )/*@bgen(jjtree)*/
+  } catch (...) {
+    if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
+    } else {
+      jjtree.popNode();
+    }
+  } {
+    if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
+    }
+  }
+/*@egen*/                
 }
 
 void Exp() : {}
-{/*@bgen(jjtree) AssignNode */
+{/*@bgen(jjtree) #AssignNode(> 1) */
   {
     ASTAssignNode *jjtn001 = new ASTAssignNode(JJTASSIGNNODE);
     bool jjtc001 = true;
@@ -278,7 +319,7 @@ void Exp() : {}
 /*@egen*/
   (
     OrExp() ( 
-    <ASSIGN> OrExp()
+      <ASSIGN> OrExp()
     )*
   )/*@bgen(jjtree)*/
   } catch (...) {
@@ -290,15 +331,14 @@ void Exp() : {}
     }
   } {
     if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
   }
-/*@egen*/            
-  
+/*@egen*/                
 }
 
 void OrExp() : {}
-{/*@bgen(jjtree) OrNode */
+{/*@bgen(jjtree) #OrNode(> 1) */
   {
     ASTOrNode *jjtn001 = new ASTOrNode(JJTORNODE);
     bool jjtc001 = true;
@@ -318,43 +358,21 @@ void OrExp() : {}
     }
   } {
     if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
   }
-/*@egen*/        
+/*@egen*/            
 }
 
 void AndExp() :
 {}
-{/*@bgen(jjtree) AndNode */
-  {
-    ASTAndNode *jjtn001 = new ASTAndNode(JJTANDNODE);
-    bool jjtc001 = true;
-    jjtree.openNodeScope(jjtn001);
-  }
-  try {
-/*@egen*/
-  (
+{
     EqNeqExp() ( <AND> EqNeqExp() )*
-  )/*@bgen(jjtree)*/
-  } catch (...) {
-    if (jjtc001) {
-      jjtree.clearNodeScope(jjtn001);
-      jjtc001 = false;
-    } else {
-      jjtree.popNode();
-    }
-  } {
-    if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
-    }
-  }
-/*@egen*/         
 }
 
 void EqNeqExp() :
 {}
-{/*@bgen(jjtree) EqNeqNode */
+{/*@bgen(jjtree) #EqNeqNode(> 1) */
   {
     ASTEqNeqNode *jjtn001 = new ASTEqNeqNode(JJTEQNEQNODE);
     bool jjtc001 = true;
@@ -374,10 +392,10 @@ void EqNeqExp() :
     }
   } {
     if (jjtc001) {
-      jjtree.closeNodeScope(jjtn001, true);
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
   }
-/*@egen*/           
+/*@egen*/               
 }
 
 void RelExp() :

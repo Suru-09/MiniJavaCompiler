@@ -6,9 +6,9 @@
 #include "ASTOrNode.h"
 #include "ASTEqNeqNode.h"
 #include "ASTAssignNode.h"
+#include "ASTIfStatementNode.h"
 #include "ASTRoot.h"
 #include "ASTLiteralNode.h"
 #include "ASTIdentifier.h"
-#include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=233308b1fd4f4cba36ba5fad208d28bf (do not edit this line) */
+/* JavaCC - OriginalChecksum=b8bb651ad649ec81344acba317c5be7b (do not edit this line) */
