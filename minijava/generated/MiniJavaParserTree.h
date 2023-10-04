@@ -3,12 +3,13 @@
 #ifndef MINIJAVAPARSERTREE_H
 #define MINIJAVAPARSERTREE_H
 #include "SimpleNode.h"
-#include "ASTOrNode.h"
-#include "ASTEqNeqNode.h"
-#include "ASTAssignNode.h"
+#include "ASTVarDecl.h"
+#include "ASTStmt.h"
 #include "ASTIfStatementNode.h"
+#include "ASTExp.h"
+#include "ASTUnaryNode.h"
 #include "ASTRoot.h"
 #include "ASTLiteralNode.h"
 #include "ASTIdentifier.h"
 #endif
-/* JavaCC - OriginalChecksum=b8bb651ad649ec81344acba317c5be7b (do not edit this line) */
+/* JavaCC - OriginalChecksum=37df2cd987549e6a96144972149866fc (do not edit this line) */

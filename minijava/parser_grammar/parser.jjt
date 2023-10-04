@@ -2,7 +2,7 @@ options {
     OUTPUT_LANGUAGE = "c++";
     OUTPUT_DIRECTORY = "generated";
     OUTPUT_FILE="parser.jj";
-    LOOKAHEAD = 2;
+    LOOKAHEAD = 1;
     CHOICE_AMBIGUITY_CHECK = 3;
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = true;
@@ -155,7 +155,9 @@ void ClassDecl() :
 void VarDecl() :
 {}
 {
-  Type() Identifier() <SEMICOLON>
+  (
+    Type() Identifier() <SEMICOLON>
+  ) #VarDecl
 }
 
 void MethodDecl() :
@@ -195,19 +197,17 @@ void SimpleType() : {}
   <BOOLEAN> 
 }
 
-void Statement() : {}
+void Statement() #Stmt : {}
 {
   BlockStatement()
 |
-  ExpressionInStatement() <SEMICOLON>
+  OptionalExprStmt()
 |
   IfStatement()
 | 
   WhileStatement()
 | 
   PrintStatement()
-|
-  EmptyStatement()
 }
 
 void BlockStatement() : {}
@@ -237,27 +237,28 @@ void EmptyStatement() : {}
   <SEMICOLON>
 }
 
-void ExpressionInStatement() : {}
+void OptionalExprStmt() : {}
 {
   (
-    PrimaryExp() <ASSIGN> OrExp()
-  ) #AssignNode(>1)
+    (Exp())? EmptyStatement()
+  ) #Exp
 }
 
 void Exp() : {}
 {
-  (
+  AssignExp()
+}
+
+void AssignExp(): {}
+{
     OrExp() ( 
       <ASSIGN> OrExp()
     )*
-  ) #AssignNode(>1)
 }
 
 void OrExp() : {}
 {
-  (
     AndExp() ( <OR> AndExp() )*
-  ) #OrNode(>1)
 }
 
 void AndExp() :
@@ -269,36 +270,34 @@ void AndExp() :
 void EqNeqExp() :
 {}
 {
-  (
     RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
-  ) #EqNeqNode(>1)
 }
 
 void RelExp() :
 {}
 {
-  AddExp() ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() )*
+    AddExp() ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() )*
 }
 
 void AddExp() :
 {}
 {
-  MulExp() ( ( <PLUS> | <MINUS> ) MulExp() )*
+    MulExp() ( ( <PLUS> | <MINUS> ) MulExp() )*
 }
 
 void MulExp() :
 {}
 {
-  (
     UnaryExp() ( ( <MULT> | <DIV> ) UnaryExp() )*
-  )
 }
 
 void UnaryExp() :
 {}
 {
+  (
   <NOT> PrimaryExp()
 | PrimaryExp()
+  ) #UnaryNode(1)
 }
 
 void PrimaryExp() :

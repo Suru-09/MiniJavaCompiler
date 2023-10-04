@@ -9,10 +9,11 @@ class MiniJavaParserVisitor
   public:
   virtual void* visit(const SimpleNode *node, void* data) = 0;
   virtual void* visit(const ASTRoot *node, void* data) = 0;
+  virtual void* visit(const ASTVarDecl *node, void* data) = 0;
+  virtual void* visit(const ASTStmt *node, void* data) = 0;
   virtual void* visit(const ASTIfStatementNode *node, void* data) = 0;
-  virtual void* visit(const ASTAssignNode *node, void* data) = 0;
-  virtual void* visit(const ASTOrNode *node, void* data) = 0;
-  virtual void* visit(const ASTEqNeqNode *node, void* data) = 0;
+  virtual void* visit(const ASTExp *node, void* data) = 0;
+  virtual void* visit(const ASTUnaryNode *node, void* data) = 0;
   virtual void* visit(const ASTLiteralNode *node, void* data) = 0;
   virtual void* visit(const ASTIdentifier *node, void* data) = 0;
   virtual ~MiniJavaParserVisitor() { }
@@ -26,16 +27,19 @@ public:
   virtual void* visit(const ASTRoot *node, void* data) {
     return defaultVisit(node, data);
   }
+  virtual void* visit(const ASTVarDecl *node, void* data) {
+    return defaultVisit(node, data);
+  }
+  virtual void* visit(const ASTStmt *node, void* data) {
+    return defaultVisit(node, data);
+  }
   virtual void* visit(const ASTIfStatementNode *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTAssignNode *node, void* data) {
+  virtual void* visit(const ASTExp *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTOrNode *node, void* data) {
-    return defaultVisit(node, data);
-  }
-  virtual void* visit(const ASTEqNeqNode *node, void* data) {
+  virtual void* visit(const ASTUnaryNode *node, void* data) {
     return defaultVisit(node, data);
   }
   virtual void* visit(const ASTLiteralNode *node, void* data) {
@@ -47,4 +51,4 @@ public:
   ~MiniJavaParserDefaultVisitor() { }
 };
 #endif
-/* JavaCC - OriginalChecksum=8f6f18254d705df5e75132eced97b97d (do not edit this line) */
+/* JavaCC - OriginalChecksum=1d477b7e7641bf427e7d0b75fb29aea0 (do not edit this line) */
