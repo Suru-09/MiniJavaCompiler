@@ -136,14 +136,16 @@ ASTRoot* Program() #Root : {}
 void MainClass() :
 {}
 {
-  <CLASS> Identifier() <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> Identifier() <RPAREN> 
+  (
+    <CLASS> Identifier() <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> <RBRACKET> Identifier() <RPAREN> 
   <LBRACE>
   Statement()
   <RBRACE>
   <RBRACE>
+  ) #MainClass
 }
 
-void ClassDecl() :
+void ClassDecl() #ClassDecl(>1) :
 {}
 {
   <CLASS> Identifier() ( <EXTENDS> Identifier() )? <LBRACE>
@@ -160,23 +162,24 @@ void VarDecl() :
   ) #VarDecl
 }
 
-void MethodDecl() :
+void MethodDecl() #MethodDeclNode(>1) :
 {}
 {
-  <PUBLIC> Type() Identifier() <LPAREN> ArgsList() <RPAREN> <LBRACE>
+  <PUBLIC> 
+  Type()
+  ( Identifier() ) #MethodIDNode
+  <LPAREN> ArgsList() <RPAREN>
   (
     Statement()
-  |
-    VarDecl()
   )*
-  <RETURN> Exp() <SEMICOLON>
-  <RBRACE>
 }
 
 void ArgsList() :
 {}
 {
-  ( Type() Identifier() ( FormalRest() )* ) ?
+  ( 
+    ( Type() Identifier() ( FormalRest() )* )?
+  ) #ArgsList
 }
 
 void FormalRest() :
@@ -190,14 +193,14 @@ void Type() : {}
   ( SimpleType() | Identifier() ) ( <LBRACKET> <RBRACKET> )?
 }
 
-void SimpleType() : {}
+void SimpleType() #SimpleTypeNode : {}
 {
   <INT>
 |
   <BOOLEAN> 
 }
 
-void Statement() #Stmt : {}
+void Statement() : {}
 {
   BlockStatement()
 |
@@ -208,40 +211,44 @@ void Statement() #Stmt : {}
   WhileStatement()
 | 
   PrintStatement()
+|
+  ReturnStatement()
 }
 
-void BlockStatement() : {}
+void BlockStatement() #BlockStatementNode(>1) : {}
 {
   <LBRACE>
-  ( Statement() )*
+  ( 
+    Statement() 
+  |
+    VarDecl()
+  )*
   <RBRACE>
 }
 
-void IfStatement() #IfStatementNode(>1) : {}
+void ReturnStatement() #ReturnStatementNode : {}
+{
+  <RETURN> (Exp())? <SEMICOLON>
+}
+
+void IfStatement() #IfStatementNode : {}
 {
     <IF> <LPAREN> Exp() <RPAREN> Statement() <ELSE> Statement()
 }
 
-void WhileStatement() : {}
+void WhileStatement() #WhileStatement : {}
 {
     <WHILE> <LPAREN> Exp() <RPAREN> Statement()
 }
 
-void PrintStatement() : {}
+void PrintStatement() #PrintStatement : {}
 {
     <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
 }
 
-void EmptyStatement() : {}
+void OptionalExprStmt() #OptionalExprStmt(>1) : {}
 {
-  <SEMICOLON>
-}
-
-void OptionalExprStmt() : {}
-{
-  (
-    (Exp())? EmptyStatement()
-  ) #Exp
+    (Exp())? <SEMICOLON>
 }
 
 void Exp() : {}
@@ -252,43 +259,57 @@ void Exp() : {}
 void AssignExp(): {}
 {
     OrExp() ( 
-      <ASSIGN> OrExp()
+      ( <ASSIGN> OrExp() ) #AssignNode(2)
     )*
 }
 
 void OrExp() : {}
 {
-    AndExp() ( <OR> AndExp() )*
+    AndExp() ( 
+      ( <OR> AndExp() ) #OrNode(2)
+    )*
 }
 
 void AndExp() :
 {}
 {
-    EqNeqExp() ( <AND> EqNeqExp() )*
+    EqNeqExp() ( 
+      ( <AND> EqNeqExp() ) #AndNode(2)
+    )*
 }
 
 void EqNeqExp() :
 {}
 {
-    RelExp() ( ( <EQ> | <NEQ> ) RelExp() )*
+    RelExp() 
+    ( 
+      ( ( <EQ> | <NEQ> ) RelExp() ) #EqNeqNode(2) 
+    )*
 }
 
 void RelExp() :
 {}
 {
-    AddExp() ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() )*
+    AddExp() 
+    (
+      ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() ) #RelNode(2)
+    )*
 }
 
 void AddExp() :
 {}
 {
-    MulExp() ( ( <PLUS> | <MINUS> ) MulExp() )*
+    MulExp() ( 
+      ( ( <PLUS> | <MINUS> ) MulExp() ) #AddNode(2)
+    )*
 }
 
 void MulExp() :
 {}
 {
-    UnaryExp() ( ( <MULT> | <DIV> ) UnaryExp() )*
+    UnaryExp() ( 
+      ( ( <MULT> | <DIV> ) UnaryExp() ) #MulNode(2)
+    )*
 }
 
 void UnaryExp() :
@@ -296,14 +317,14 @@ void UnaryExp() :
 {
   (
   <NOT> PrimaryExp()
-| PrimaryExp()
   ) #UnaryNode(1)
+| PrimaryExp()
 }
 
 void PrimaryExp() :
 {}
 {
-  BeforePrimay() ( LOOKAHEAD(2) AfterPrimary() )*
+  BeforePrimay() ( AfterPrimary() )*
 }
 
 void BeforePrimay() : {}
