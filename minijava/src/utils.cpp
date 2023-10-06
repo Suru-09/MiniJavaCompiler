@@ -62,7 +62,7 @@ void utils::cleanUpVisuliazerFiles()
     std::filesystem::remove_all(path);
 }
 
-int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file)
+int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const std::string& graphName, bool isConsoleVerbose)
 {
     std::string fileContent = utils::readStringFromFile(file);
 
@@ -73,12 +73,12 @@ int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file)
         auto errorHandler = new ErrorHandler();
         parser.setErrorHandler(errorHandler);
         SimpleNode* n = parser.Program();
-        if (n)
+        if (n && isConsoleVerbose)
         {
             n->dump("");
         }
 
-        ast::GraphvizPrinterVisitor visitor("test");
+        ast::GraphvizPrinterVisitor visitor(graphName);
         n->jjtAccept(&visitor, nullptr);
         visitor.closeGraph();
         visitor.writeToFile();

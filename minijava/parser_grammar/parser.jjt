@@ -7,7 +7,9 @@ options {
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = true;
     
+    /**
     DEBUG_PARSER = true;
+    */
 
     FORCE_LA_CHECK = true;
 

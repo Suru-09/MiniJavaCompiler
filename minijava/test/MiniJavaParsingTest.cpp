@@ -6,7 +6,6 @@
 #include <string>
 
 #include "utils.h"
-#include "logger/Logger.h"
 
 class MiniJavaParsingTest : public ::testing::Test
 {
@@ -19,7 +18,7 @@ class MiniJavaParsingTest : public ::testing::Test
     }
 
 public:
-
+    const std::filesystem::path testResourcesPath = "../test/testResources/";
 };
 
 
@@ -30,10 +29,7 @@ TEST_F(MiniJavaParsingTest, AssertSomeValue)
 
 TEST_F(MiniJavaParsingTest, MainClassDeclaration)
 {
-    std::filesystem::path testFilePath = "../testResources/MainClassDeclaration.java";
-    logger::log(logger::log_level::Info, "Parsing file: " + testFilePath.string());
-    // utils::readStringFromFile(testFilePath);
-    // ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath), 0);
-    ASSERT_TRUE(true);
+    std::filesystem::path testFilePath = testResourcesPath / "MainClassDeclaration.java";
+    ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "MainClassDeclarationTest", false), 0);
 }
 

@@ -60,48 +60,28 @@ void ExpList();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3R_Identifier_458_3_19()
+ inline bool jj_3R_AllocateMemory_430_5_18()
  {
     if (jj_done) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
- inline bool jj_3R_AllocateMemory_424_3_16()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(NEW)) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_AllocateMemory_426_5_17()) {
-    jj_scanpos = xsp;
-    if (jj_3R_AllocateMemory_428_5_18()) return true;
-    }
-    return false;
-  }
-
- inline bool jj_3R_AllocateMemory_428_5_18()
- {
-    if (jj_done) return true;
-    if (jj_3R_SimpleType_206_3_20()) return true;
+    if (jj_3R_SimpleType_208_3_20()) return true;
     return false;
   }
 
  inline bool jj_3_1()
  {
     if (jj_done) return true;
-    if (jj_3R_AllocateMemory_424_3_16()) return true;
+    if (jj_3R_AllocateMemory_426_3_16()) return true;
     return false;
   }
 
- inline bool jj_3R_AllocateMemory_426_5_17()
+ inline bool jj_3R_AllocateMemory_428_5_17()
  {
     if (jj_done) return true;
-    if (jj_3R_Identifier_458_3_19()) return true;
+    if (jj_3R_Identifier_460_3_19()) return true;
     return false;
   }
 
- inline bool jj_3R_SimpleType_206_3_20()
+ inline bool jj_3R_SimpleType_208_3_20()
  {
     if (jj_done) return true;
     Token * xsp;
@@ -109,6 +89,26 @@ void ExpList();
     if (jj_scan_token(14)) {
     jj_scanpos = xsp;
     if (jj_scan_token(15)) return true;
+    }
+    return false;
+  }
+
+ inline bool jj_3R_Identifier_460_3_19()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_AllocateMemory_426_3_16()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(NEW)) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_AllocateMemory_428_5_17()) {
+    jj_scanpos = xsp;
+    if (jj_3R_AllocateMemory_430_5_18()) return true;
     }
     return false;
   }
@@ -165,16 +165,12 @@ protected:
   virtual void  parseError();
 private:
   int  indent;	// trace indentation
-  bool trace = true; // trace enabled if true
+  bool trace = false; // trace enabled if true
 
 public:
   bool trace_enabled();
   void enable_tracing();
   void disable_tracing();
-  void trace_call(const char *s);
-  void trace_return(const char *s);
-  void trace_token(Token *t, const char *where);
-  void trace_scan(Token *t1, int t2);
   void jj_rescan_token();
   void jj_save(int index, int xla);
 

@@ -9,7 +9,7 @@ namespace utils {
 
 std::string readStringFromFile(const std::filesystem::path& path);
 void cleanUpVisuliazerFiles();
-int parseAndReportErrorsFromFile(const std::filesystem::path& file);
+int parseAndReportErrorsFromFile(const std::filesystem::path& file,const std::string& graphName, bool isConsoleVerbose = true);
 
 }   // namespace utils
 

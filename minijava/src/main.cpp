@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]) {
     std::filesystem::path testFilePath = "../testing_files/Week_1_2/ComprehensiveTest.java";
-    utils::parseAndReportErrorsFromFile(testFilePath);
+    utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest");
 
     return 0;
 }

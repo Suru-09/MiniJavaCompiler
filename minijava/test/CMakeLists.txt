@@ -3,20 +3,18 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED 17)
 
-set(TEST_SOURCES
-    MiniJavaParsingTest.cpp
-)
-
 add_executable(${PROJECT_NAME}-test
     main.cpp
-    ${TEST_SOURCES}
+    ${CMAKE_SOURCE_DIR}/src/Utils.cpp
+    ${CMAKE_SOURCE_DIR}/src/logger/Logger.cpp
+    MiniJavaParsingTest.cpp
 )
 
 # Linking library to executable
 target_link_libraries(${PROJECT_NAME}-test
-    PRIVATE
-        ${PROJECT_NAME}-generated
+    PUBLIC
         ${PROJECT_NAME}-ast
+        ${PROJECT_NAME}-generated
         gtest
         gtest_main
 )
