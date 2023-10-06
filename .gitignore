@@ -11,4 +11,6 @@
 **/generated/**/*.png
 **/generated/astVisual/*.dot
 **/generated/astVisual/*.png
+**/astVisual/*.dot
+**/astVisual/*.png
 

@@ -60,10 +60,10 @@ void ExpList();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3R_AllocateMemory_430_5_18()
+ inline bool jj_3R_Identifier_465_3_19()
  {
     if (jj_done) return true;
-    if (jj_3R_SimpleType_208_3_20()) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -77,7 +77,7 @@ void ExpList();
  inline bool jj_3R_AllocateMemory_428_5_17()
  {
     if (jj_done) return true;
-    if (jj_3R_Identifier_460_3_19()) return true;
+    if (jj_3R_Identifier_465_3_19()) return true;
     return false;
   }
 
@@ -93,10 +93,10 @@ void ExpList();
     return false;
   }
 
- inline bool jj_3R_Identifier_460_3_19()
+ inline bool jj_3R_AllocateMemory_435_5_18()
  {
     if (jj_done) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_3R_SimpleType_208_3_20()) return true;
     return false;
   }
 
@@ -108,7 +108,7 @@ void ExpList();
     xsp = jj_scanpos;
     if (jj_3R_AllocateMemory_428_5_17()) {
     jj_scanpos = xsp;
-    if (jj_3R_AllocateMemory_430_5_18()) return true;
+    if (jj_3R_AllocateMemory_435_5_18()) return true;
     }
     return false;
   }
@@ -138,7 +138,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[34];
+  int           jj_la1[37];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

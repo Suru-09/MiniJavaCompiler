@@ -43,11 +43,6 @@ void GraphvizPrinterVisitor::visitChildrenAndAddEdges(const SimpleNode* node, ui
 
 std::filesystem::path GraphvizPrinterVisitor::getPathToGenerated() {
     std::filesystem::path path = std::filesystem::current_path().parent_path();
-    path /= "generated";
-    if (!std::filesystem::exists(path)) {
-        std::filesystem::create_directory(path);
-    }
-
     path /= "astVisual";
     if (!std::filesystem::exists(path)) {
         std::filesystem::create_directory(path);

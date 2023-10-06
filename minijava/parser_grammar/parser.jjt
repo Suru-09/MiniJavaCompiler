@@ -417,7 +417,7 @@ void AfterPrimary() : {}
 |
   <DOT> Identifier()
 | 
-  <LPAREN> ExpList() <RPAREN>
+  <LPAREN> (ExpList())? <RPAREN>
 }
 
 
@@ -425,7 +425,12 @@ void AllocateMemory() : {}
 {
   <NEW> 
   (
-    Identifier() <LPAREN> <RPAREN>
+    Identifier() 
+    (
+      (<LPAREN> (ExpList())? <RPAREN>) 
+    | 
+      (<LBRACKET> <INTEGER_LITERAL> <RBRACKET>)
+    )
   |
     SimpleType()
   )

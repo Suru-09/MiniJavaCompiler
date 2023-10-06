@@ -47,11 +47,6 @@ std::string utils::readStringFromFile(const std::filesystem::path& path)
 void utils::cleanUpVisuliazerFiles()
 {
     std::filesystem::path path = std::filesystem::current_path().parent_path();
-    path /= "generated";
-    if (!std::filesystem::exists(path)) {
-        logger::log(logger::log_level::Warning, "Could not find generated folder");
-        return;
-    }
 
     path /= "astVisual";
     if (!std::filesystem::exists(path)) {
@@ -61,6 +56,22 @@ void utils::cleanUpVisuliazerFiles()
 
     std::filesystem::remove_all(path);
 }
+
+void utils::generateGraphImage(const std::string& name, SimpleNode* root)
+{
+    ast::GraphvizPrinterVisitor visitor(name);
+    if(!root)
+    {
+        logger::log(logger::log_level::Error, "Root is null");
+        return;
+    }
+    root->jjtAccept(&visitor, nullptr);
+    visitor.closeGraph();
+    visitor.writeToFile();
+    visitor.generateImage();
+}
+
+
 
 int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const std::string& graphName, bool isConsoleVerbose)
 {
@@ -78,11 +89,13 @@ int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const 
             n->dump("");
         }
 
-        ast::GraphvizPrinterVisitor visitor(graphName);
-        n->jjtAccept(&visitor, nullptr);
-        visitor.closeGraph();
-        visitor.writeToFile();
-        visitor.generateImage();
+        if(errorHandler->getErrorCount() > 0)
+        {
+            logger::log(logger::log_level::Error, "Parsing finished with errors");
+            return errorHandler->getErrorCount();
+        }
+
+        utils::generateGraphImage(graphName, n);
         
         logger::log(logger::log_level::Info, "Parsing finished successfully");
         return errorHandler->getErrorCount();
@@ -98,3 +111,4 @@ int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const 
 
     return -1;   
 }
+
