@@ -26,8 +26,8 @@ target_include_directories(${PROJECT_NAME}-test
         ${INCL_DIR}
         ${gtest_SOURCE_DIR}/include 
         ${gtest_SOURCE_DIR}
-        ${CMAKE_SOURCE_DIR}/include/
-        ${CMAKE_SOURCE_DIR}/generated/
+        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/generated
 )
 
 target_compile_options(${PROJECT_NAME}-test

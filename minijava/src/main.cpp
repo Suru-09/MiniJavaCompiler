@@ -1,48 +1,11 @@
 #include <iostream>
-#include <memory>
 #include <filesystem>
 
-#include "MiniJavaParser.h"
-#include "MiniJavaParserTree.h"
-#include "MiniJavaParserTokenManager.h"
-#include "ErrorHandler.h"
-#include "ParseException.h"
-
-#include "ast/GraphvizPrinterVisitor.h"
-
-
 #include "utils.h"
-#include "logger/Logger.h"
 
 int main(int argc, char* argv[]) {
     std::filesystem::path testFilePath = "../testing_files/Week_1_2/ComprehensiveTest.java";
-    std::string fileContent = utils::readStringFromFile(testFilePath);
-
-    try {    
-        auto stream = std::make_unique<CharStream>(fileContent.c_str(), fileContent.size(), 0, 0);
-        auto scanner = std::make_unique<MiniJavaParserTokenManager>(stream.get());
-        MiniJavaParser parser(scanner.get());
-        parser.setErrorHandler(new ErrorHandler());
-        SimpleNode* n = parser.Program();
-        if (n)
-        {
-            n->dump("");
-        }
-
-        ast::GraphvizPrinterVisitor visitor("test");
-        n->jjtAccept(&visitor, nullptr);
-        visitor.closeGraph();
-        visitor.writeToFile();
-        visitor.generateImage();
-        
-        logger::log(logger::log_level::Info, "Parsing finished successfully");
-
-    } catch (ParseException& e) {
-        logger::log(logger::log_level::Error, "Parse exception");
-    }
-    catch(...) {
-        logger::log(logger::log_level::Error, "Unknown exception");
-    }
+    utils::parseAndReportErrorsFromFile(testFilePath);
 
     return 0;
 }

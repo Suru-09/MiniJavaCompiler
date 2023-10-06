@@ -5,10 +5,25 @@ project(MiniJavaCompiler LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED 17)
 
+# Check if a C++ compiler is available
+if(CMAKE_CXX_COMPILER)
+    message(STATUS "[PM]C++ compiler found: ${CMAKE_CXX_COMPILER}")
+
+    # Get C++ compiler version
+    execute_process(
+        COMMAND ${CMAKE_CXX_COMPILER} --version
+        OUTPUT_VARIABLE compiler_version
+    )
+    string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" compiler_version "${compiler_version}")
+    message(STATUS "[PM]C++ compiler version: ${compiler_version}")
+else()
+    message(FATAL_ERROR "C++ compiler not found. Please install a C++ compiler.")
+endif()
+
 # GOOGLE TEST DEPENDENCIES ----- START --------
 message(STATUS "=====================================")
 
-find_package(GTest)
+find_package(GTest REQUIRED)
 include(FetchContent)
 FetchContent_Declare(
   googletest

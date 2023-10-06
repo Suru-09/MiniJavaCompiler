@@ -3,6 +3,14 @@
 #include <fstream>
 #include "logger/Logger.h"
 
+#include "MiniJavaParser.h"
+#include "MiniJavaParserTree.h"
+#include "MiniJavaParserTokenManager.h"
+#include "ErrorHandler.h"
+#include "ParseException.h"
+
+#include "ast/GraphvizPrinterVisitor.h"
+
 std::string utils::readStringFromFile(const std::filesystem::path& path)
 {
     if (!std::filesystem::exists(path))
@@ -36,7 +44,7 @@ std::string utils::readStringFromFile(const std::filesystem::path& path)
     return buffer;
 }
 
-void cleanUpVisuliazerFiles()
+void utils::cleanUpVisuliazerFiles()
 {
     std::filesystem::path path = std::filesystem::current_path().parent_path();
     path /= "generated";
@@ -52,4 +60,41 @@ void cleanUpVisuliazerFiles()
     }
 
     std::filesystem::remove_all(path);
+}
+
+int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file)
+{
+    std::string fileContent = utils::readStringFromFile(file);
+
+    try {    
+        auto stream = std::make_unique<CharStream>(fileContent.c_str(), fileContent.size(), 0, 0);
+        auto scanner = std::make_unique<MiniJavaParserTokenManager>(stream.get());
+        MiniJavaParser parser(scanner.get());
+        auto errorHandler = new ErrorHandler();
+        parser.setErrorHandler(errorHandler);
+        SimpleNode* n = parser.Program();
+        if (n)
+        {
+            n->dump("");
+        }
+
+        ast::GraphvizPrinterVisitor visitor("test");
+        n->jjtAccept(&visitor, nullptr);
+        visitor.closeGraph();
+        visitor.writeToFile();
+        visitor.generateImage();
+        
+        logger::log(logger::log_level::Info, "Parsing finished successfully");
+        return errorHandler->getErrorCount();
+
+    } catch (ParseException& e) {
+        logger::log(logger::log_level::Error, "Parse exception");
+        return -1;
+    }
+    catch(...) {
+        logger::log(logger::log_level::Error, "Unknown exception");
+        return -1;
+    }
+
+    return -1;   
 }
