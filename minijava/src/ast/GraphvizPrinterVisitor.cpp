@@ -212,7 +212,7 @@ void* GraphvizPrinterVisitor::visit(const ASTEqualNotEqualNode *node, void* data
 }
 
 void* GraphvizPrinterVisitor::visit(const ASTRelationalNode *node, void* data) {
-    uint64_t relationalId = addNode("Relational");
+    uint64_t relationalId = addNode(node->toString());
     visitChildrenAndAddEdges(node, relationalId);
     return reinterpret_cast<void*>(relationalId);
 }

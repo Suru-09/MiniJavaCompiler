@@ -6,3 +6,4 @@ minijava/generated/*.cc linguist-vendored
 
 # MiniJava source files for testing
 minijava/testing_files/**/*.java linguist-vendored
+minijava/test/**/*.java linguist-vendored

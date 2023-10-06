@@ -14,7 +14,7 @@ ASTRelationalNode::~ASTRelationalNode() {}
 
 JAVACC_STRING_TYPE ASTRelationalNode::toString() const
 {
-    return "Relational: " + name;
+    return name;
 }
 
 void* ASTRelationalNode::jjtAccept(MiniJavaParserVisitor *visitor, void * data) const
