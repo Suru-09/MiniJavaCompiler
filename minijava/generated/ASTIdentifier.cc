@@ -14,7 +14,7 @@ ASTIdentifier::~ASTIdentifier() {}
 
 JAVACC_STRING_TYPE ASTIdentifier::toString() const
 {
-    return "Identifier: " + name;
+    return name;
 }
 
 void* ASTIdentifier::jjtAccept(MiniJavaParserVisitor *visitor, void * data) const

@@ -14,7 +14,7 @@ ASTLiteralNode::~ASTLiteralNode() {}
 
 JAVACC_STRING_TYPE ASTLiteralNode::toString() const
 {
-    return "Literal: " + literal_value;
+    return literal_value;
 }
 
 void* ASTLiteralNode::jjtAccept(MiniJavaParserVisitor *visitor, void * data) const

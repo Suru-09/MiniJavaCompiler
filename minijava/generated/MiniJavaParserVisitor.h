@@ -15,6 +15,8 @@ class MiniJavaParserVisitor
   virtual void* visit(const ASTMethodDeclNode *node, void* data) = 0;
   virtual void* visit(const ASTMethodIDNode *node, void* data) = 0;
   virtual void* visit(const ASTArgsList *node, void* data) = 0;
+  virtual void* visit(const ASTTypeNode *node, void* data) = 0;
+  virtual void* visit(const ASTArrayDeclNode *node, void* data) = 0;
   virtual void* visit(const ASTSimpleTypeNode *node, void* data) = 0;
   virtual void* visit(const ASTBlockStatementNode *node, void* data) = 0;
   virtual void* visit(const ASTReturnStatementNode *node, void* data) = 0;
@@ -25,10 +27,10 @@ class MiniJavaParserVisitor
   virtual void* visit(const ASTAssignNode *node, void* data) = 0;
   virtual void* visit(const ASTOrNode *node, void* data) = 0;
   virtual void* visit(const ASTAndNode *node, void* data) = 0;
-  virtual void* visit(const ASTEqNeqNode *node, void* data) = 0;
-  virtual void* visit(const ASTRelNode *node, void* data) = 0;
-  virtual void* visit(const ASTAddNode *node, void* data) = 0;
-  virtual void* visit(const ASTMulNode *node, void* data) = 0;
+  virtual void* visit(const ASTEqualNotEqualNode *node, void* data) = 0;
+  virtual void* visit(const ASTRelationalNode *node, void* data) = 0;
+  virtual void* visit(const ASTAdditiveNode *node, void* data) = 0;
+  virtual void* visit(const ASTMultiplicativeNode *node, void* data) = 0;
   virtual void* visit(const ASTUnaryNode *node, void* data) = 0;
   virtual void* visit(const ASTLiteralNode *node, void* data) = 0;
   virtual void* visit(const ASTIdentifier *node, void* data) = 0;
@@ -61,6 +63,12 @@ public:
   virtual void* visit(const ASTArgsList *node, void* data) {
     return defaultVisit(node, data);
   }
+  virtual void* visit(const ASTTypeNode *node, void* data) {
+    return defaultVisit(node, data);
+  }
+  virtual void* visit(const ASTArrayDeclNode *node, void* data) {
+    return defaultVisit(node, data);
+  }
   virtual void* visit(const ASTSimpleTypeNode *node, void* data) {
     return defaultVisit(node, data);
   }
@@ -91,16 +99,16 @@ public:
   virtual void* visit(const ASTAndNode *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTEqNeqNode *node, void* data) {
+  virtual void* visit(const ASTEqualNotEqualNode *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTRelNode *node, void* data) {
+  virtual void* visit(const ASTRelationalNode *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTAddNode *node, void* data) {
+  virtual void* visit(const ASTAdditiveNode *node, void* data) {
     return defaultVisit(node, data);
   }
-  virtual void* visit(const ASTMulNode *node, void* data) {
+  virtual void* visit(const ASTMultiplicativeNode *node, void* data) {
     return defaultVisit(node, data);
   }
   virtual void* visit(const ASTUnaryNode *node, void* data) {
@@ -115,4 +123,4 @@ public:
   ~MiniJavaParserDefaultVisitor() { }
 };
 #endif
-/* JavaCC - OriginalChecksum=c0f713ddc3cec89d8d5404dd3e6b88b3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=31f61cf717521d3be89063af333627b7 (do not edit this line) */

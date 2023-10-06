@@ -8,6 +8,7 @@
 namespace utils {
 
 std::string readStringFromFile(const std::filesystem::path& path);
+void cleanUpVisuliazerFiles();
 
 
 }   // namespace utils

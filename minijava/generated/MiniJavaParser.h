@@ -27,6 +27,7 @@ void MethodDecl();
 void ArgsList();
 void FormalRest();
 void Type();
+void ArrayDecl();
 void SimpleType();
 void Statement();
 void BlockStatement();
@@ -59,27 +60,48 @@ void ExpList();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3R_Identifier_391_3_19()
+ inline bool jj_3R_Identifier_458_3_19()
  {
     if (jj_done) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
- inline bool jj_3R_AllocateMemory_357_3_16()
+ inline bool jj_3R_AllocateMemory_424_3_16()
  {
     if (jj_done) return true;
     if (jj_scan_token(NEW)) return true;
     Token * xsp;
     xsp = jj_scanpos;
-    if (jj_3R_AllocateMemory_359_5_17()) {
+    if (jj_3R_AllocateMemory_426_5_17()) {
     jj_scanpos = xsp;
-    if (jj_3R_AllocateMemory_361_5_18()) return true;
+    if (jj_3R_AllocateMemory_428_5_18()) return true;
     }
     return false;
   }
 
- inline bool jj_3R_SimpleType_198_3_20()
+ inline bool jj_3R_AllocateMemory_428_5_18()
+ {
+    if (jj_done) return true;
+    if (jj_3R_SimpleType_206_3_20()) return true;
+    return false;
+  }
+
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_3R_AllocateMemory_424_3_16()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_AllocateMemory_426_5_17()
+ {
+    if (jj_done) return true;
+    if (jj_3R_Identifier_458_3_19()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_SimpleType_206_3_20()
  {
     if (jj_done) return true;
     Token * xsp;
@@ -88,27 +110,6 @@ void ExpList();
     jj_scanpos = xsp;
     if (jj_scan_token(15)) return true;
     }
-    return false;
-  }
-
- inline bool jj_3R_AllocateMemory_361_5_18()
- {
-    if (jj_done) return true;
-    if (jj_3R_SimpleType_198_3_20()) return true;
-    return false;
-  }
-
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_3R_AllocateMemory_357_3_16()) return true;
-    return false;
-  }
-
- inline bool jj_3R_AllocateMemory_359_5_17()
- {
-    if (jj_done) return true;
-    if (jj_3R_Identifier_391_3_19()) return true;
     return false;
   }
 

@@ -1,6 +1,5 @@
-#ifndef _AST_UNARY_NODE_H_
-#define _AST_UNARY_NODE_H_
-
+#ifndef __AST_RELATIONAL_NODE_H__
+#define __AST_RELATIONAL_NODE_H__
 
 #include <iostream>
 
@@ -8,12 +7,12 @@
 
 class MiniJavaParserVisitor;
 
-class ASTUnaryNode : public SimpleNode {
+class ASTRelationalNode : public SimpleNode {
 
 public:
-    ASTUnaryNode(int i);
-    ASTUnaryNode(MiniJavaParser *p, int i);
-    virtual ~ASTUnaryNode();
+    ASTRelationalNode(int i);
+    ASTRelationalNode(MiniJavaParser *p, int i);
+    virtual ~ASTRelationalNode();
 
     void setName(JAVACC_STRING_TYPE name);
     JAVACC_STRING_TYPE toString() const;
@@ -23,4 +22,5 @@ private:
     JAVACC_STRING_TYPE name;
 };
 
-#endif // _AST_UNARY_NODE_H_
+
+#endif // __AST_RELATIONAL_NODE_H__

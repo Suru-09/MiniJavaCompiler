@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <fstream>
+#include "logger/Logger.h"
 
 std::string utils::readStringFromFile(const std::filesystem::path& path)
 {
@@ -33,4 +34,22 @@ std::string utils::readStringFromFile(const std::filesystem::path& path)
     }
 
     return buffer;
+}
+
+void cleanUpVisuliazerFiles()
+{
+    std::filesystem::path path = std::filesystem::current_path().parent_path();
+    path /= "generated";
+    if (!std::filesystem::exists(path)) {
+        logger::log(logger::log_level::Warning, "Could not find generated folder");
+        return;
+    }
+
+    path /= "astVisual";
+    if (!std::filesystem::exists(path)) {
+        logger::log(logger::log_level::Info, "Could not find ast visulisation folder");
+        return;
+    }
+
+    std::filesystem::remove_all(path);
 }

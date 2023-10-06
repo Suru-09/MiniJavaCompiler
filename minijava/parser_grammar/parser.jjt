@@ -162,7 +162,7 @@ void VarDecl() :
   ) #VarDecl
 }
 
-void MethodDecl() #MethodDeclNode(>1) :
+void MethodDecl() #MethodDeclNode(>2) :
 {}
 {
   <PUBLIC> 
@@ -188,16 +188,29 @@ void FormalRest() :
   <COMMA> Type() Identifier()
 }
 
-void Type() : {}
+void Type() #TypeNode : {}
 {
-  ( SimpleType() | Identifier() ) ( <LBRACKET> <RBRACKET> )?
+  ( SimpleType() | Identifier() ) (ArrayDecl())?
 }
 
-void SimpleType() #SimpleTypeNode : {}
+void ArrayDecl() #ArrayDeclNode : {}
 {
-  <INT>
-|
-  <BOOLEAN> 
+  <LBRACKET> <RBRACKET> 
+}
+
+void SimpleType() #SimpleTypeNode : 
+{
+  Token* t = NULL;
+}
+{
+  (
+    t=<INT>
+  |
+    t=<BOOLEAN> 
+  )
+  {
+   jjtThis->setName(t->image); 
+  }
 }
 
 void Statement() : {}
@@ -215,7 +228,7 @@ void Statement() : {}
   ReturnStatement()
 }
 
-void BlockStatement() #BlockStatementNode(>1) : {}
+void BlockStatement() #BlockStatementNode : {}
 {
   <LBRACE>
   ( 
@@ -246,7 +259,7 @@ void PrintStatement() #PrintStatement : {}
     <SYSTEM_OUT_PRINTLN> <LPAREN> Exp() <RPAREN> <SEMICOLON>
 }
 
-void OptionalExprStmt() #OptionalExprStmt(>1) : {}
+void OptionalExprStmt() #OptionalExprStmt : {}
 {
     (Exp())? <SEMICOLON>
 }
@@ -279,44 +292,98 @@ void AndExp() :
 }
 
 void EqNeqExp() :
-{}
+{
+  Token* t = NULL;
+}
 {
     RelExp() 
     ( 
-      ( ( <EQ> | <NEQ> ) RelExp() ) #EqNeqNode(2) 
+      ( ( 
+          t=<EQ> 
+        | 
+          t=<NEQ> 
+        )
+        {
+          jjtThis->setName(t->image);
+        }
+        RelExp() ) #EqualNotEqualNode(2) 
     )*
 }
 
 void RelExp() :
-{}
+{
+  Token* t = NULL;
+}
 {
     AddExp() 
     (
-      ( ( <LT> | <LTE> | <GT> | <GTE> ) AddExp() ) #RelNode(2)
+      ( ( 
+          t=<LT> 
+        | 
+          t=<LTE> 
+        |
+          t=<GT> 
+        | 
+          t=<GTE> 
+        )
+        {
+          jjtThis->setName(t->image);
+        }
+        AddExp() ) #RelationalNode(2)
     )*
 }
 
 void AddExp() :
-{}
+{
+  Token* t = NULL;
+}
 {
     MulExp() ( 
-      ( ( <PLUS> | <MINUS> ) MulExp() ) #AddNode(2)
+      ( 
+        ( 
+          t=<PLUS> 
+        | 
+          t=<MINUS> 
+        )
+        {
+          jjtThis->setName(t->image);
+        }
+        MulExp() ) #AdditiveNode(2)
     )*
 }
 
 void MulExp() :
-{}
+{
+  Token* t = NULL;
+}
 {
     UnaryExp() ( 
-      ( ( <MULT> | <DIV> ) UnaryExp() ) #MulNode(2)
+      ( 
+        (
+          t=<MULT> 
+        | 
+          t=<DIV> 
+        )
+        {
+          jjtThis->setName(t->image);
+        } 
+        UnaryExp() ) #MultiplicativeNode(2)
     )*
 }
 
 void UnaryExp() :
-{}
+{
+  Token* t = NULL;
+}
 {
   (
-  <NOT> PrimaryExp()
+    (
+      t=<NOT>
+    )
+    {
+      jjtThis->setName(t->image);
+    }
+  PrimaryExp()
   ) #UnaryNode(1)
 | PrimaryExp()
 }

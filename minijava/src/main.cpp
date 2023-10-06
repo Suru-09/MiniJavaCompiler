@@ -8,6 +8,8 @@
 #include "ErrorHandler.h"
 #include "ParseException.h"
 
+#include "ast/GraphvizPrinterVisitor.h"
+
 
 #include "utils.h"
 #include "logger/Logger.h"
@@ -26,6 +28,13 @@ int main(int argc, char* argv[]) {
         {
             n->dump("");
         }
+
+        ast::GraphvizPrinterVisitor visitor("test");
+        n->jjtAccept(&visitor, nullptr);
+        visitor.closeGraph();
+        visitor.writeToFile();
+        visitor.generateImage();
+        
         logger::log(logger::log_level::Info, "Parsing finished successfully");
 
     } catch (ParseException& e) {
