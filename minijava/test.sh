@@ -32,4 +32,4 @@ echo "Build failed, operation will be aborted!";
 exit
 fi
 
-test/MiniJavaCompiler-test
+./MiniJavaCompiler-test

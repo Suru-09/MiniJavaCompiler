@@ -73,6 +73,19 @@ void utils::generateGraphImage(const std::string& name, SimpleNode* root)
     visitor.generateImage();
 }
 
+void utils::buildSymbolTable(SimpleNode* root)
+{
+    if(!root)
+    {
+        logger::log(logger::log_level::Error, "Root is null");
+        return;
+    }
+    ast::TypesTable typesTable;
+    ast::SymbolTable symbolTable{typesTable};
+    ast::BindingVisitor bindingVisitor(symbolTable, typesTable);
+    root->jjtAccept(&bindingVisitor, nullptr);
+    bindingVisitor.printSymbolTable();
+}
 
 
 int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const std::string& graphName, bool isConsoleVerbose)
@@ -93,20 +106,12 @@ int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const 
 
         if(errorHandler->getErrorCount() > 0)
         {
-            logger::log(logger::log_level::Error, "Parsing finished with errors");
             return errorHandler->getErrorCount();
         }
 
         utils::generateGraphImage(graphName, n);
+        buildSymbolTable(n);
 
-        ast::TypesTable typesTable;
-        ast::SymbolTable symbolTable{typesTable};
-        ast::BindingVisitor bindingVisitor(symbolTable, typesTable);
-        n->jjtAccept(&bindingVisitor, nullptr);
-
-        bindingVisitor.printSymbolTable();
-
-        logger::log(logger::log_level::Info, "Parsing finished successfully");
         return errorHandler->getErrorCount();
 
     } catch (ParseException& e) {

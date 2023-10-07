@@ -5,6 +5,9 @@ project(MiniJavaCompiler LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED 17)
 
+# change from default CLion output directory to my preferred one
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
+
 # Check if a C++ compiler is available
 if(CMAKE_CXX_COMPILER)
     message(STATUS "[PM]C++ compiler found: ${CMAKE_CXX_COMPILER}")

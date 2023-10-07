@@ -27,6 +27,8 @@ void log(log_level const level,
          std::string_view const function_name = __builtin_FUNCTION()     
         );
 
+void setLogLevel(log_level const level);
+
 }   // namespace logger
 
 #endif // __LOGGER_H__

@@ -72,6 +72,13 @@ void SymbolTable::printSymbolTable() const
     typesTable.printTypesTable();
 }
 
+int64_t SymbolTable::getCurrentClassId() const {
+    if (!classTable.has_value()) {
+        throw std::runtime_error("Class table is not defined");
+    }
+    return classTable.value().getCurrentClassId();
+}
+
 /**
  * @brief ClassTable class
  */
@@ -169,6 +176,10 @@ void ClassTable::printClassTable() const {
     }
 }
 
+int64_t ClassTable::getCurrentClassId() const {
+    return currentClassId;
+}
+
 /**
  * @brief MemberTable class
  */
@@ -184,9 +195,9 @@ currentMemberId(0)
 MemberTable::~MemberTable() {}
 
 void MemberTable::addMember(const std::pair<std::string, std::string>& member, const MemberType& memberType, const std::string& returnType) {
-    // if (isMemberDefined(member.first)) {
-    //     throw std::runtime_error("Member " + member.first + " is already defined");
-    // }
+    if (isMemberDefined(member.second)) {
+        throw std::runtime_error("Member " + member.second + " is already defined");
+    }
 
     if (memberType == MemberType::METHOD && returnType == "") {
         throw std::runtime_error("Method " + member.first + " must have a return type");
@@ -413,6 +424,7 @@ void TypesTable::addType(const std::pair<std::string, int64_t>& type) {
     if (isTypeDefined(type.first)) {
         throw std::runtime_error("Type " + type.first + " is already defined");
     }
+    logger::log(logger::log_level::Info, "Adding type " + type.first + " with id " + std::to_string(type.second));
     typesTable.insert(type);
 }
 

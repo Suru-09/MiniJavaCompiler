@@ -112,6 +112,7 @@ public:
     void addLocalVar(const std::pair<std::string, std::string>& var, const std::string& className, const std::string& memberName);
 
     bool isClassDefined(const std::string& className) const;
+    int64_t getCurrentClassId() const;
 
     void printClassTable() const;
     struct ClassInfo {
@@ -138,10 +139,12 @@ public:
     void addLocalVar(const std::pair<std::string, std::string>& var, const std::string& className, const std::string& memberName);
 
     void printSymbolTable() const;
+    int64_t getCurrentClassId() const;
 
+    TypesTable& typesTable;
 private:
     std::optional<ClassTable> classTable;
-    TypesTable& typesTable;
+    
 };
 
 } // namespace ast

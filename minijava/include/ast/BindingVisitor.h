@@ -48,6 +48,8 @@ private:
     // to be used after accepting a node, do not
     // rely on its value otherwise
     std::string returnValue;
+
+    void* visitChildrenNodes(const Node*node, void* data, size_t start = 0);
 };
 
 }   // namespace ast
