@@ -7,3 +7,13 @@ minijava/generated/*.cc linguist-vendored
 # MiniJava source files for testing
 minijava/testing_files/**/*.java linguist-vendored
 minijava/test/**/*.java linguist-vendored
+
+# Ignore external libs code
+minijava/libs/**/*.c linguist-vendored
+minijava/libs/**/*.h linguist-vendored
+minijava/libs/**/*.cpp linguist-vendored
+minijava/libs/**/*.cc linguist-vendored
+minijava/libs/**/*.java linguist-vendored
+minijava/libs/**/*.py linguist-vendored
+minijava/libs/**/*.js linguist-vendored
+minijava/libs/**/*.hpp linguist-vendored

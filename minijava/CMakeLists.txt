@@ -66,6 +66,7 @@ set(CXX_FLAGS
 set(INCL_DIR
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/generated
+    ${CMAKE_SOURCE_DIR}/libs
 )
 
 MESSAGE(STATUS "Include dirs: ${INCL_DIR}")
