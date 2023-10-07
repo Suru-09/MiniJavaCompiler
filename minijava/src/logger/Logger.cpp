@@ -11,9 +11,15 @@ void logger::log(log_level const level,
 {
     std::lock_guard<std::mutex> lock(logMutex);
     
-    if (level < currentLogLevel)
+    // if the current log level is lower than the level of the message, do not log
+    // but take into consideration that Error si E and ASCII value of E is 69
+    // but Info is I and ASCII value of I is 73 and W is 87
+    if(currentLogLevel > level)
     {
-        return;
+        if(level == log_level::Info || level == log_level::Warning)
+        {
+            return;
+        }
     }
 
     std::cout

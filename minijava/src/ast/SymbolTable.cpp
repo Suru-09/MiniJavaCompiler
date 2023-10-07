@@ -89,7 +89,7 @@ typesTable(typesTable),
 currentClassId(0)
 {
     // Object class is always present
-    classes.push_back({"Object", -1});
+    classes.push_back({"Object", -1, -1});
 }
 
 ClassTable::~ClassTable() {}
@@ -99,7 +99,7 @@ void ClassTable::addClass(const std::string& className) {
     if (isClassDefined(className)) {
         throw std::runtime_error("Class " + className + " is already defined");
     }
-    classes.push_back(ClassInfo{className, currentClassId, MemberTable(typesTable)});
+    classes.push_back(ClassInfo{className, currentClassId, -1, MemberTable(typesTable)});
     currentClassId++;
 }
 
@@ -150,6 +150,7 @@ void ClassTable::addLocalVar(const std::pair<std::string, std::string>& var, con
     if (!isClassDefined(className)) {
         throw std::runtime_error("Class " + className + " is not defined");
     }
+
     for (auto& classInfo : classes) {
         if (classInfo.className == className) {
             if (!classInfo.memberTable.has_value()) {
@@ -162,9 +163,9 @@ void ClassTable::addLocalVar(const std::pair<std::string, std::string>& var, con
 
 void ClassTable::printClassTable() const {
     tabulate::Table classTabulate;
-    classTabulate.add_row({"Class", "Class ID"});
+    classTabulate.add_row({"Class", "Class ID", "Parent Class ID"});
     for (const auto& classInfo : classes) {
-        classTabulate.add_row({classInfo.className, std::to_string(classInfo.classId)});
+        classTabulate.add_row({classInfo.className, std::to_string(classInfo.classId), std::to_string(classInfo.parrrentClassId)});
     }
     std::cout << classTabulate << std::endl;
 
@@ -310,8 +311,8 @@ LocalVarTable::~LocalVarTable() {}
 
 void LocalVarTable::addLocalVar(const std::pair<std::string, std::string>& var) {
     // if var is already defined, throw an error
-    if (isLocalVarDefined(var.first)) {
-        throw std::runtime_error("Var " + var.first + " is already defined");
+    if (isLocalVarDefined(var.second)) {
+        throw std::runtime_error("Var " + var.second + " is already defined");
     }
     localVars.push_back(LocalVarInfo{var.first, var.second, varId, scopeLevel});
     varId++;

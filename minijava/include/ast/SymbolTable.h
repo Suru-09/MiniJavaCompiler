@@ -118,6 +118,7 @@ public:
     struct ClassInfo {
         std::string className;
         int64_t classId;
+        int64_t parrrentClassId = -1;
         std::optional<MemberTable> memberTable;
     };
 
