@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED 17)
 
 add_library(${PROJECT_NAME}-ast
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizPrinterVisitor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SymbolTable.cpp
 )
 
 target_include_directories(${PROJECT_NAME}-ast
