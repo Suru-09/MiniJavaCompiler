@@ -14,7 +14,7 @@ class TestExpressions {
     DummyClass dummy;
     DummyClass[] dummyArray;
 
-    public int testAssign() {
+    public int testAssign(int da, int ba) {
         int a;
         int b;
         boolean c;
@@ -27,7 +27,7 @@ class TestExpressions {
         return 1;
     }
 
-    public int testArray() {
+    public int testArray(boolean aba, int[] bba) {
         int[] a;
         int b;
         a = new int[1];
@@ -36,7 +36,7 @@ class TestExpressions {
         return 1;
     }
 
-    public int testAccess() {
+    public int testAccess(int[] arr, DummyClass dummy) {
         int a;
         dummy = new DummyClass();
         a = dummy.method();

@@ -197,7 +197,8 @@ void ClassDecl()                :
   ASTClassDecl *jjtn000 = new ASTClassDecl(JJTCLASSDECL);
   bool jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-/*@egen*/}
+/*@egen*/
+}
 {/*@bgen(jjtree) #ClassDecl(> 1) */
   try {
 /*@egen*/

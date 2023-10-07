@@ -60,7 +60,7 @@ void ExpList();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3R_Identifier_465_3_19()
+ inline bool jj_3R_Identifier_466_3_19()
  {
     if (jj_done) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -70,18 +70,18 @@ void ExpList();
  inline bool jj_3_1()
  {
     if (jj_done) return true;
-    if (jj_3R_AllocateMemory_426_3_16()) return true;
+    if (jj_3R_AllocateMemory_427_3_16()) return true;
     return false;
   }
 
- inline bool jj_3R_AllocateMemory_428_5_17()
+ inline bool jj_3R_AllocateMemory_429_5_17()
  {
     if (jj_done) return true;
-    if (jj_3R_Identifier_465_3_19()) return true;
+    if (jj_3R_Identifier_466_3_19()) return true;
     return false;
   }
 
- inline bool jj_3R_SimpleType_208_3_20()
+ inline bool jj_3R_SimpleType_209_3_20()
  {
     if (jj_done) return true;
     Token * xsp;
@@ -93,22 +93,22 @@ void ExpList();
     return false;
   }
 
- inline bool jj_3R_AllocateMemory_435_5_18()
+ inline bool jj_3R_AllocateMemory_436_5_18()
  {
     if (jj_done) return true;
-    if (jj_3R_SimpleType_208_3_20()) return true;
+    if (jj_3R_SimpleType_209_3_20()) return true;
     return false;
   }
 
- inline bool jj_3R_AllocateMemory_426_3_16()
+ inline bool jj_3R_AllocateMemory_427_3_16()
  {
     if (jj_done) return true;
     if (jj_scan_token(NEW)) return true;
     Token * xsp;
     xsp = jj_scanpos;
-    if (jj_3R_AllocateMemory_428_5_17()) {
+    if (jj_3R_AllocateMemory_429_5_17()) {
     jj_scanpos = xsp;
-    if (jj_3R_AllocateMemory_435_5_18()) return true;
+    if (jj_3R_AllocateMemory_436_5_18()) return true;
     }
     return false;
   }

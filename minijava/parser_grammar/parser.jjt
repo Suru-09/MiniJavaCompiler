@@ -148,7 +148,8 @@ void MainClass() :
 }
 
 void ClassDecl() #ClassDecl(>1) :
-{}
+{
+}
 {
   <CLASS> Identifier() ( <EXTENDS> Identifier() )? <LBRACE>
   ( VarDecl() )*

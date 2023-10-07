@@ -10,6 +10,8 @@
 #include "ParseException.h"
 
 #include "ast/GraphvizPrinterVisitor.h"
+#include "ast/SymbolTable.h"
+#include "ast/BindingVisitor.h"
 
 std::string utils::readStringFromFile(const std::filesystem::path& path)
 {
@@ -96,12 +98,23 @@ int utils::parseAndReportErrorsFromFile(const std::filesystem::path& file,const 
         }
 
         utils::generateGraphImage(graphName, n);
-        
+
+        ast::TypesTable typesTable;
+        ast::SymbolTable symbolTable{typesTable};
+        ast::BindingVisitor bindingVisitor(symbolTable, typesTable);
+        n->jjtAccept(&bindingVisitor, nullptr);
+
+        bindingVisitor.printSymbolTable();
+
         logger::log(logger::log_level::Info, "Parsing finished successfully");
         return errorHandler->getErrorCount();
 
     } catch (ParseException& e) {
         logger::log(logger::log_level::Error, "Parse exception");
+        return -1;
+    }
+    catch(std::exception& ex) {
+        logger::log(logger::log_level::Error, "Exception: " + std::string(ex.what()));
         return -1;
     }
     catch(...) {

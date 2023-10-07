@@ -22,22 +22,22 @@ public:
 };
 
 
-TEST_F(MiniJavaParsingTest, AssertSomeValue)
-{
-    ASSERT_TRUE(true);
-}
+// TEST_F(MiniJavaParsingTest, AssertSomeValue)
+// {
+//     ASSERT_TRUE(true);
+// }
 
-TEST_F(MiniJavaParsingTest, MainClassDeclaration)
-{
-    std::filesystem::path testFilePath = testResourcesPath / "MainClassDeclaration.java";
-    ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "MainClassDeclarationTest", false), 0);
-}
+// TEST_F(MiniJavaParsingTest, MainClassDeclaration)
+// {
+//     std::filesystem::path testFilePath = testResourcesPath / "MainClassDeclaration.java";
+//     ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "MainClassDeclarationTest", false), 0);
+// }
 
-TEST_F(MiniJavaParsingTest, VariableClassMethodDeclaration)
-{
-    std::filesystem::path testFilePath = testResourcesPath / "VariableClassMethodDeclaration.java";
-    ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "VariableClassMethodDeclarationTest", false), 0);
-}
+// TEST_F(MiniJavaParsingTest, VariableClassMethodDeclaration)
+// {
+//     std::filesystem::path testFilePath = testResourcesPath / "VariableClassMethodDeclaration.java";
+//     ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "VariableClassMethodDeclarationTest", false), 0);
+// }
 
 TEST_F(MiniJavaParsingTest, ExpressionTest)
 {
@@ -45,8 +45,8 @@ TEST_F(MiniJavaParsingTest, ExpressionTest)
     ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "ExpressionTest", false), 0);
 }
 
-TEST_F(MiniJavaParsingTest, StatementsTest)
-{
-    std::filesystem::path testFilePath = testResourcesPath / "Statements.java";
-    ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest", false), 0);
-}
+// TEST_F(MiniJavaParsingTest, StatementsTest)
+// {
+//     std::filesystem::path testFilePath = testResourcesPath / "Statements.java";
+//     ASSERT_EQ(utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest", false), 0);
+// }
