@@ -142,7 +142,15 @@ void* BindingVisitor::visit(const ASTSimpleTypeNode *node, void* data) {
 }
 
 void* BindingVisitor::visit(const ASTBlockStatementNode *node, void* data) {
-    return visitChildrenNodes(node, data);
+    std::string currentClassCopy = currentClassName;
+    std::string currentMemberCopy = currentMemberName;
+    symbolTable.beginScope(currentClassCopy, currentMemberCopy);
+    for(int i = 0; i < node->jjtGetNumChildren(); i++)
+    {
+        node->jjtGetChild(i)->jjtAccept(this, data);
+    }
+    symbolTable.endScope(currentClassCopy, currentMemberCopy);
+    return data;
 }
 
 void* BindingVisitor::visit(const ASTReturnStatementNode *node, void* data) {
@@ -150,11 +158,27 @@ void* BindingVisitor::visit(const ASTReturnStatementNode *node, void* data) {
 }
 
 void* BindingVisitor::visit(const ASTIfStatementNode *node, void* data) {
-    return visitChildrenNodes(node, data);
+    std::string currentClassCopy = currentClassName;
+    std::string currentMemberCopy = currentMemberName;
+    symbolTable.beginScope(currentClassCopy, currentMemberCopy);
+    for(int i = 0; i < node->jjtGetNumChildren(); i++)
+    {
+        node->jjtGetChild(i)->jjtAccept(this, data);
+    }
+    symbolTable.endScope(currentClassCopy, currentMemberCopy);
+    return data;
 }
 
 void* BindingVisitor::visit(const ASTWhileStatement *node, void* data) {
-    return visitChildrenNodes(node, data);
+    std::string currentClassCopy = currentClassName;
+    std::string currentMemberCopy = currentMemberName;
+    symbolTable.beginScope(currentClassCopy, currentMemberCopy);
+    for(int i = 0; i < node->jjtGetNumChildren(); i++)
+    {
+        node->jjtGetChild(i)->jjtAccept(this, data);
+    }
+    symbolTable.endScope(currentClassCopy, currentMemberCopy);
+    return data;
 }
 
 void* BindingVisitor::visit(const ASTPrintStatement *node, void* data) {

@@ -33,7 +33,7 @@ void GraphvizPrinterVisitor::addEdge(uint64_t from, uint64_t to) {
 }
 
 void GraphvizPrinterVisitor::visitChildrenAndAddEdges(const SimpleNode* node, uint64_t parent) {
-    for(size_t cIdx = 0; cIdx < node->jjtGetNumChildren(); ++cIdx)
+    for(int cIdx = 0; cIdx < node->jjtGetNumChildren(); ++cIdx)
     {
         void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
         addEdge(parent, reinterpret_cast<uint64_t>(returnedNodeCount));
@@ -73,16 +73,20 @@ void GraphvizPrinterVisitor::writeToFile() {
 void GraphvizPrinterVisitor::generateImage() {
     std::filesystem::path path = getPathToGenerated();
     std::string command = "dot -Tpng " + path.string() + " -o " + path.parent_path().string() + "/" + graphName + ".png";
-    system(command.c_str());
+    auto retVal = system(command.c_str());
+    if (retVal != 0) {
+        logger::log(logger::log_level::Error, "Could not generate image for " + graphName + " with command " + command);
+    }
 }
 
 
 // implement all the visit functions here
 void* GraphvizPrinterVisitor::visit(const SimpleNode *node, void* data) {
-    for(size_t cIdx = 0; cIdx < node->jjtGetNumChildren(); ++cIdx)
+    for(int cIdx = 0; cIdx < node->jjtGetNumChildren(); ++cIdx)
     {
         node->jjtGetChild(cIdx)->jjtAccept(this, data);
     }
+    return data;
 }
 
 void* GraphvizPrinterVisitor::visit(const ASTRoot *node, void* data) {
@@ -125,7 +129,7 @@ void* GraphvizPrinterVisitor::visit(const ASTArgsList *node, void* data) {
     // arguments come in pairs of 2
     assert(node->jjtGetNumChildren() % 2 == 0);
 
-    for(size_t cIdx = 0; cIdx < node->jjtGetNumChildren(); cIdx += 2)
+    for(int cIdx = 0; cIdx < node->jjtGetNumChildren(); cIdx += 2)
     {
         uint64_t typeNodeId = reinterpret_cast<uint64_t>(node->jjtGetChild(cIdx)->jjtAccept(this, data));
         uint64_t identifierId = reinterpret_cast<uint64_t>(node->jjtGetChild(cIdx + 1)->jjtAccept(this, data));

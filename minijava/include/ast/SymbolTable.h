@@ -60,7 +60,7 @@ public:
     void addLocalVar(const std::pair<std::string, std::string>& var);
     bool isLocalVarDefined(const std::string& var, const int64_t& scopeLevel=0) const;
     void beginScope();
-    void endscope();
+    void endScope();
 
     void printLocalVarTable() const;
 
@@ -92,7 +92,10 @@ public:
     void addMember(const std::pair<std::string, std::string>& member, const MemberType& memberType, const std::string& returnType="");
     void addParam(const std::pair<std::string, std::string>& param, const std::string& memberName);
     void addLocalVar(const std::pair<std::string, std::string>& var, const std::string& memberName);
+    
     bool isMemberDefined(const std::string& member) const;
+    void beginScope(const std::string& memberName);
+    void endScope(const std::string& memberName);
 
     void printMemberTable() const;
 private:
@@ -113,6 +116,9 @@ public:
 
     bool isClassDefined(const std::string& className) const;
     int64_t getCurrentClassId() const;
+
+    void beginScope(const std::string& className, const std::string& memberName);
+    void endScope(const std::string& className, const std::string& memberName);
 
     void printClassTable() const;
     struct ClassInfo {
@@ -141,6 +147,9 @@ public:
 
     void printSymbolTable() const;
     int64_t getCurrentClassId() const;
+
+    void beginScope(const std::string& className, const std::string& memberName);
+    void endScope(const std::string& className, const std::string& memberName);
 
     TypesTable& typesTable;
 private:

@@ -98,6 +98,18 @@ class SimpleNewClass {
         {
             System.out.println(i);
             i = i + 1;
+            {
+                System.out.println(i);
+                {
+                    int j;
+                    j = 0;
+                    while (j < 5) 
+                    {
+                        System.out.println(j);
+                        j = j + 1;
+                    }
+                }
+            }
         }
 
         return 0x679;

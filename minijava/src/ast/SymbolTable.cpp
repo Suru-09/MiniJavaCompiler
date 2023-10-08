@@ -79,6 +79,20 @@ int64_t SymbolTable::getCurrentClassId() const {
     return classTable.value().getCurrentClassId();
 }
 
+void SymbolTable::beginScope(const std::string& className, const std::string& memberName) {
+    if (!classTable.has_value()) {
+        return;
+    }
+    classTable.value().beginScope(className, memberName);
+}
+
+void SymbolTable::endScope(const std::string& className, const std::string& memberName) {
+    if (!classTable.has_value()) {
+        return;
+    }
+    classTable.value().endScope(className, memberName);
+}
+
 /**
  * @brief ClassTable class
  */
@@ -179,6 +193,24 @@ void ClassTable::printClassTable() const {
 
 int64_t ClassTable::getCurrentClassId() const {
     return currentClassId;
+}
+
+void ClassTable::beginScope(const std::string& className, const std::string& memberName) {
+    if (!classes.empty()) {
+        if (!classes.back().memberTable.has_value()) {
+            throw std::runtime_error("Member table is not defined");
+        }
+        classes.back().memberTable.value().beginScope(memberName);
+    }
+}
+
+void ClassTable::endScope(const std::string& className, const std::string& memberName) {
+    if (!classes.empty()) {
+        if (!classes.back().memberTable.has_value()) {
+            throw std::runtime_error("Member table is not defined");
+        }
+        classes.back().memberTable.value().endScope(memberName);
+    }
 }
 
 /**
@@ -294,6 +326,24 @@ void MemberTable::printMemberTable() const {
     }
 }
 
+void MemberTable::beginScope(const std::string& memberName) {
+    if (!members.empty()) {
+        if (!members.back().localVarTable.has_value()) {
+            return;
+        }
+        members.back().localVarTable.value().beginScope();
+    }
+}
+
+void MemberTable::endScope(const std::string& memberName) {
+    if (!members.empty()) {
+        if (!members.back().localVarTable.has_value()) {
+            return;
+        }
+        members.back().localVarTable.value().endScope();
+    }
+}
+
 /**
  * @brief LocalVarTable class
  */
@@ -331,7 +381,7 @@ void LocalVarTable::beginScope() {
     scopeLevel++;
 }
 
-void LocalVarTable::endscope() {
+void LocalVarTable::endScope() {
     scopeLevel--;
 }
 
