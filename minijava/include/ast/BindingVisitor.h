@@ -49,7 +49,7 @@ private:
     // rely on its value otherwise
     std::string returnValue;
 
-    void* visitChildrenNodes(const Node*node, void* data, size_t start = 0);
+    void* visitChildrenNodes(const Node*node, void* data, int start = 0);
 };
 
 }   // namespace ast

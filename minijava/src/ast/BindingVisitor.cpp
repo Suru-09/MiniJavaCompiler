@@ -14,7 +14,7 @@ void BindingVisitor::printSymbolTable() const {
     symbolTable.printSymbolTable();
 }
 
-void* BindingVisitor::visitChildrenNodes(const Node*node, void* data, size_t start)
+void* BindingVisitor::visitChildrenNodes(const Node*node, void* data, int start)
 {
     for (int i = start; i < node->jjtGetNumChildren(); i++)
     {
@@ -115,9 +115,9 @@ void* BindingVisitor::visit(const ASTArgsList *node, void* data) {
         node->jjtGetChild(i + 1)->jjtAccept(this, data);
         std::string identifier = returnValue;
 
-        logger::log(logger::log_level::Info, "Adding param " + identifier + " of type " + type + " to method " + currentMemberName + " of class " + currentClassName);
+        logger::log(logger::log_level::Info, std::string("Adding param").append(type).append(" ").append(identifier).append(" to method ").append(currentMemberName).append(" of class ").append(currentClassName));
         symbolTable.addParam(std::make_pair(type, identifier), currentClassName, currentMemberName);
-        argsList += type + " " + identifier;
+        argsList += type.append("").append(identifier);
         if(i != node->jjtGetNumChildren() - 2)
         {
             argsList += ", ";

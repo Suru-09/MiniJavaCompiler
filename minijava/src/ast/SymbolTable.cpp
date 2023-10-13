@@ -10,9 +10,9 @@ namespace ast {
  */
 
 SymbolTable::SymbolTable(TypesTable& typesTable) 
-: 
-classTable(ClassTable(typesTable)),
-typesTable(typesTable)
+:
+typesTable(typesTable),
+classTable(ClassTable(typesTable))
 {
 
 }
@@ -213,7 +213,7 @@ void ClassTable::printClassTable() const {
 
     for (const auto& classInfo : classes) {
         if (classInfo.memberTable.has_value()) {
-            logger::log(logger::log_level::Info, "Printing member table for class " + classInfo.className);
+            logger::log(logger::log_level::Mandatory, "Printing member table for class " + classInfo.className);
             classInfo.memberTable.value().printMemberTable();
         }
     }
@@ -391,12 +391,12 @@ void MemberTable::printMemberTable() const {
 
     for (const auto& member : members) {
         if (member.localVarTable.has_value() && member.memberType == MemberType::METHOD) {
-            logger::log(logger::log_level::Info, "Printing local var table for member " + member.memberName);
+            logger::log(logger::log_level::Mandatory, "Printing local var table for member " + member.memberName);
             member.localVarTable.value().printLocalVarTable();
         }
 
         if (member.formalParamTable.has_value() && member.memberType == MemberType::METHOD) {
-            logger::log(logger::log_level::Info, "Printing formal param table for member " + member.memberName);
+            logger::log(logger::log_level::Mandatory, "Printing formal param table for member " + member.memberName);
             member.formalParamTable.value().printFormalParamTable();
         }
     }
@@ -466,7 +466,7 @@ scopeLevel(0)
 
 }
 
-LocalVarTable::~LocalVarTable() {}
+LocalVarTable::~LocalVarTable() = default;
 
 void LocalVarTable::addLocalVar(const std::pair<std::string, std::string>& var) {
     // if var is already defined, throw an error
@@ -607,7 +607,7 @@ void TypesTable::addType(const std::pair<std::string, int64_t>& type) {
 }
 
 void TypesTable::printTypesTable() const {
-    logger::log(logger::log_level::Info, "Printing types table: ");
+    logger::log(logger::log_level::Mandatory, "Printing types table: ");
     tabulate::Table typesTabulate;
     typesTabulate.add_row({"Type", "Type ID"});
     for (const auto& type : typesTable) {

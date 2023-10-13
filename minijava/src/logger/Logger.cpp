@@ -2,6 +2,25 @@
 
 static logger::log_level currentLogLevel = logger::log_level::Info;
 
+std::string logger::to_string(logger::log_level level) noexcept
+{
+    switch (level)
+    {
+    case logger::log_level::Debug:
+        return "Debug";
+    case logger::log_level::Info:
+        return "Info";
+    case logger::log_level::Warning:
+        return "Warning";
+    case logger::log_level::Error:
+        return "Error";
+    case logger::log_level::Mandatory:
+        return "M";
+    default:
+        return "Unknown";
+    }
+}
+
 void logger::log(log_level const level, 
          std::string_view const message,
          std::string_view const file_name/*= std::filesystem::path(__builtin_FILE()).filename().c_str()*/,
@@ -10,20 +29,14 @@ void logger::log(log_level const level,
         )
 {
     std::lock_guard<std::mutex> lock(logMutex);
-    
-    // if the current log level is lower than the level of the message, do not log
-    // but take into consideration that Error si E and ASCII value of E is 69
-    // but Info is I and ASCII value of I is 73 and W is 87
+
     if(currentLogLevel > level)
     {
-        if(level == log_level::Info || level == log_level::Warning)
-        {
-            return;
-        }
+        return;
     }
 
     std::cout
-        << '<' << static_cast<char>(level) << '>' << ' '
+        << '<' << logger::to_string(level) << '>' << ' '
         << file_name << "::" << function_name << "::" << line_number << '\t'
         << "Message: <" << message << ">" << '\n';
 }
