@@ -39,6 +39,7 @@ public:
         int64_t paramId;
     };
 
+    std::optional<FormalParamInfo> retrieveParam(const std::string& paramName) const;
 private:
     TypesTable& typesTable;
     std::vector<FormalParamInfo> params;
@@ -64,6 +65,7 @@ public:
 
     void printLocalVarTable() const;
 
+    std::optional<LocalVarInfo> retrieveLocalVar(const std::string& varName) const;
 private:
     TypesTable& typesTable;
     std::vector<LocalVarInfo> localVars;
@@ -98,6 +100,10 @@ public:
     void endScope(const std::string& memberName);
 
     void printMemberTable() const;
+
+    std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& memberName) const;
+    std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& memberName) const;
+    std::optional<MemberInfo> retrieveMember(const std::string& memberName) const;
 private:
     std::vector<MemberInfo> members;
     TypesTable& typesTable;
@@ -128,6 +134,10 @@ public:
         std::optional<MemberTable> memberTable;
     };
 
+    std::optional<MemberTable::MemberInfo> retrieveMember(const std::string& memberName, const std::string& className) const;
+    std::optional<ClassTable::ClassInfo> retrieveClass(const std::string& className) const;
+    std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
+    std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
 private:
     TypesTable& typesTable;
     std::vector<ClassInfo> classes;
@@ -144,6 +154,11 @@ public:
     void addMember(const std::pair<std::string, std::string>& member, const MemberTable::MemberType& memberType, const std::string& returnType, const std::string& className);
     void addParam(const std::pair<std::string, std::string>& param, const std::string& className, const std::string& memberName);
     void addLocalVar(const std::pair<std::string, std::string>& var, const std::string& className, const std::string& memberName);
+
+    std::optional<MemberTable::MemberInfo> retrieveMember(const std::string& memberName, const std::string& className) const;
+    std::optional<ClassTable::ClassInfo> retrieveClass(const std::string& className) const;
+    std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
+    std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
 
     void printSymbolTable() const;
     int64_t getCurrentClassId() const;

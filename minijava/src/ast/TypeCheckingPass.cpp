@@ -2,6 +2,14 @@
 
 
 namespace ast {
+    
+
+TypeCheckingPass::TypeCheckingPass(const SymbolTable& symbolTable, const TypesTable& typesTable) 
+: 
+symbolTable(symbolTable), 
+typesTable(typesTable) 
+{
+}
 
 void* TypeCheckingPass::visit(const SimpleNode *node, void* data) {
     return data;

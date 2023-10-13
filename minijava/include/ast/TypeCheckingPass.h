@@ -2,12 +2,13 @@
 #define _TYPE_CHECKING_PASS_H_
 
 #include "MiniJavaParserVisitor.h"
+#include "ast/SymbolTable.h"
 
 namespace ast {
 
 class TypeCheckingPass : public MiniJavaParserVisitor {
 public:
-    TypeCheckingPass() = default;
+    explicit TypeCheckingPass(const SymbolTable& symbolTable, const TypesTable& typesTable);
 
     void* visit(const SimpleNode *node, void* data);
     void* visit(const ASTRoot *node, void* data);
@@ -38,6 +39,8 @@ public:
     void* visit(const ASTTypeNode *node, void* data);
 
 private:
+    const SymbolTable& symbolTable;
+    const TypesTable& typesTable;
 };
 
 }   // namespace ast

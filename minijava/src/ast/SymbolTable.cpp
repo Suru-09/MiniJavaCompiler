@@ -93,6 +93,34 @@ void SymbolTable::endScope(const std::string& className, const std::string& memb
     classTable.value().endScope(className, memberName);
 }
 
+std::optional<MemberTable::MemberInfo> SymbolTable::retrieveMember(const std::string& memberName, const std::string& className) const {
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveMember(memberName, className);
+}
+
+std::optional<ClassTable::ClassInfo> SymbolTable::retrieveClass(const std::string& className) const {
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveClass(className);
+}
+
+std::optional<LocalVarTable::LocalVarInfo> SymbolTable::retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const {
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveLocalVar(varName, className, memberName);
+}
+
+std::optional<FormalParamTable::FormalParamInfo> SymbolTable::retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const {
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveParam(paramName, className, memberName);
+}
+
 /**
  * @brief ClassTable class
  */
@@ -211,6 +239,54 @@ void ClassTable::endScope(const std::string& className, const std::string& membe
         }
         classes.back().memberTable.value().endScope(memberName);
     }
+}
+
+std::optional<MemberTable::MemberInfo> ClassTable::retrieveMember(const std::string& memberName, const std::string& className) const {
+    auto classInfo = retrieveClass(className);
+    if (!classInfo.has_value()) {
+        return std::nullopt;
+    }
+
+    if (!classInfo.value().memberTable.has_value()) {
+        return std::nullopt;
+    }
+
+    return classInfo.value().memberTable.value().retrieveMember(memberName);
+}
+
+std::optional<ClassTable::ClassInfo> ClassTable::retrieveClass(const std::string& className) const {
+    for (const auto& classInfo : classes) {
+        if (classInfo.className == className) {
+            return classInfo;
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<LocalVarTable::LocalVarInfo> ClassTable::retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const {
+    auto memberInfo = retrieveMember(memberName, className);
+    if (!memberInfo.has_value()) {
+        return std::nullopt;
+    }
+
+    if (!memberInfo.value().localVarTable.has_value()) {
+        return std::nullopt;
+    }
+
+    return memberInfo.value().localVarTable.value().retrieveLocalVar(varName);
+}
+
+std::optional<FormalParamTable::FormalParamInfo> ClassTable::retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const {
+    auto memberInfo = retrieveMember(memberName, className);
+    if (!memberInfo.has_value()) {
+        return std::nullopt;
+    }
+
+    if (!memberInfo.value().formalParamTable.has_value()) {
+        return std::nullopt;
+    }
+
+    return memberInfo.value().formalParamTable.value().retrieveParam(paramName);
 }
 
 /**
@@ -344,6 +420,39 @@ void MemberTable::endScope(const std::string& memberName) {
     }
 }
 
+std::optional<LocalVarTable::LocalVarInfo> MemberTable::retrieveLocalVar(const std::string& varName, const std::string& memberName) const {
+    for (const auto& member : members) {
+        if (member.memberName == memberName) {
+            if (!member.localVarTable.has_value()) {
+                return std::nullopt;
+            }
+            return member.localVarTable.value().retrieveLocalVar(varName);
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<FormalParamTable::FormalParamInfo> MemberTable::retrieveParam(const std::string& paramName, const std::string& memberName) const {
+    for (const auto& member : members) {
+        if (member.memberName == memberName) {
+            if (!member.formalParamTable.has_value()) {
+                return std::nullopt;
+            }
+            return member.formalParamTable.value().retrieveParam(paramName);
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<MemberTable::MemberInfo> MemberTable::retrieveMember(const std::string& memberName) const {
+    for (const auto& member : members) {
+        if (member.memberName == memberName) {
+            return member;
+        }
+    }
+    return std::nullopt;
+}
+
 /**
  * @brief LocalVarTable class
  */
@@ -395,8 +504,17 @@ void LocalVarTable::printLocalVarTable() const {
     {
         std::cout << localVarTabulate << std::endl;
     }
-    
 }
+
+std::optional<LocalVarTable::LocalVarInfo> LocalVarTable::retrieveLocalVar(const std::string& varName) const {
+    for (const auto& localVar : localVars) {
+        if (localVar.varName == varName) {
+            return localVar;
+        }
+    }
+    return std::nullopt;
+}
+
 
 /**
  * @brief FormalParamTable class
@@ -440,6 +558,15 @@ void FormalParamTable::printFormalParamTable() const {
     {
         std::cout << formalParamTabulate << std::endl;
     }
+}
+
+std::optional<FormalParamTable::FormalParamInfo> FormalParamTable::retrieveParam(const std::string& paramName) const {
+    for (const auto& param : params) {
+        if (param.paramName == paramName) {
+            return param;
+        }
+    }
+    return std::nullopt;
 }
 
 /**
