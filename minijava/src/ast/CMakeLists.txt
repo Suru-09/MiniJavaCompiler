@@ -7,6 +7,7 @@ add_library(${PROJECT_NAME}-ast
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizPrinterVisitor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SymbolTable.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BindingVisitor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TypeCheckingPass.cpp
 )
 
 target_include_directories(${PROJECT_NAME}-ast
