@@ -286,4 +286,11 @@ void* GraphvizPrinterVisitor::visit(const ASTInheritance *node, void* data)
     return reinterpret_cast<void*>(identifierId);
 }
 
+void* GraphvizPrinterVisitor::visit(const ASTAccessIdentifier *node, void* data)
+{
+    uint64_t identifierId = addNode(node->toString());
+    visitChildrenAndAddEdges(node, identifierId);
+    return reinterpret_cast<void*>(identifierId);
+}
+
 }

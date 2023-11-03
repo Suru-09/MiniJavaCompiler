@@ -401,7 +401,7 @@ void PrimaryExp() :
 
 void BeforePrimay() : {}
 {
-  Identifier()
+  ( Identifier() )#AccessIdentifier
 |
   Literal()
 |

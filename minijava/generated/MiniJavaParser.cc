@@ -1505,9 +1505,24 @@ void MiniJavaParser::BeforePrimay() {
 
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case IDENTIFIER:{
-      Identifier();
-          { if (hasError) { return __ERROR_RET__; } }
-      
+ASTAccessIdentifier *jjtn001 = new ASTAccessIdentifier(JJTACCESSIDENTIFIER);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+      try {
+        Identifier();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, true);
+    }
       break;
       }
     case INTEGER_LITERAL:

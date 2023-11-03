@@ -107,6 +107,13 @@ std::optional<ClassTable::ClassInfo> SymbolTable::retrieveClass(const std::strin
     return classTable.value().retrieveClass(className);
 }
 
+std::optional<ClassTable::ClassInfo> SymbolTable::retrieveClass(const int64_t& classId) const {
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveClass(classId);
+}
+
 std::optional<LocalVarTable::LocalVarInfo> SymbolTable::retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const {
     if (!classTable.has_value()) {
         return std::nullopt;
@@ -127,6 +134,8 @@ void SymbolTable::updateClass(const ClassTable::ClassInfo& classInfo) {
     }
     classTable.value().updateClass(classInfo);
 }
+
+
 
 /**
  * @brief ClassTable class
@@ -264,6 +273,15 @@ std::optional<MemberTable::MemberInfo> ClassTable::retrieveMember(const std::str
 std::optional<ClassTable::ClassInfo> ClassTable::retrieveClass(const std::string& className) const {
     for (const auto& classInfo : classes) {
         if (classInfo.className == className) {
+            return classInfo;
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<ClassTable::ClassInfo>  ClassTable::retrieveClass(const int64_t& classId) const {
+    for (const auto& classInfo : classes) {
+        if (classInfo.classId == classId) {
             return classInfo;
         }
     }

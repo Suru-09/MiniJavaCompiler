@@ -18,6 +18,7 @@
 #include "ASTEqualNotEqualNode.h"
 #include "ASTBlockStatementNode.h"
 #include "ASTAdditiveNode.h"
+#include "ASTAccessIdentifier.h"
 #include "ASTUnaryNode.h"
 #include "ASTIdentifier.h"
 #include "ASTOptionalExprStmt.h"
@@ -31,4 +32,4 @@
 #include "ASTMainClass.h"
 #include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=f7f94ed0f62b12949bc07858d018cb42 (do not edit this line) */
+/* JavaCC - OriginalChecksum=8cae2a5ad03d906f59b5fedc613b21ea (do not edit this line) */

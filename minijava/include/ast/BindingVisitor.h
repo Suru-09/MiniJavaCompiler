@@ -38,6 +38,7 @@ public:
     void* visit(const ASTIdentifier *node, void* data);
     void* visit(const ASTTypeNode *node, void* data);
     void* visit(const ASTInheritance *node, void* data);
+    void* visit(const ASTAccessIdentifier *node, void* data);
 
     void printSymbolTable() const;   
 private:
@@ -51,6 +52,7 @@ private:
     std::string returnValue;
 
     void* visitChildrenNodes(const Node*node, void* data, int start = 0);
+    void checkWhetherIdentifierIsDefined(const std::string& identifier) const;
 };
 
 }   // namespace ast

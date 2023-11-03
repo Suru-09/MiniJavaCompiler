@@ -123,4 +123,8 @@ void* TypeCheckingPass::visit(const ASTInheritance *node, void* data) {
     return data;
 }
 
+void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
+    return data;
+}
+
 }  // namespace ast

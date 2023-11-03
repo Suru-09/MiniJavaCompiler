@@ -161,6 +161,7 @@ public:
 
     std::optional<MemberTable::MemberInfo> retrieveMember(const std::string& memberName, const std::string& className) const;
     std::optional<ClassTable::ClassInfo> retrieveClass(const std::string& className) const;
+    std::optional<ClassTable::ClassInfo> retrieveClass(const int64_t& classId) const;
     std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
     std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
 
@@ -187,6 +188,7 @@ public:
 
     std::optional<MemberTable::MemberInfo> retrieveMember(const std::string& memberName, const std::string& className) const;
     std::optional<ClassTable::ClassInfo> retrieveClass(const std::string& className) const;
+    std::optional<ClassTable::ClassInfo> retrieveClass(const int64_t& classId) const;
     std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
     std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
 

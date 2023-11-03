@@ -899,8 +899,28 @@ void PrimaryExp() :
 }
 
 void BeforePrimay() : {}
-{
-  Identifier()
+{/*@bgen(jjtree) AccessIdentifier */
+  {
+    ASTAccessIdentifier *jjtn001 = new ASTAccessIdentifier(JJTACCESSIDENTIFIER);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+  }
+  try {
+/*@egen*/
+  ( Identifier() )/*@bgen(jjtree)*/
+  } catch (...) {
+    if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
+    } else {
+      jjtree.popNode();
+    }
+  } {
+    if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, true);
+    }
+  }
+/*@egen*/                 
 |
   Literal()
 |

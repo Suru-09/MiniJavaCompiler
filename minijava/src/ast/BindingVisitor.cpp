@@ -23,6 +23,81 @@ void* BindingVisitor::visitChildrenNodes(const Node*node, void* data, int start)
     return data;    
 }
 
+void BindingVisitor::checkWhetherIdentifierIsDefined(const std::string& identifier) const 
+{
+    // watch in formal params
+    auto optParamInfo = symbolTable.retrieveParam(identifier, currentClassName, currentMemberName);
+    if (optParamInfo.has_value())
+    {
+        return;
+    }
+
+    // watch in local vars
+    auto optLocalVarInfo = symbolTable.retrieveLocalVar(identifier, currentClassName, currentMemberName);
+    if (optLocalVarInfo.has_value())
+    {
+        return;
+    }
+
+    // watch in members
+    auto optMemberInfo = symbolTable.retrieveMember(identifier, currentClassName);
+    if (optMemberInfo.has_value())
+    {
+        return;
+    }
+
+    // watch in parent class
+    auto optClassInfo = symbolTable.retrieveClass(currentClassName);
+    if (optClassInfo.has_value())
+    {
+        auto parentId = optClassInfo.value().parrrentClassId;
+        while(parentId != -1)
+        {
+            auto optParentClassInfo = symbolTable.retrieveClass(parentId);
+            if (optParentClassInfo.has_value())
+            {
+                auto optParentMemberInfo = symbolTable.retrieveMember(identifier, optParentClassInfo.value().className);
+                if (optParentMemberInfo.has_value())
+                {
+                    return;
+                }
+                parentId = optParentClassInfo.value().parrrentClassId;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    // if it is a number, it is ok
+    auto is_number = [](const std::string& s) -> bool {
+        return !s.empty() && std::find_if(s.begin(), 
+            s.end(), [](unsigned char c) { 
+                return !std::isdigit(c); 
+            }) == s.end();
+    };
+    if (is_number(identifier))
+    {
+        return;
+    }
+
+    // if it is a string literal, it is ok
+    if (identifier.size() > 0 && identifier[0] == '"')
+    {
+        return;
+    }
+
+    // if it is a boolean literal, it is ok
+    if (identifier == "true" || identifier == "false")
+    {
+        return;
+    }
+
+    logger::log(logger::log_level::Error, "Identifier " + identifier + " not defined");
+    throw std::runtime_error("Identifier " + identifier + " not defined");
+}
+
 
 void* BindingVisitor::visit(const SimpleNode *node, void* data) {
     return visitChildrenNodes(node, data);
@@ -190,7 +265,11 @@ void* BindingVisitor::visit(const ASTOptionalExprStmt *node, void* data) {
 }
 
 void* BindingVisitor::visit(const ASTAssignNode *node, void* data) {
-    return visitChildrenNodes(node, data);
+    assert(node->jjtGetNumChildren() == 2);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    std::string identifier = returnValue;
+    checkWhetherIdentifierIsDefined(identifier);
+    return visitChildrenNodes(node, data, 1);
 }
 
 void* BindingVisitor::visit(const ASTOrNode *node, void* data) {
@@ -222,7 +301,11 @@ void* BindingVisitor::visit(const ASTMultiplicativeNode *node, void* data) {
 }
 
 void* BindingVisitor::visit(const ASTUnaryNode *node, void* data) {
-    return visitChildrenNodes(node, data);
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto identifier = returnValue;
+    checkWhetherIdentifierIsDefined(identifier);
+    return visitChildrenNodes(node, data, 1);
 }
 
 void* BindingVisitor::visit(const ASTLiteralNode *node, void* data) {
@@ -269,12 +352,40 @@ void* BindingVisitor::visit(const ASTInheritance *node, void* data) {
             logger::log(logger::log_level::Error, "Class " + currentClassName + " already has a parent class");
             throw std::runtime_error("Class " + currentClassName + " already has a parent class");
         }
-        
+
         // find the parent class id
         auto optParentClassInfo = symbolTable.retrieveClass(parentClass);
         if (optParentClassInfo.has_value())
         {
             auto parentId = optParentClassInfo.value().classId;
+            auto parentIdCopy = parentId;
+
+            // check for circular inheritance
+            bool bHasParent = true;
+            while(bHasParent)
+            {
+                if (parentIdCopy == -1)
+                {
+                    bHasParent = false;
+                    break;
+                }
+
+                auto parentOfParent = symbolTable.retrieveClass(parentIdCopy);
+                if(parentOfParent.has_value())
+                {
+                    if(parentOfParent.value().className == currentClassName)
+                    {
+                        logger::log(logger::log_level::Error, "Circular inheritance detected");
+                        throw std::runtime_error("Circular inheritance detected");
+                    }
+                    parentIdCopy = parentOfParent.value().parrrentClassId;
+                }
+                else
+                {
+                    bHasParent = false;
+                }
+            }
+
             logger::log(logger::log_level::Info, "Adding inheritance " + parentClass + " to class " + currentClassName + " with id " + std::to_string(parentId));
             optClassInfo.value().parrrentClassId = parentId;
             symbolTable.updateClass(optClassInfo.value());
@@ -293,6 +404,14 @@ void* BindingVisitor::visit(const ASTInheritance *node, void* data) {
     return visitChildrenNodes(node, data);
 }
 
+void* BindingVisitor::visit(const ASTAccessIdentifier *node, void* data) {
+    std::string identifier = node->toString();
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto type = returnValue;
+    checkWhetherIdentifierIsDefined(type);
+    return data;
+}
 
 
 }   // namespace ast

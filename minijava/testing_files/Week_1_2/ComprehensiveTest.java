@@ -17,6 +17,15 @@ class DummyClass {
     }
 }
 
+class CyclicDependencyClass extends DummyClass {
+    CyclicDependencyClass cyclicDependencyField;
+
+    public CyclicDependencyClass CyclicDependencyClass(CyclicDependencyClass cyclicDependencyParam) {
+        cyclicDependencyField = cyclicDependencyParam;
+        return this;
+    }
+}
+
 
 class SimpleNewClass extends DummyClass {
     int intField;
@@ -32,6 +41,7 @@ class SimpleNewClass extends DummyClass {
     }
 
     public int[] returnIntArray() {
+        intArrayField[1] = 5;
         return intArrayField;
     }
 
@@ -42,6 +52,7 @@ class SimpleNewClass extends DummyClass {
     }
 
     public boolean[] returnBoolArray() {
+        dummyField = new DummyClass(5);
         return boolArrayField;
     }
 
@@ -136,3 +147,4 @@ class SimpleNewClass extends DummyClass {
         return a;
     }
 }
+

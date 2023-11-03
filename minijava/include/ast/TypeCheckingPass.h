@@ -38,6 +38,7 @@ public:
     void* visit(const ASTIdentifier *node, void* data);
     void* visit(const ASTTypeNode *node, void* data);
     void* visit(const ASTInheritance *node, void* data);
+    void* visit(const ASTAccessIdentifier *node, void* data);
 
 private:
     const SymbolTable& symbolTable;
