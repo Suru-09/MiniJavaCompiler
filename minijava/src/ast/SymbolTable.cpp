@@ -121,6 +121,13 @@ std::optional<FormalParamTable::FormalParamInfo> SymbolTable::retrieveParam(cons
     return classTable.value().retrieveParam(paramName, className, memberName);
 }
 
+void SymbolTable::updateClass(const ClassTable::ClassInfo& classInfo) {
+    if (!classTable.has_value()) {
+        throw std::runtime_error("Class table is not defined");
+    }
+    classTable.value().updateClass(classInfo);
+}
+
 /**
  * @brief ClassTable class
  */
@@ -289,6 +296,46 @@ std::optional<FormalParamTable::FormalParamInfo> ClassTable::retrieveParam(const
     return memberInfo.value().formalParamTable.value().retrieveParam(paramName);
 }
 
+void ClassTable::updateClass(const ClassTable::ClassInfo& classInfo) {
+    for (auto& classInfo_ : classes) {
+        if (classInfo_.className == classInfo.className) {
+            classInfo_ = classInfo;
+        }
+    }
+}
+
+// void ClassTable::updateMember(const MemberTable::MemberInfo& memberInfo, const std::string& className) {
+//     for (auto& classInfo : classes) {
+//         if (classInfo.className == className) {
+//             if (!classInfo.memberTable.has_value()) {
+//                 throw std::runtime_error("Member table is not defined");
+//             }
+//             classInfo.memberTable.value().updateMember(memberInfo);
+//         }
+//     }
+// }
+
+// void ClassTable::updateParam(const FormalParamTable::FormalParamInfo& paramInfo, const std::string& className, const std::string& memberName) {
+//     for (auto& classInfo : classes) {
+//         if (classInfo.className == className) {
+//             if (!classInfo.memberTable.has_value()) {
+//                 throw std::runtime_error("Member table is not defined");
+//             }
+//             classInfo.memberTable.value().updateParam(paramInfo, memberName);
+//         }
+//     }
+// }
+
+// void ClassTable::updateLocalVar(const LocalVarTable::LocalVarInfo& localVarInfo, const std::string& className, const std::string& memberName) {
+//     for (auto& classInfo : classes) {
+//         if (classInfo.className == className) {
+//             if (!classInfo.memberTable.has_value()) {
+//                 throw std::runtime_error("Member table is not defined");
+//             }
+//             classInfo.memberTable.value().updateLocalVar(localVarInfo, memberName);
+//         }
+//     }
+// }
 /**
  * @brief MemberTable class
  */
@@ -453,6 +500,28 @@ std::optional<MemberTable::MemberInfo> MemberTable::retrieveMember(const std::st
     return std::nullopt;
 }
 
+void MemberTable::updateParam(const FormalParamTable::FormalParamInfo& paramInfo, const std::string& memberName) {
+    for (auto& member : members) {
+        if (member.memberName == memberName) {
+            if (!member.formalParamTable.has_value()) {
+                throw std::runtime_error("Formal param table is not defined");
+            }
+            member.formalParamTable.value().updateParam(paramInfo);
+        }
+    }
+}
+
+void MemberTable::updateLocalVar(const LocalVarTable::LocalVarInfo& localVarInfo, const std::string& memberName) {
+    for (auto& member : members) {
+        if (member.memberName == memberName) {
+            if (!member.localVarTable.has_value()) {
+                throw std::runtime_error("Local var table is not defined");
+            }
+            member.localVarTable.value().updateLocalVar(localVarInfo);
+        }
+    }
+}
+
 /**
  * @brief LocalVarTable class
  */
@@ -515,6 +584,14 @@ std::optional<LocalVarTable::LocalVarInfo> LocalVarTable::retrieveLocalVar(const
     return std::nullopt;
 }
 
+void LocalVarTable::updateLocalVar(const LocalVarInfo& localVarInfo) {
+    for (auto& localVar : localVars) {
+        if (localVar.varName == localVarInfo.varName) {
+            localVar = localVarInfo;
+        }
+    }
+}
+
 
 /**
  * @brief FormalParamTable class
@@ -567,6 +644,14 @@ std::optional<FormalParamTable::FormalParamInfo> FormalParamTable::retrieveParam
         }
     }
     return std::nullopt;
+}
+
+void FormalParamTable::updateParam(const FormalParamInfo& paramInfo) {
+    for (auto& param : params) {
+        if (param.paramName == paramInfo.paramName) {
+            param = paramInfo;
+        }
+    }
 }
 
 /**

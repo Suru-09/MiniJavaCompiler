@@ -160,12 +160,27 @@ void MiniJavaParser::ClassDecl() {
       
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case EXTENDS:{
-        jj_consume_token(EXTENDS);
-            { if (hasError) { return __ERROR_RET__; } }
-        
-        Identifier();
-            { if (hasError) { return __ERROR_RET__; } }
-        
+ASTInheritance *jjtn001 = new ASTInheritance(JJTINHERITANCE);
+      bool jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
+        try {
+          jj_consume_token(EXTENDS);
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          Identifier();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+        } catch ( ...) {
+if (jjtc001) {
+        jjtree.clearNodeScope(jjtn001);
+        jjtc001 = false;
+      } else {
+        jjtree.popNode();
+      }
+        }
+if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001,  1);
+      }
         break;
         }
       default:

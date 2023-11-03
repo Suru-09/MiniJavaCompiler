@@ -119,4 +119,8 @@ void* TypeCheckingPass::visit(const ASTTypeNode *node, void* data) {
     return data;
 }
 
+void* TypeCheckingPass::visit(const ASTInheritance *node, void* data) {
+    return data;
+}
+
 }  // namespace ast

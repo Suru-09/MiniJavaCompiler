@@ -151,7 +151,9 @@ void ClassDecl() #ClassDecl(>1) :
 {
 }
 {
-  <CLASS> Identifier() ( <EXTENDS> Identifier() )? <LBRACE>
+  <CLASS> Identifier() 
+  ( (<EXTENDS> Identifier())#Inheritance(1) )?
+  <LBRACE>
   ( VarDecl() )*
   ( MethodDecl() )*
   <RBRACE>

@@ -202,7 +202,29 @@ void ClassDecl()                :
 {/*@bgen(jjtree) #ClassDecl(> 1) */
   try {
 /*@egen*/
-  <CLASS> Identifier() ( <EXTENDS> Identifier() )? <LBRACE>
+  <CLASS> Identifier() 
+  (/*@bgen(jjtree) #Inheritance( 1) */
+    {
+      ASTInheritance *jjtn001 = new ASTInheritance(JJTINHERITANCE);
+      bool jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
+    }
+    try {
+/*@egen*/ (<EXTENDS> Identifier())/*@bgen(jjtree)*/
+    } catch (...) {
+      if (jjtc001) {
+        jjtree.clearNodeScope(jjtn001);
+        jjtc001 = false;
+      } else {
+        jjtree.popNode();
+      }
+    } {
+      if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001,  1);
+      }
+    }
+/*@egen*/                )?
+  <LBRACE>
   ( VarDecl() )*
   ( MethodDecl() )*
   <RBRACE>/*@bgen(jjtree)*/

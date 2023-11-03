@@ -18,7 +18,7 @@ class DummyClass {
 }
 
 
-class SimpleNewClass {
+class SimpleNewClass extends DummyClass {
     int intField;
     int[] intArrayField;
     boolean boolField;

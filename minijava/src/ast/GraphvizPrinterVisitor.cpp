@@ -103,7 +103,20 @@ void* GraphvizPrinterVisitor::visit(const ASTMainClass *node, void* data) {
 
 void* GraphvizPrinterVisitor::visit(const ASTClassDecl *node, void* data) {
     uint64_t classDeclId = addNode("ClassDecl");
-    visitChildrenAndAddEdges(node, classDeclId);
+    for(int cIdx = 0; cIdx < node->jjtGetNumChildren(); ++cIdx)
+    {
+        if(cIdx == 0) {
+            uint64_t prettyClassNameId = addNode("Class Name");
+            void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
+            addEdge(prettyClassNameId, reinterpret_cast<uint64_t>(returnedNodeCount));
+            addEdge(classDeclId, reinterpret_cast<uint64_t>(prettyClassNameId));
+        }
+        else
+        {
+            void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
+            addEdge(classDeclId, reinterpret_cast<uint64_t>(returnedNodeCount));    
+        }
+    }
     return reinterpret_cast<void*>(classDeclId);;
 }
 
@@ -264,6 +277,13 @@ void* GraphvizPrinterVisitor::visit(const ASTTypeNode *node, void* data)
     addEdge(simpleTypeOrID, arrayDeclId);
 
     return reinterpret_cast<void*>(simpleTypeOrID);
+}
+
+void* GraphvizPrinterVisitor::visit(const ASTInheritance *node, void* data)
+{
+    uint64_t identifierId = addNode(node->toString());
+    visitChildrenAndAddEdges(node, identifierId);
+    return reinterpret_cast<void*>(identifierId);
 }
 
 }

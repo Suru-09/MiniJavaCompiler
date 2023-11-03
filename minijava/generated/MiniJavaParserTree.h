@@ -8,6 +8,7 @@
 #include "ASTWhileStatement.h"
 #include "ASTTypeNode.h"
 #include "ASTAssignNode.h"
+#include "ASTInheritance.h"
 #include "ASTRelationalNode.h"
 #include "ASTVarDecl.h"
 #include "ASTArgsList.h"
@@ -30,4 +31,4 @@
 #include "ASTMainClass.h"
 #include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=399a3b402f93f9ffdbdbd6e0480e074c (do not edit this line) */
+/* JavaCC - OriginalChecksum=f7f94ed0f62b12949bc07858d018cb42 (do not edit this line) */

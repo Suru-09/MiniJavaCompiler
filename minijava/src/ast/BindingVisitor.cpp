@@ -255,6 +255,44 @@ void* BindingVisitor::visit(const ASTTypeNode *node, void* data) {
     return data;
 }
 
+void* BindingVisitor::visit(const ASTInheritance *node, void* data) {
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto parentClass = returnValue;
+    
+    auto optClassInfo = symbolTable.retrieveClass(currentClassName);
+    if (optClassInfo.has_value())
+    {
+        // check if we already have a parent class
+        if (optClassInfo.value().parrrentClassId != -1)
+        {
+            logger::log(logger::log_level::Error, "Class " + currentClassName + " already has a parent class");
+            throw std::runtime_error("Class " + currentClassName + " already has a parent class");
+        }
+        
+        // find the parent class id
+        auto optParentClassInfo = symbolTable.retrieveClass(parentClass);
+        if (optParentClassInfo.has_value())
+        {
+            auto parentId = optParentClassInfo.value().classId;
+            logger::log(logger::log_level::Info, "Adding inheritance " + parentClass + " to class " + currentClassName + " with id " + std::to_string(parentId));
+            optClassInfo.value().parrrentClassId = parentId;
+            symbolTable.updateClass(optClassInfo.value());
+        }
+        else
+        {
+            logger::log(logger::log_level::Error, "Parent class " + parentClass + " not found");
+            throw std::runtime_error("Parent class " + parentClass + " not found");
+        }
+    }
+    else
+    {
+        logger::log(logger::log_level::Error, "Class " + currentClassName + " not found");
+        throw std::runtime_error("Class " + currentClassName + " not found");
+    }
+    return visitChildrenNodes(node, data);
+}
+
 
 
 }   // namespace ast

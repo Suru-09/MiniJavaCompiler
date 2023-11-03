@@ -37,6 +37,7 @@ public:
   void* visit(const ASTLiteralNode *node, void* data);
   void* visit(const ASTIdentifier *node, void* data);
   void* visit(const ASTTypeNode *node, void* data);
+  void* visit(const ASTInheritance *node, void* data);
 public:
     std::string graphName;
     std::string graph;
