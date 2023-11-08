@@ -14,6 +14,14 @@ void BindingVisitor::printSymbolTable() const {
     symbolTable.printSymbolTable();
 }
 
+SymbolTable& BindingVisitor::getSymbolTable() const {
+    return symbolTable;
+}
+
+TypesTable& BindingVisitor::getTypesTable() const {
+    return typesTable;
+}
+
 void* BindingVisitor::visitChildrenNodes(const Node*node, void* data, int start)
 {
     for (int i = start; i < node->jjtGetNumChildren(); i++)
@@ -23,7 +31,7 @@ void* BindingVisitor::visitChildrenNodes(const Node*node, void* data, int start)
     return data;    
 }
 
-void BindingVisitor::checkWhetherIdentifierIsDefined(const std::string& identifier) const 
+void BindingVisitor::checkWhetherIdentifierIsDefined(const std::string& identifier)
 {
     // watch in formal params
     auto optParamInfo = symbolTable.retrieveParam(identifier, currentClassName, currentMemberName);
@@ -268,7 +276,6 @@ void* BindingVisitor::visit(const ASTAssignNode *node, void* data) {
     assert(node->jjtGetNumChildren() == 2);
     node->jjtGetChild(0)->jjtAccept(this, data);
     std::string identifier = returnValue;
-    checkWhetherIdentifierIsDefined(identifier);
     return visitChildrenNodes(node, data, 1);
 }
 
@@ -304,7 +311,6 @@ void* BindingVisitor::visit(const ASTUnaryNode *node, void* data) {
     assert(node->jjtGetNumChildren() != 0);
     node->jjtGetChild(0)->jjtAccept(this, data);
     auto identifier = returnValue;
-    checkWhetherIdentifierIsDefined(identifier);
     return visitChildrenNodes(node, data, 1);
 }
 
@@ -339,69 +345,10 @@ void* BindingVisitor::visit(const ASTTypeNode *node, void* data) {
 }
 
 void* BindingVisitor::visit(const ASTInheritance *node, void* data) {
+    // skip the check for inheritance at the moment
     assert(node->jjtGetNumChildren() != 0);
     node->jjtGetChild(0)->jjtAccept(this, data);
-    auto parentClass = returnValue;
-    
-    auto optClassInfo = symbolTable.retrieveClass(currentClassName);
-    if (optClassInfo.has_value())
-    {
-        // check if we already have a parent class
-        if (optClassInfo.value().parrrentClassId != -1)
-        {
-            logger::log(logger::log_level::Error, "Class " + currentClassName + " already has a parent class");
-            throw std::runtime_error("Class " + currentClassName + " already has a parent class");
-        }
-
-        // find the parent class id
-        auto optParentClassInfo = symbolTable.retrieveClass(parentClass);
-        if (optParentClassInfo.has_value())
-        {
-            auto parentId = optParentClassInfo.value().classId;
-            auto parentIdCopy = parentId;
-
-            // check for circular inheritance
-            bool bHasParent = true;
-            while(bHasParent)
-            {
-                if (parentIdCopy == -1)
-                {
-                    bHasParent = false;
-                    break;
-                }
-
-                auto parentOfParent = symbolTable.retrieveClass(parentIdCopy);
-                if(parentOfParent.has_value())
-                {
-                    if(parentOfParent.value().className == currentClassName)
-                    {
-                        logger::log(logger::log_level::Error, "Circular inheritance detected");
-                        throw std::runtime_error("Circular inheritance detected");
-                    }
-                    parentIdCopy = parentOfParent.value().parrrentClassId;
-                }
-                else
-                {
-                    bHasParent = false;
-                }
-            }
-
-            logger::log(logger::log_level::Info, "Adding inheritance " + parentClass + " to class " + currentClassName + " with id " + std::to_string(parentId));
-            optClassInfo.value().parrrentClassId = parentId;
-            symbolTable.updateClass(optClassInfo.value());
-        }
-        else
-        {
-            logger::log(logger::log_level::Error, "Parent class " + parentClass + " not found");
-            throw std::runtime_error("Parent class " + parentClass + " not found");
-        }
-    }
-    else
-    {
-        logger::log(logger::log_level::Error, "Class " + currentClassName + " not found");
-        throw std::runtime_error("Class " + currentClassName + " not found");
-    }
-    return visitChildrenNodes(node, data);
+    return visitChildrenNodes(node, data, 1);
 }
 
 void* BindingVisitor::visit(const ASTAccessIdentifier *node, void* data) {
@@ -409,7 +356,7 @@ void* BindingVisitor::visit(const ASTAccessIdentifier *node, void* data) {
     assert(node->jjtGetNumChildren() != 0);
     node->jjtGetChild(0)->jjtAccept(this, data);
     auto type = returnValue;
-    checkWhetherIdentifierIsDefined(type);
+    //checkWhetherIdentifierIsDefined(type);
     return data;
 }
 

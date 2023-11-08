@@ -8,7 +8,7 @@ class Main {
     * Testing the following:
 */
 
-class DummyClass {
+class DummyClass extends CyclicDependencyClass {
     int dummyField;
 
     public DummyClass DummyClass(int dummyParam) {

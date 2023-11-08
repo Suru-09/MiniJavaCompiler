@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export CC=/usr/bin/clang;
+export CXX=/usr/bin/clang++;
+
 current_dir=$PWD;
 
 cd build/;
@@ -12,6 +15,8 @@ then
     cmake ../ -G Ninja DBUILD_SHARED_LIBS:BOOL=OFF;
 elif [ "${MACHINE_TYPE}" == "x86_64" ]
 then
+    export CC=/usr/bin/clang;
+    export CXX=/usr/bin/clang++;
     cmake ../ -G Ninja  -DBUILD_SHARED_LIBS:BOOL=OFF;
 fi
 

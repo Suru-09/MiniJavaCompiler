@@ -8,7 +8,7 @@ namespace ast {
 
 class TypeCheckingPass : public MiniJavaParserVisitor {
 public:
-    explicit TypeCheckingPass(const SymbolTable& symbolTable, const TypesTable& typesTable);
+    explicit TypeCheckingPass(SymbolTable& symbolTable, TypesTable& typesTable);
 
     void* visit(const SimpleNode *node, void* data);
     void* visit(const ASTRoot *node, void* data);
@@ -41,8 +41,14 @@ public:
     void* visit(const ASTAccessIdentifier *node, void* data);
 
 private:
-    const SymbolTable& symbolTable;
-    const TypesTable& typesTable;
+    SymbolTable& symbolTable;
+    TypesTable& typesTable;
+
+    std::string returnValue;
+    std::string currentClassName;
+    std::string currentMethod;
+
+    void* visitChildren(const SimpleNode* node, void* data, const std::size_t& start = 0);
 };
 
 }   // namespace ast

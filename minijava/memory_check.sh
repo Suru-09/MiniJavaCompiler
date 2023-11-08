@@ -1,10 +1,15 @@
 current_dir = $PWD;
 cd build;
 
+export CC=/usr/bin/clang;
+export CXX=/usr/bin/clang++;
+
 MACHINE_TYPE=`uname -m`
 if [ ${MACHINE_TYPE} == 'x86_64' ]
 then
-    valgrind src/MiniJavaCompiler;
+  export CC=/usr/bin/clang;
+  export CXX=/usr/bin/clang++;
+  valgrind src/MiniJavaCompiler;
 elif [ ${MACHINE_TYPE} == 'arm64' ]
 then
   leaks -atExit -- src/MiniJavaCompiler;

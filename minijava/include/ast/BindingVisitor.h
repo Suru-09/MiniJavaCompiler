@@ -40,10 +40,13 @@ public:
     void* visit(const ASTInheritance *node, void* data);
     void* visit(const ASTAccessIdentifier *node, void* data);
 
-    void printSymbolTable() const;   
+    void printSymbolTable() const;
+
+    SymbolTable& getSymbolTable() const;
+    TypesTable& getTypesTable() const;
 private:
-    SymbolTable symbolTable;
-    TypesTable typesTable;
+    SymbolTable& symbolTable;
+    TypesTable& typesTable;
     std::string currentClassName;
     std::string currentMemberName;
 
@@ -52,7 +55,7 @@ private:
     std::string returnValue;
 
     void* visitChildrenNodes(const Node*node, void* data, int start = 0);
-    void checkWhetherIdentifierIsDefined(const std::string& identifier) const;
+    void checkWhetherIdentifierIsDefined(const std::string& identifier);
 };
 
 }   // namespace ast

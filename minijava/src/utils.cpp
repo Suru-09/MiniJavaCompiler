@@ -12,6 +12,7 @@
 #include "ast/GraphvizPrinterVisitor.h"
 #include "ast/SymbolTable.h"
 #include "ast/BindingVisitor.h"
+#include "ast/TypeCheckingPass.h"
 
 std::string utils::readStringFromFile(const std::filesystem::path& path)
 {
@@ -84,6 +85,8 @@ void utils::buildSymbolTable(SimpleNode* root)
     ast::SymbolTable symbolTable{typesTable};
     ast::BindingVisitor bindingVisitor(symbolTable, typesTable);
     root->jjtAccept(&bindingVisitor, nullptr);
+    ast::TypeCheckingPass typeCheckingPass(symbolTable, typesTable);
+    root->jjtAccept(&typeCheckingPass, nullptr);
     bindingVisitor.printSymbolTable();
 }
 
