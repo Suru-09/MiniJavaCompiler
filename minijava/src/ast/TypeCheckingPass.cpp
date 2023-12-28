@@ -11,13 +11,6 @@ typesTable(typesTable)
 {
 }
 
-void* TypeCheckingPass::visitChildrenNodes(const Node*node, void* data, int start) {
-    for (int i = start; i < node->jjtGetNumChildren(); i++) {
-        node->jjtGetChild(i)->jjtAccept(this, data);
-    }
-    return data;
-}
-
 void* TypeCheckingPass::visitChildren(const SimpleNode* node, void* data, const std::size_t& start/* = 0*/)
 {
     for (int i = start; i < node->jjtGetNumChildren(); i++)
@@ -36,7 +29,7 @@ void* TypeCheckingPass::visit(const ASTRoot *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTMainClass *node, void* data) {
-    visitChildrenNodes(node, data);
+    visitChildren(node, data);
     return data;
 }
 
