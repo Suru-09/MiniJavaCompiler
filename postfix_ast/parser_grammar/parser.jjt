@@ -1,0 +1,78 @@
+options {
+    OUTPUT_LANGUAGE = "c++";
+    OUTPUT_DIRECTORY = "generated";
+    OUTPUT_FILE="parser.jj";
+    LOOKAHEAD = 1;
+    CHOICE_AMBIGUITY_CHECK = 3;
+    OTHER_AMBIGUITY_CHECK = 3;
+    STOP_ON_FIRST_ERROR = true;
+    
+    /**
+    DEBUG_PARSER = true;
+    */
+
+    FORCE_LA_CHECK = true;
+
+    MULTI = true;
+    VISITOR = true;
+    /**
+    NODE_DEFAULT_VOID=true;
+    VISITOR_DATA_TYPE="void*";
+    VISITOR_RETURN_TYPE="void*";
+    */
+}
+
+PARSER_BEGIN(PostfixParser)
+PARSER_END(PostfixParser)
+
+TOKEN : {
+  < Integer: (["0"-"9"])+ >
+}
+
+SKIP : {
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+ASTRoot* Start() #Root :
+{}
+{
+  Expression()
+  <EOF>
+  {
+    return jjtThis;
+  }
+}
+
+void Expression() #Expression :
+{}
+{
+  Term()
+  ( "+" Term() )*
+}
+
+void Term() #Term :
+{}
+{
+  Factor()
+  ( "*" Factor() )*
+}
+
+void Factor() #Factor : {}
+{
+  "(" Expression() ")"
+  | IntegerConstant()
+}
+
+void IntegerConstant() #IntegerConstant :
+{
+    Token* t = NULL;
+}
+{
+    t = <Integer>
+    {
+        jjtThis->setValue(t->image);
+    }
+}

@@ -1,0 +1,8 @@
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/CMakeFiles/edit_cache.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/CMakeFiles/rebuild_cache.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src/CMakeFiles/PostfixVisitor.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src/CMakeFiles/edit_cache.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src/CMakeFiles/rebuild_cache.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/generated/CMakeFiles/PostfixVisitor-generated.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/generated/CMakeFiles/edit_cache.dir
+/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/generated/CMakeFiles/rebuild_cache.dir
