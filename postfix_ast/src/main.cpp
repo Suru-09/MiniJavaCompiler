@@ -69,10 +69,9 @@ int main() {
         visitors::PostfixVisitor postfixVisitor;
         n->jjtAccept(&postfixVisitor, nullptr);
 
-        std::cout << "\nEvaluator: \n";
         visitors::EvaluatorVisitor evaluatorVisitor;
         n->jjtAccept(&evaluatorVisitor, nullptr);
-        std::cout << "Result is: " << evaluatorVisitor.getValue() << "\n";
+        std::cout << "\nEvaluator:\n" << evaluatorVisitor.getValue() << "\n";
 
         if(errorHandler->getErrorCount() > 0)
         {
