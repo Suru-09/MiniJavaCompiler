@@ -3,7 +3,7 @@
 #include "TokenMgrError.h"
 #include "SimpleNode.h"
   unsigned int jj_la1_0[] = {
-0x40,0x80,0x102,};
+0x200,0x400,0x802,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -61,7 +61,7 @@ ASTExpression *jjtn001 = new ASTExpression(JJTEXPRESSION);
       
       while (!hasError) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case 6:{
+        case 9:{
           ;
           break;
           }
@@ -69,7 +69,7 @@ ASTExpression *jjtn001 = new ASTExpression(JJTEXPRESSION);
           jj_la1[0] = jj_gen;
           goto end_label_1;
         }
-        jj_consume_token(6);
+        jj_consume_token(9);
             { if (hasError) { return __ERROR_RET__; } }
         
         Term();
@@ -109,7 +109,7 @@ ASTTerm *jjtn001 = new ASTTerm(JJTTERM);
       
       while (!hasError) {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case 7:{
+        case 10:{
           ;
           break;
           }
@@ -117,7 +117,7 @@ ASTTerm *jjtn001 = new ASTTerm(JJTTERM);
           jj_la1[1] = jj_gen;
           goto end_label_2;
         }
-        jj_consume_token(7);
+        jj_consume_token(10);
             { if (hasError) { return __ERROR_RET__; } }
         
         Factor();
@@ -149,18 +149,18 @@ void PostfixParser::Factor() {
 #define __ERROR_RET__ ERROR_RET_Factor
 
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case 8:{
+    case 11:{
 ASTFactor *jjtn001 = new ASTFactor(JJTFACTOR);
     bool jjtc001 = true;
     jjtree.openNodeScope(jjtn001);
       try {
-        jj_consume_token(8);
+        jj_consume_token(11);
             { if (hasError) { return __ERROR_RET__; } }
         
         Expression();
             { if (hasError) { return __ERROR_RET__; } }
         
-        jj_consume_token(9);
+        jj_consume_token(12);
             { if (hasError) { return __ERROR_RET__; } }
         
       } catch ( ...) {

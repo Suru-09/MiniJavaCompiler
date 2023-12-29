@@ -2,7 +2,8 @@
 #include "PostfixParserTokenManager.h"
 #include "TokenMgrError.h"
 #include "SimpleNode.h"
-static const int jjnextStates[] = {0
+static const int jjnextStates[] = {
+   4, 6, 2, 
 };
 static JJChar jjstrLiteralChars_0[] = {0};
 static JJChar jjstrLiteralChars_1[] = {0};
@@ -10,12 +11,16 @@ static JJChar jjstrLiteralChars_2[] = {0};
 static JJChar jjstrLiteralChars_3[] = {0};
 static JJChar jjstrLiteralChars_4[] = {0};
 static JJChar jjstrLiteralChars_5[] = {0};
+static JJChar jjstrLiteralChars_6[] = {0};
 
-static JJChar jjstrLiteralChars_6[] = {0x2b, 0};
-static JJChar jjstrLiteralChars_7[] = {0x2a, 0};
+static JJChar jjstrLiteralChars_7[] = {0};
+static JJChar jjstrLiteralChars_8[] = {0};
+static JJChar jjstrLiteralChars_9[] = {0x2b, 0};
 
-static JJChar jjstrLiteralChars_8[] = {0x28, 0};
-static JJChar jjstrLiteralChars_9[] = {0x29, 0};
+static JJChar jjstrLiteralChars_10[] = {0x2a, 0};
+static JJChar jjstrLiteralChars_11[] = {0x28, 0};
+
+static JJChar jjstrLiteralChars_12[] = {0x29, 0};
 static const JJString jjstrLiteralImages[] = {
 jjstrLiteralChars_0, 
 jjstrLiteralChars_1, 
@@ -27,6 +32,9 @@ jjstrLiteralChars_6,
 jjstrLiteralChars_7, 
 jjstrLiteralChars_8, 
 jjstrLiteralChars_9, 
+jjstrLiteralChars_10, 
+jjstrLiteralChars_11, 
+jjstrLiteralChars_12, 
 };
 
 /** Lexer state names. */
@@ -36,10 +44,10 @@ static const JJString lexStateNames[] = {
 lexStateNames_arr_0, 
 };
 static const unsigned long long jjtoToken[] = {
-   0x3c3ULL, 
+   0x1e03ULL, 
 };
 static const unsigned long long jjtoSkip[] = {
-   0x3cULL, 
+   0x1e0ULL, 
 };
 
   void  PostfixParserTokenManager::setDebugStream(FILE *ds){ debugStream = ds; }
@@ -66,13 +74,13 @@ int  PostfixParserTokenManager::jjStartNfa_0(int pos, unsigned long long active0
    switch(curChar)
    {
       case 40:
-         return jjStopAtPos(0, 8);
+         return jjStopAtPos(0, 11);
       case 41:
-         return jjStopAtPos(0, 9);
+         return jjStopAtPos(0, 12);
       case 42:
-         return jjStopAtPos(0, 7);
+         return jjStopAtPos(0, 10);
       case 43:
-         return jjStopAtPos(0, 6);
+         return jjStopAtPos(0, 9);
       default :
          return jjMoveNfa_0(0, 0);
    }
@@ -80,7 +88,7 @@ int  PostfixParserTokenManager::jjStartNfa_0(int pos, unsigned long long active0
 
 int PostfixParserTokenManager::jjMoveNfa_0(int startState, int curPos){
    int startsAt = 0;
-   jjnewStateCnt = 1;
+   jjnewStateCnt = 7;
    int i = 1;
    jjstateSet[0] = startState;
    int kind = 0x7fffffff;
@@ -97,10 +105,46 @@ int PostfixParserTokenManager::jjMoveNfa_0(int startState, int curPos){
             switch(jjstateSet[--i])
             {
                case 0:
+                  if ((0x3fe000000000000ULL & l) != 0L)
+                  {
+                     if (kind > 1)
+                        kind = 1;
+                     { jjCheckNAddTwoStates(1, 2); }
+                  }
+                  else if (curChar == 48)
+                  {
+                     if (kind > 1)
+                        kind = 1;
+                     { jjCheckNAddStates(0, 2); }
+                  }
+                  break;
+               case 1:
                   if ((0x3ff000000000000ULL & l) == 0L)
                      break;
-                  kind = 1;
-                  jjstateSet[jjnewStateCnt++] = 0;
+                  if (kind > 1)
+                     kind = 1;
+                  { jjCheckNAddTwoStates(1, 2); }
+                  break;
+               case 3:
+                  if (curChar != 48)
+                     break;
+                  if (kind > 1)
+                     kind = 1;
+                  { jjCheckNAddStates(0, 2); }
+                  break;
+               case 5:
+                  if ((0x3ff000000000000ULL & l) == 0L)
+                     break;
+                  if (kind > 1)
+                     kind = 1;
+                  { jjCheckNAddTwoStates(5, 2); }
+                  break;
+               case 6:
+                  if ((0xff000000000000ULL & l) == 0L)
+                     break;
+                  if (kind > 1)
+                     kind = 1;
+                  { jjCheckNAddTwoStates(6, 2); }
                   break;
                default : break;
             }
@@ -114,6 +158,20 @@ int PostfixParserTokenManager::jjMoveNfa_0(int startState, int curPos){
          {
             switch(jjstateSet[--i])
             {
+               case 2:
+                  if ((0x100000001000ULL & l) != 0L)
+                     kind = 1;
+                  break;
+               case 4:
+                  if ((0x100000001000000ULL & l) != 0L)
+                     { jjCheckNAdd(5); }
+                  break;
+               case 5:
+                  if ((0x7e0000007eULL & l) == 0L)
+                     break;
+                  kind = 1;
+                  { jjCheckNAddTwoStates(5, 2); }
+                  break;
                default : break;
             }
          } while(i != startsAt);
@@ -137,7 +195,7 @@ int PostfixParserTokenManager::jjMoveNfa_0(int startState, int curPos){
          kind = 0x7fffffff;
       }
       ++curPos;
-      if ((i = jjnewStateCnt), (jjnewStateCnt = startsAt), (i == (startsAt = 1 - startsAt)))
+      if ((i = jjnewStateCnt), (jjnewStateCnt = startsAt), (i == (startsAt = 7 - startsAt)))
          return curPos;
       if (input_stream->endOfInput()) { return curPos; }
       curChar = input_stream->readChar();
@@ -253,7 +311,7 @@ Token * PostfixParserTokenManager::getNextToken(){
   void PostfixParserTokenManager::ReInitRounds() {
     int i;
     jjround = 0x80000001;
-    for (i = 1; i-- > 0;)
+    for (i = 7; i-- > 0;)
       jjrounds[i] = 0x80000000;
   }
 

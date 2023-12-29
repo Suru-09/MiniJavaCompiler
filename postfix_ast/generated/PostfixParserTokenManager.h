@@ -51,6 +51,13 @@ Token * getNextToken();
    jjCheckNAdd(state2);\
 }
 
+#define jjCheckNAddStates(start, end)\
+{\
+   for (int x = start; x <= end; x++) {\
+      jjCheckNAdd(jjnextStates[x]);\
+   } /*while (start++ != end);*/\
+}
+
 #ifndef JAVACC_CHARSTREAM
 #define JAVACC_CHARSTREAM CharStream
 #endif
@@ -68,8 +75,8 @@ public:
   const JJSimpleString jjKindsForStateVector(int lexState, int vec[], int start, int end);
 
   JAVACC_CHARSTREAM*        input_stream;
-  int                       jjrounds[1];
-  int                       jjstateSet[2 * 1];
+  int                       jjrounds[7];
+  int                       jjstateSet[2 * 7];
   JJString                  jjimage;
   JJString                  image;
   int                       jjimageLen;

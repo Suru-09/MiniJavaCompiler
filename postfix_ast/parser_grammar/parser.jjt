@@ -24,7 +24,17 @@ PARSER_BEGIN(PostfixParser)
 PARSER_END(PostfixParser)
 
 TOKEN : {
-  < Integer: (["0"-"9"])+ >
+  < Integer:
+        <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
 }
 
 SKIP : {
