@@ -13,6 +13,7 @@
 #include "ASTVarDecl.h"
 #include "ASTArgsList.h"
 #include "ASTLiteralNode.h"
+#include "ASTAccessArray.h"
 #include "ASTOrNode.h"
 #include "ASTPrintStatement.h"
 #include "ASTEqualNotEqualNode.h"
@@ -24,6 +25,7 @@
 #include "ASTOptionalExprStmt.h"
 #include "ASTMultiplicativeNode.h"
 #include "ASTClassDecl.h"
+#include "ASTPrimaryExpNode.h"
 #include "ASTMethodDeclNode.h"
 #include "ASTSimpleTypeNode.h"
 #include "ASTIfStatementNode.h"
@@ -32,4 +34,4 @@
 #include "ASTMainClass.h"
 #include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=8cae2a5ad03d906f59b5fedc613b21ea (do not edit this line) */
+/* JavaCC - OriginalChecksum=a7b1d122ad48fba8e0d978095f2142ce (do not edit this line) */

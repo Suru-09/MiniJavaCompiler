@@ -265,21 +265,66 @@ void* TypeCheckingPass::visit(const ASTAssignNode *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTOrNode *node, void* data) {
-    visitChildren(node, data);
+    assert(node->jjtGetNumChildren() == 2);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Can't compare type: <" + lhsType + "> with type: <" + rhsType + ">"; 
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    visitChildren(node, data, 2);
     isConditionBoolean = true;
     currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAndNode *node, void* data) {
-    visitChildren(node, data);
+    assert(node->jjtGetNumChildren() == 2);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Can't compare type: <" + lhsType + "> with type: <" + rhsType + ">"; 
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    visitChildren(node, data, 2);
     isConditionBoolean = true;
     currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTEqualNotEqualNode *node, void* data) {
-    visitChildren(node, data);
+    assert(node->jjtGetNumChildren() == 2);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Can't compare type: <" + lhsType + "> with type: <" + rhsType + ">"; 
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    visitChildren(node, data, 2);
     isConditionBoolean = true;
     currentExpType = "boolean";
     return data;
@@ -287,7 +332,21 @@ void* TypeCheckingPass::visit(const ASTEqualNotEqualNode *node, void* data) {
 
 void* TypeCheckingPass::visit(const ASTRelationalNode *node, void* data) {
     assert(node->jjtGetNumChildren() == 2);
-    visitChildren(node, data);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Can't compare type: <" + lhsType + "> with type: <" + rhsType + ">"; 
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    visitChildren(node, data, 2);
     isConditionBoolean = true;
     currentExpType = "boolean";
     return data;
@@ -295,12 +354,36 @@ void* TypeCheckingPass::visit(const ASTRelationalNode *node, void* data) {
 
 void* TypeCheckingPass::visit(const ASTAdditiveNode *node, void* data) {
     assert(node->jjtGetNumChildren() == 2);
-    return visitChildren(node, data);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Trying to add/substract type: " + lhsType + " with the following type: " + rhsType + " is not a valid operation";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    return visitChildren(node, data, 2);
 }
 
 void* TypeCheckingPass::visit(const ASTMultiplicativeNode *node, void* data) {
     assert(node->jjtGetNumChildren() == 2);
-    return visitChildren(node, data);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Trying to mul/div type: " + lhsType + " with the following type: " + rhsType + " is not a valid operation";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    return visitChildren(node, data, 2);
 }
 
 void* TypeCheckingPass::visit(const ASTUnaryNode *node, void* data) {
@@ -422,6 +505,16 @@ void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
     }
 
     return data;
+}
+
+void* TypeCheckingPass::visit(const ASTAccessArray *node, void* data)
+{
+    return visitChildren(node, data);
+}
+
+void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
+{
+    return visitChildren(node, data);
 }
 
 }  // namespace ast

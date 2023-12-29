@@ -1470,27 +1470,42 @@ void MiniJavaParser::PrimaryExp() {
 #define ERROR_RET_PrimaryExp 
 #endif
 #define __ERROR_RET__ ERROR_RET_PrimaryExp
-
-    BeforePrimay();
-        { if (hasError) { return __ERROR_RET__; } }
-    
-    while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LPAREN:
-      case LBRACKET:
-      case DOT:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[27] = jj_gen;
-        goto end_label_14;
-      }
-      AfterPrimary();
+/*@bgen(jjtree) PrimaryExpNode */
+  ASTPrimaryExpNode *jjtn000 = new ASTPrimaryExpNode(JJTPRIMARYEXPNODE);
+  bool jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      BeforePrimay();
           { if (hasError) { return __ERROR_RET__; } }
       
+      while (!hasError) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case LPAREN:
+        case LBRACKET:
+        case DOT:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[27] = jj_gen;
+          goto end_label_14;
+        }
+        AfterPrimary();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      }
+      end_label_14: ;
+    } catch ( ...) {
+if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
     }
-    end_label_14: ;
+    }
+if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
 
 #undef __ERROR_RET__
 
@@ -1577,15 +1592,30 @@ void MiniJavaParser::AfterPrimary() {
 
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LBRACKET:{
-      jj_consume_token(LBRACKET);
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      Exp();
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      jj_consume_token(RBRACKET);
-          { if (hasError) { return __ERROR_RET__; } }
-      
+ASTAccessArray *jjtn001 = new ASTAccessArray(JJTACCESSARRAY);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+      try {
+        jj_consume_token(LBRACKET);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        Exp();
+            { if (hasError) { return __ERROR_RET__; } }
+        
+        jj_consume_token(RBRACKET);
+            { if (hasError) { return __ERROR_RET__; } }
+        
+      } catch ( ...) {
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
+    } else {
+      jjtree.popNode();
+    }
+      }
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, true);
+    }
       break;
       }
     case DOT:{
