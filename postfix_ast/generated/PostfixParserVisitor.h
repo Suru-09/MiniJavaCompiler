@@ -7,36 +7,36 @@
 class PostfixParserVisitor
 {
   public:
-  virtual void  visit(const SimpleNode *node, void * data) = 0;
-  virtual void  visit(const ASTRoot *node, void * data) = 0;
-  virtual void  visit(const ASTExpression *node, void * data) = 0;
-  virtual void  visit(const ASTTerm *node, void * data) = 0;
-  virtual void  visit(const ASTFactor *node, void * data) = 0;
-  virtual void  visit(const ASTIntegerConstant *node, void * data) = 0;
+  virtual void* visit(const SimpleNode *node, void* data) = 0;
+  virtual void* visit(const ASTRoot *node, void* data) = 0;
+  virtual void* visit(const ASTExpression *node, void* data) = 0;
+  virtual void* visit(const ASTTerm *node, void* data) = 0;
+  virtual void* visit(const ASTFactor *node, void* data) = 0;
+  virtual void* visit(const ASTIntegerConstant *node, void* data) = 0;
   virtual ~PostfixParserVisitor() { }
 };
 class PostfixParserDefaultVisitor : public PostfixParserVisitor {
 public:
-  virtual void  defaultVisit(const SimpleNode *node, void * data) = 0;
-  virtual void  visit(const SimpleNode *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* defaultVisit(const SimpleNode *node, void* data) = 0;
+  virtual void* visit(const SimpleNode *node, void* data) {
+    return defaultVisit(node, data);
 }
-  virtual void  visit(const ASTRoot *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* visit(const ASTRoot *node, void* data) {
+    return defaultVisit(node, data);
   }
-  virtual void  visit(const ASTExpression *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* visit(const ASTExpression *node, void* data) {
+    return defaultVisit(node, data);
   }
-  virtual void  visit(const ASTTerm *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* visit(const ASTTerm *node, void* data) {
+    return defaultVisit(node, data);
   }
-  virtual void  visit(const ASTFactor *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* visit(const ASTFactor *node, void* data) {
+    return defaultVisit(node, data);
   }
-  virtual void  visit(const ASTIntegerConstant *node, void * data) {
-    defaultVisit(node, data);
+  virtual void* visit(const ASTIntegerConstant *node, void* data) {
+    return defaultVisit(node, data);
   }
   ~PostfixParserDefaultVisitor() { }
 };
 #endif
-/* JavaCC - OriginalChecksum=d32ec653f5de42acf6d593794cfc0a77 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f9500b26750bf52dcac5a40f05c51c48 (do not edit this line) */

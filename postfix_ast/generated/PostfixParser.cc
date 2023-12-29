@@ -51,10 +51,10 @@ void PostfixParser::Expression() {
 #define ERROR_RET_Expression 
 #endif
 #define __ERROR_RET__ ERROR_RET_Expression
-/*@bgen(jjtree) Expression */
-  ASTExpression *jjtn000 = new ASTExpression(JJTEXPRESSION);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
+
+ASTExpression *jjtn001 = new ASTExpression(JJTEXPRESSION);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
     try {
       Term();
           { if (hasError) { return __ERROR_RET__; } }
@@ -78,15 +78,15 @@ void PostfixParser::Expression() {
       }
       end_label_1: ;
     } catch ( ...) {
-if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
     }
-if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
 
 #undef __ERROR_RET__
@@ -99,10 +99,10 @@ void PostfixParser::Term() {
 #define ERROR_RET_Term 
 #endif
 #define __ERROR_RET__ ERROR_RET_Term
-/*@bgen(jjtree) Term */
-  ASTTerm *jjtn000 = new ASTTerm(JJTTERM);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
+
+ASTTerm *jjtn001 = new ASTTerm(JJTTERM);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
     try {
       Factor();
           { if (hasError) { return __ERROR_RET__; } }
@@ -126,15 +126,15 @@ void PostfixParser::Term() {
       }
       end_label_2: ;
     } catch ( ...) {
-if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
     }
-if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
 
 #undef __ERROR_RET__
@@ -147,13 +147,13 @@ void PostfixParser::Factor() {
 #define ERROR_RET_Factor 
 #endif
 #define __ERROR_RET__ ERROR_RET_Factor
-/*@bgen(jjtree) Factor */
-  ASTFactor *jjtn000 = new ASTFactor(JJTFACTOR);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-    try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 8:{
+
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case 8:{
+ASTFactor *jjtn001 = new ASTFactor(JJTFACTOR);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+      try {
         jj_consume_token(8);
             { if (hasError) { return __ERROR_RET__; } }
         
@@ -163,30 +163,30 @@ void PostfixParser::Factor() {
         jj_consume_token(9);
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      case Integer:{
-        IntegerConstant();
-            { if (hasError) { return __ERROR_RET__; } }
-        
-        break;
-        }
-      default:
-        jj_la1[2] = jj_gen;
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
-        
-      }
-    } catch ( ...) {
-if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+      } catch ( ...) {
+if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
+      }
+if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, true);
     }
-if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+      break;
+      }
+    case Integer:{
+      IntegerConstant();
+          { if (hasError) { return __ERROR_RET__; } }
+      
+      break;
+      }
+    default:
+      jj_la1[2] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+      
     }
 
 #undef __ERROR_RET__

@@ -14,11 +14,12 @@ public:
   virtual ~ASTIntegerConstant();
 
   void setValue(JAVACC_STRING_TYPE name);
+  JAVACC_STRING_TYPE toString() const;
 
   JAVACC_STRING_TYPE name;
 
   /** Accept the visitor. **/
-  virtual void  jjtAccept(PostfixParserVisitor *visitor, void * data) const ;
+  virtual void*  jjtAccept(PostfixParserVisitor *visitor, void * data) const ;
 };
 
 

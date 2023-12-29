@@ -8,6 +8,10 @@
 #include "ErrorHandler.h"
 #include "ParseException.h"
 
+#include "InfixVisitor.h"
+#include "PostfixVisitor.h"
+#include "EvaluatorVisitor.h"
+
 
 std::string readStringFromFile(const std::filesystem::path& path)
 {
@@ -56,6 +60,19 @@ int main() {
         {
             n->dump("");
         }
+
+        std::cout << " \n\nInfixVisitor: \n";
+        visitors::InfixVisitor infixVisitor;
+        n->jjtAccept(&infixVisitor, nullptr);
+
+        std::cout << "\nPostfixVisitor: \n";
+        visitors::PostfixVisitor postfixVisitor;
+        n->jjtAccept(&postfixVisitor, nullptr);
+
+        std::cout << "\nEvaluator: \n";
+        visitors::EvaluatorVisitor evaluatorVisitor;
+        n->jjtAccept(&evaluatorVisitor, nullptr);
+        std::cout << "Result is: " << evaluatorVisitor.getValue() << "\n";
 
         if(errorHandler->getErrorCount() > 0)
         {

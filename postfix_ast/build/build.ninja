@@ -73,6 +73,27 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_PostfixVisitor: phony || cmake_object_order_depends_target_PostfixVisitor-generated
 
+build src/CMakeFiles/PostfixVisitor.dir/InfixVisitor.cpp.o: CXX_COMPILER__PostfixVisitor_unscanned_ /Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src/InfixVisitor.cpp || cmake_object_order_depends_target_PostfixVisitor
+  DEP_FILE = src/CMakeFiles/PostfixVisitor.dir/InfixVisitor.cpp.o.d
+  FLAGS = -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -O3 -Wall
+  INCLUDES = -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/include -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/generated
+  OBJECT_DIR = src/CMakeFiles/PostfixVisitor.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/PostfixVisitor.dir
+
+build src/CMakeFiles/PostfixVisitor.dir/PostfixVisitor.cpp.o: CXX_COMPILER__PostfixVisitor_unscanned_ /Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src/PostfixVisitor.cpp || cmake_object_order_depends_target_PostfixVisitor
+  DEP_FILE = src/CMakeFiles/PostfixVisitor.dir/PostfixVisitor.cpp.o.d
+  FLAGS = -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -O3 -Wall
+  INCLUDES = -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/include -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/generated
+  OBJECT_DIR = src/CMakeFiles/PostfixVisitor.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/PostfixVisitor.dir
+
+build src/CMakeFiles/PostfixVisitor.dir/EvaluatorVisitor.cpp.o: CXX_COMPILER__PostfixVisitor_unscanned_ /Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src/EvaluatorVisitor.cpp || cmake_object_order_depends_target_PostfixVisitor
+  DEP_FILE = src/CMakeFiles/PostfixVisitor.dir/EvaluatorVisitor.cpp.o.d
+  FLAGS = -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -O3 -Wall
+  INCLUDES = -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/build/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/include -I/Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/generated
+  OBJECT_DIR = src/CMakeFiles/PostfixVisitor.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/PostfixVisitor.dir
+
 build src/CMakeFiles/PostfixVisitor.dir/main.cpp.o: CXX_COMPILER__PostfixVisitor_unscanned_ /Users/suru/Documents/GitCloning/MiniJavaCompiler/postfix_ast/src/main.cpp || cmake_object_order_depends_target_PostfixVisitor
   DEP_FILE = src/CMakeFiles/PostfixVisitor.dir/main.cpp.o.d
   FLAGS = -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -O3 -Wall
@@ -88,7 +109,7 @@ build src/CMakeFiles/PostfixVisitor.dir/main.cpp.o: CXX_COMPILER__PostfixVisitor
 #############################################
 # Link the executable PostfixVisitor
 
-build PostfixVisitor: CXX_EXECUTABLE_LINKER__PostfixVisitor_ src/CMakeFiles/PostfixVisitor.dir/main.cpp.o | generated/libPostfixVisitor-generated.a || generated/libPostfixVisitor-generated.a
+build PostfixVisitor: CXX_EXECUTABLE_LINKER__PostfixVisitor_ src/CMakeFiles/PostfixVisitor.dir/InfixVisitor.cpp.o src/CMakeFiles/PostfixVisitor.dir/PostfixVisitor.cpp.o src/CMakeFiles/PostfixVisitor.dir/EvaluatorVisitor.cpp.o src/CMakeFiles/PostfixVisitor.dir/main.cpp.o | generated/libPostfixVisitor-generated.a || generated/libPostfixVisitor-generated.a
   FLAGS = -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk
   LINK_LIBRARIES = generated/libPostfixVisitor-generated.a
   OBJECT_DIR = src/CMakeFiles/PostfixVisitor.dir

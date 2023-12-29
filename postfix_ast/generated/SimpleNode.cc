@@ -52,18 +52,18 @@ void* SimpleNode::jjtGetValue() const {
     return value;
 }
 
-void  SimpleNode::jjtAccept(PostfixParserVisitor *visitor, void * data) const
+void* SimpleNode::jjtAccept(PostfixParserVisitor *visitor, void* data) const
 {
     return visitor->visit(this, data);
 }
 
-void SimpleNode::jjtChildrenAccept(PostfixParserVisitor *visitor, void * data) const {
+void SimpleNode::jjtChildrenAccept(PostfixParserVisitor *visitor, void* data) const {
     for (int i = 0; i < children.size(); ++i) {
       children[i]->jjtAccept(visitor, data);
     }
 }
 
-void SimpleNode::jjtChildAccept(int childNo, PostfixParserVisitor *visitor, void * data) const {
+void SimpleNode::jjtChildAccept(int childNo, PostfixParserVisitor *visitor, void* data) const {
     if (0 <= childNo && childNo < children.size())
       children[childNo]->jjtAccept(visitor, data);
 }    	
@@ -111,4 +111,4 @@ SimpleNode::~SimpleNode() {
     }
 }
   
-/* JavaCC - OriginalChecksum=5a2c2b1ce5e78e52325059450846e710 (do not edit this line) */
+/* JavaCC - OriginalChecksum=e3b731f04148e668a23e0b0e5df536b0 (do not edit this line) */

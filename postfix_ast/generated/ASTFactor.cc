@@ -12,7 +12,7 @@
   }
 
   /** Accept the visitor. **/
-  void  ASTFactor::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
+  void*  ASTFactor::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
     return 
     visitor->visit(this, data);
   }

@@ -15,11 +15,9 @@ options {
 
     MULTI = true;
     VISITOR = true;
-    /**
     NODE_DEFAULT_VOID=true;
     VISITOR_DATA_TYPE="void*";
     VISITOR_RETURN_TYPE="void*";
-    */
 }
 
 PARSER_BEGIN(PostfixParser)
@@ -46,24 +44,29 @@ ASTRoot* Start() #Root :
   }
 }
 
-void Expression() #Expression :
+void Expression() :
 {}
 {
-  Term()
-  ( "+" Term() )*
+  (
+    Term()
+    ( "+" Term() )*
+  ) #Expression(>1)
 }
 
-void Term() #Term :
+void Term() :
 {}
 {
-  Factor()
-  ( "*" Factor() )*
+  (
+    Factor()
+    ( "*" Factor() )*
+  ) #Term(>1)
 }
 
-void Factor() #Factor : {}
+void Factor() : {}
 {
-  "(" Expression() ")"
+  ("(" Expression() ")" ) #Factor
   | IntegerConstant()
+
 }
 
 void IntegerConstant() #IntegerConstant :

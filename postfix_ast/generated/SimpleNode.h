@@ -42,9 +42,9 @@ public:
   virtual void           jjtSetValue(void * value);
   virtual void*          jjtGetValue() const;
 
-  virtual void  jjtAccept(PostfixParserVisitor *visitor, void * data) const;
-  virtual void           jjtChildrenAccept(PostfixParserVisitor *visitor, void * data) const;
-  virtual void           jjtChildAccept(int childNo, PostfixParserVisitor *visitor, void * data) const;
+  virtual void* jjtAccept(PostfixParserVisitor *visitor, void* data) const;
+  virtual void           jjtChildrenAccept(PostfixParserVisitor *visitor, void* data) const;
+  virtual void           jjtChildAccept(int childNo, PostfixParserVisitor *visitor, void* data) const;
 
   /* You can override these two methods in subclasses of SimpleNode to
      customize the way the node appears when the tree is dumped.  If
@@ -63,4 +63,4 @@ public:
 };
 
 #endif
-/* JavaCC - OriginalChecksum=7259e7aeb97a7d2f0f5bc0febd908795 (do not edit this line) */
+/* JavaCC - OriginalChecksum=548fe20870a30a4a0ab09cc1e2c7f752 (do not edit this line) */

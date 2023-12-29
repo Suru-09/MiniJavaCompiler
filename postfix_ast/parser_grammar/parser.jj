@@ -16,11 +16,9 @@
 
                  
                    
-    /**
-    NODE_DEFAULT_VOID=true;
-    VISITOR_DATA_TYPE="void*";
-    VISITOR_RETURN_TYPE="void*";
-    */
+                           
+                              
+                                
 }
 
 PARSER_BEGIN(PostfixParser)
@@ -71,81 +69,89 @@ ASTRoot* Start()       :
 /*@egen*/
 }
 
-void Expression()             :
-{/*@bgen(jjtree) Expression */
-  ASTExpression *jjtn000 = new ASTExpression(JJTEXPRESSION);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
-{/*@bgen(jjtree) Expression */
+void Expression() :
+{}
+{/*@bgen(jjtree) #Expression(> 1) */
+  {
+    ASTExpression *jjtn001 = new ASTExpression(JJTEXPRESSION);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+  }
   try {
 /*@egen*/
-  Term()
-  ( "+" Term() )*/*@bgen(jjtree)*/
+  (
+    Term()
+    ( "+" Term() )*
+  )/*@bgen(jjtree)*/
   } catch (...) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+    if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
   } {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+    if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
   }
-/*@egen*/
+/*@egen*/                
 }
 
-void Term()       :
-{/*@bgen(jjtree) Term */
-  ASTTerm *jjtn000 = new ASTTerm(JJTTERM);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
-{/*@bgen(jjtree) Term */
+void Term() :
+{}
+{/*@bgen(jjtree) #Term(> 1) */
+  {
+    ASTTerm *jjtn001 = new ASTTerm(JJTTERM);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+  }
   try {
 /*@egen*/
-  Factor()
-  ( "*" Factor() )*/*@bgen(jjtree)*/
+  (
+    Factor()
+    ( "*" Factor() )*
+  )/*@bgen(jjtree)*/
   } catch (...) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+    if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
   } {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+    if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, jjtree.nodeArity() > 1);
     }
   }
-/*@egen*/
+/*@egen*/          
 }
 
-void Factor()         : {/*@bgen(jjtree) Factor */
-  ASTFactor *jjtn000 = new ASTFactor(JJTFACTOR);
-  bool jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
+void Factor() : {}
 {/*@bgen(jjtree) Factor */
+  {
+    ASTFactor *jjtn001 = new ASTFactor(JJTFACTOR);
+    bool jjtc001 = true;
+    jjtree.openNodeScope(jjtn001);
+  }
   try {
 /*@egen*/
-  "(" Expression() ")"
-  | IntegerConstant()/*@bgen(jjtree)*/
+  ("(" Expression() ")" )/*@bgen(jjtree)*/
   } catch (...) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
+    if (jjtc001) {
+      jjtree.clearNodeScope(jjtn001);
+      jjtc001 = false;
     } else {
       jjtree.popNode();
     }
   } {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
+    if (jjtc001) {
+      jjtree.closeNodeScope(jjtn001, true);
     }
   }
-/*@egen*/
+/*@egen*/        
+  | IntegerConstant()
+
 }
 
 void IntegerConstant()                  :

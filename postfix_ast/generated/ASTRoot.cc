@@ -12,7 +12,7 @@
   }
 
   /** Accept the visitor. **/
-  void  ASTRoot::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
+  void*  ASTRoot::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
     return 
     visitor->visit(this, data);
   }

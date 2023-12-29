@@ -42,7 +42,7 @@ public:
   virtual int     getId() const = 0;
 
   /** Accept the visitor. **/
-  virtual void  jjtAccept(PostfixParserVisitor *visitor, void * data) const = 0;
+  virtual void* jjtAccept(PostfixParserVisitor *visitor, void* data) const = 0;
 
   /** Clear list of children, and return children that we have before.
       Used in destructor to do linear destruction of tree.
@@ -63,4 +63,4 @@ public:
 
 
 #endif
-/* JavaCC - OriginalChecksum=e04d4ff7ba57849e05996bfc7fdefc53 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ef0e6b52ac0af5a280582dcf7b6cd6bc (do not edit this line) */

@@ -14,7 +14,7 @@ public:
   virtual ~ASTTerm();
 
   /** Accept the visitor. **/
-  virtual void  jjtAccept(PostfixParserVisitor *visitor, void * data) const ;
+  virtual void*  jjtAccept(PostfixParserVisitor *visitor, void * data) const ;
 };
 
 

@@ -15,8 +15,13 @@
     this->name = name;
   }
 
+JAVACC_STRING_TYPE ASTIntegerConstant::toString() const
+{
+    return name;
+}
+
   /** Accept the visitor. **/
-  void  ASTIntegerConstant::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
+  void*  ASTIntegerConstant::jjtAccept(PostfixParserVisitor *visitor, void * data) const {
     return 
     visitor->visit(this, data);
   }
