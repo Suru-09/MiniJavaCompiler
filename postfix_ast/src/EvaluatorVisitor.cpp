@@ -22,7 +22,7 @@ void EvaluatorVisitor::processOperator(char op) {
     int64_t operand1 = valueStack.top();
     valueStack.pop();
 
-    std::cout << "Processing " << op << " for operand2: " << operand2 << " & operand1: " << operand1 << "\n";
+    //std::cout << "Processing " << op << " for operand2: " << operand2 << " & operand1: " << operand1 << "\n";
 
     switch (op) {
         case '+':
@@ -59,9 +59,13 @@ void* EvaluatorVisitor::visit(const ASTExpression *node, void* data) {
     for(int cIdx = 0; cIdx < numChildren; ++cIdx)
     {
         void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
-        if(valueStack.size() >= 2) {
+        if(cIdx % 2 == 1) {
             processOperator('+');
         }
+    }
+
+    if(numChildren % 2 == 1) {
+        processOperator('+');
     }
     return data;
 }
@@ -71,9 +75,13 @@ void* EvaluatorVisitor::visit(const ASTTerm *node, void* data) {
     for(int cIdx = 0; cIdx < numChildren; ++cIdx)
     {
         void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
-        if(valueStack.size() >= 2) {
+        if(cIdx % 2 == 1) {
             processOperator('*');
         }
+    }
+
+    if(numChildren % 2 == 1) {
+        processOperator('*');
     }
    
     return data;

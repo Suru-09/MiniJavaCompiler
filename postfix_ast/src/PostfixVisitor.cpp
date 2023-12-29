@@ -28,14 +28,32 @@ void* PostfixVisitor::visit(const ASTRoot *node, void* data) {
 }
 
 void* PostfixVisitor::visit(const ASTExpression *node, void* data) {
-    visitChildrenAndAddEdges(node);
-    std::cout << "+ ";
+    auto numChildren = node->jjtGetNumChildren();
+    for(int cIdx = 0; cIdx < numChildren; cIdx++)
+    {
+        void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
+        if (cIdx % 2 == 1) {
+            std::cout << "+ ";
+        }
+    }
+    if (numChildren % 2 == 1) {
+        std::cout << "+ ";
+    }
     return data;
 }
 
 void* PostfixVisitor::visit(const ASTTerm *node, void* data) {
-    visitChildrenAndAddEdges(node);
-    std::cout << "* ";
+    auto numChildren = node->jjtGetNumChildren();
+    for(int cIdx = 0; cIdx < numChildren; cIdx++)
+    {
+        void* returnedNodeCount = node->jjtGetChild(cIdx)->jjtAccept(this, nullptr);
+        if (cIdx % 2 == 1) {
+            std::cout << "* ";
+        }
+    }
+    if (numChildren % 2 == 1) {
+        std::cout << "* ";
+    }
     return data;
 }
 
