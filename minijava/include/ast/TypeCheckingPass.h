@@ -48,8 +48,13 @@ private:
     std::string currentClassName;
     std::string currentMethod;
 
+    std::string currentExpType;
+    std::unordered_map<std::string, std::string> superTypeMap;
+
     bool isConditionBoolean;
 
+    void fillSupertypeMap();
+    bool isLeftTypeSuperTypeOrNot(const std::string& lhs, const std::string& rhs) const;
     std::string getIdentifierType(const std::string& indentifier);
 
     void* visitChildren(const SimpleNode* node, void* data, const std::size_t& start = 0);

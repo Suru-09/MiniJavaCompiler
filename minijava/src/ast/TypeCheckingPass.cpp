@@ -10,6 +10,50 @@ symbolTable(symbolTable),
 typesTable(typesTable),
 isConditionBoolean(false)
 {
+    fillSupertypeMap();
+}
+
+void TypeCheckingPass::fillSupertypeMap() {
+    const auto& map = typesTable.getTypesTable();
+    for(const auto& kv: map) {
+        const auto& classOpt = symbolTable.retrieveClass(kv.first);
+        if (!classOpt.has_value())   // if it is indeed a class
+        {
+            continue;
+        }
+
+        auto parrentId = classOpt.value().parrrentClassId;
+        if (parrentId == -1)    // it does not have a supertype
+        {
+            continue;  
+        }
+
+        auto _class = kv.first;
+        const auto& parentClassOpt = symbolTable.retrieveClass(parrentId);
+        if (!parentClassOpt.has_value())    // could not find the parent, weird..
+        {
+            continue;
+        }
+        auto _parentClass = parentClassOpt.value().className;
+        auto classAndParentPair = std::pair<std::string, std::string>(_class, _parentClass);
+        superTypeMap.insert(classAndParentPair);   
+    }
+}
+
+bool TypeCheckingPass::isLeftTypeSuperTypeOrNot(const std::string& lhs, const std::string& rhs) const
+{
+    // check if lhs is supertype of rhs
+    auto superTIterator = superTypeMap.find(rhs);
+    if (superTIterator != superTypeMap.end()) 
+    {
+        auto superType = *superTIterator;
+        if (superType.second == lhs)
+        {
+            return true;
+        }
+    }
+
+    return lhs == rhs;
 }
 
 std::string TypeCheckingPass::getIdentifierType(const std::string& identifier)
@@ -71,25 +115,23 @@ std::string TypeCheckingPass::getIdentifierType(const std::string& identifier)
         }
     }
 
-    // if it is a number, it is ok
     auto is_number = [](const std::string& s) -> bool {
         return !s.empty() && std::find_if(s.begin(), 
             s.end(), [](unsigned char c) { 
                 return !std::isdigit(c); 
             }) == s.end();
     };
+
     if (is_number(identifier))
     {
         return "";
     }
 
-    // if it is a string literal, it is ok
     if (identifier.size() > 0 && identifier[0] == '"')
     {
         return "";
     }
 
-    // if it is a boolean literal, it is ok
     if (identifier == "true" || identifier == "false")
     {
         return "boolean";
@@ -133,7 +175,15 @@ void* TypeCheckingPass::visit(const ASTVarDecl *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTMethodDeclNode *node, void* data) {
-    return visitChildren(node, data);
+    assert(node->jjtGetNumChildren() >= 3);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    std::string returnType = returnValue;
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    std::string identifier = returnValue;
+    currentMethod = identifier;
+
+    return visitChildren(node, data, 2);
 }
 
 void* TypeCheckingPass::visit(const ASTMethodIDNode *node, void* data) {
@@ -164,9 +214,9 @@ void* TypeCheckingPass::visit(const ASTIfStatementNode *node, void* data) {
     assert(node->jjtGetNumChildren() >= 1);
     node->jjtGetChild(0)->jjtAccept(this, data);
     std::string false_or_true = isConditionBoolean ? "true": "false";
-    logger::log(logger::log_level::Info, "Cond boolean: " + false_or_true);
+    logger::log(logger::log_level::Info, "Cond boolean for if: " + false_or_true);
     if (!isConditionBoolean) {
-        std::string message = "Condition is not a boolean!!!";
+        std::string message = "Condition for if statement is not a boolean!!!";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
@@ -175,7 +225,17 @@ void* TypeCheckingPass::visit(const ASTIfStatementNode *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTWhileStatement *node, void* data) {
-    return visitChildren(node, data);
+    assert(node->jjtGetNumChildren() >= 1);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    std::string false_or_true = isConditionBoolean ? "true": "false";
+    logger::log(logger::log_level::Info, "Cond boolean for while: " + false_or_true);
+    if (!isConditionBoolean) {
+        std::string message = "Condition for while statement is not a boolean!!!";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    isConditionBoolean = false;
+    return visitChildren(node, data, 1);
 }
 
 void* TypeCheckingPass::visit(const ASTPrintStatement *node, void* data) {
@@ -187,49 +247,79 @@ void* TypeCheckingPass::visit(const ASTOptionalExprStmt *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTAssignNode *node, void* data) {
-    return visitChildren(node, data);
+    assert(node->jjtGetNumChildren() == 2);
+
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    auto lhsType = currentExpType;
+
+    node->jjtGetChild(1)->jjtAccept(this, data);
+    auto rhsType = currentExpType;
+
+    if(!isLeftTypeSuperTypeOrNot(lhsType, rhsType))
+    {
+        std::string message = "Lhs: " + lhsType + " is not the same or supertype of: " + rhsType;
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    return visitChildren(node, data, 2);
 }
 
 void* TypeCheckingPass::visit(const ASTOrNode *node, void* data) {
     visitChildren(node, data);
     isConditionBoolean = true;
+    currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAndNode *node, void* data) {
     visitChildren(node, data);
     isConditionBoolean = true;
+    currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTEqualNotEqualNode *node, void* data) {
     visitChildren(node, data);
     isConditionBoolean = true;
+    currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTRelationalNode *node, void* data) {
+    assert(node->jjtGetNumChildren() == 2);
     visitChildren(node, data);
     isConditionBoolean = true;
+    currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAdditiveNode *node, void* data) {
+    assert(node->jjtGetNumChildren() == 2);
     return visitChildren(node, data);
 }
 
 void* TypeCheckingPass::visit(const ASTMultiplicativeNode *node, void* data) {
+    assert(node->jjtGetNumChildren() == 2);
     return visitChildren(node, data);
 }
 
 void* TypeCheckingPass::visit(const ASTUnaryNode *node, void* data) {
     visitChildren(node, data);
     isConditionBoolean = true;
+    currentExpType = "boolean";
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTLiteralNode *node, void* data) {
-    return visitChildren(node, data);
+    auto valueAsString = node->toString();
+    if (valueAsString == "true" || valueAsString == "false")
+    {
+        currentExpType = "boolean";
+    }
+    else {
+        currentExpType = "int";
+    }
+    return visitChildren(node, data, 1);
 }
 
 void* TypeCheckingPass::visit(const ASTIdentifier *node, void* data) {
@@ -315,7 +405,13 @@ void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
     node->jjtGetChild(0)->jjtAccept(this, data);
 
     auto identifierType = getIdentifierType(returnValue);
+    auto returnVal = returnValue;
+    logger::log(logger::log_level::Error, "ID: " + returnVal + " & Type of IDENTIFIER: " + currentExpType);
+    logger::log(logger::log_level::Error, "Class: " + currentClassName + " & method: " + currentMethod);
     visitChildren(node, data, 1);
+
+    currentExpType = identifierType;
+    
 
     // look for identifier in the st && check if it is a condition or not
     if (identifierType == "boolean") {

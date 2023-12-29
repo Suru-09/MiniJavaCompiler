@@ -52,7 +52,7 @@ class SimpleNewClass extends DummyClass {
     }
 
     public boolean[] returnBoolArray() {
-        dummyField = new DummyClass(5);
+        //dummyField = new DummyClass(5);
         return boolArrayField;
     }
 
@@ -64,16 +64,6 @@ class SimpleNewClass extends DummyClass {
         return dummyArrayField;
     }
 
-    public SimpleNewClass SimpleNewClass(int intParam, int[] intArrayParam, boolean boolParam, boolean[] boolArrayParam, DummyClass dummyParam, DummyClass[] dummyArrayParam) {
-        intField = intParam;
-        intArrayField = intArrayParam;
-        boolField = boolParam;
-        boolArrayField = boolArrayParam;
-        dummyField = dummyParam;
-        dummyArrayField = dummyArrayParam;
-        return this;
-    }
-
     public int accessIntFromDummy() {
         return dummyField.dummyField;
     }
@@ -82,7 +72,9 @@ class SimpleNewClass extends DummyClass {
         return dummyArrayField[0].dummyField;
     }
 
-    public int testIf() {
+    public int testIf(int integerField, int[] arrayInteger) {
+        intField = integerField;
+        intArrayField = arrayInteger;
         if (boolField) 
         {
             System.out.println(1);
@@ -104,8 +96,8 @@ class SimpleNewClass extends DummyClass {
 
     public int testWhile() {
         int i;
-        i = 0;
-        while (i < 5) 
+        i = 5 * 3 + 2 - 1;
+        while (i < 155) 
         {
             System.out.println(i);
             i = i + 1;

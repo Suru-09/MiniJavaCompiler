@@ -717,6 +717,11 @@ std::string TypesTable::getTypeAfterID(const int64_t& typeID) const {
     return "";
 }
 
+std::unordered_map<std::string, int64_t> TypesTable::getTypesTable() const 
+{
+    return typesTable;
+}
+
 void TypesTable::printTypesTable() const {
     logger::log(logger::log_level::Mandatory, "Printing types table: ");
     tabulate::Table typesTabulate;

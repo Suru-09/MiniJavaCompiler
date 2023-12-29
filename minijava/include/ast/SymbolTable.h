@@ -18,6 +18,7 @@ public:
     std::string getTypeAfterID(const int64_t& typeID) const;
 
     void printTypesTable() const;
+    std::unordered_map<std::string, int64_t> getTypesTable() const;
 
 private:
     std::unordered_map<std::string, int64_t> typesTable;
