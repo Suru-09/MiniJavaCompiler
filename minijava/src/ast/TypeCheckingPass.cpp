@@ -40,6 +40,12 @@ void TypeCheckingPass::fillSupertypeMap() {
     }
 }
 
+inline bool ends_with(std::string const & value, std::string const & ending)
+{
+    if (ending.size() > value.size()) return false;
+    return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+}
+
 bool TypeCheckingPass::isLeftTypeSuperTypeOrNot(const std::string& lhs, const std::string& rhs) const
 {
     // check if lhs is supertype of rhs
@@ -495,7 +501,6 @@ void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
 
     currentExpType = identifierType;
     
-
     // look for identifier in the st && check if it is a condition or not
     if (identifierType == "boolean") {
         isConditionBoolean = true;
@@ -509,6 +514,28 @@ void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
 
 void* TypeCheckingPass::visit(const ASTAccessArray *node, void* data)
 {
+    auto arrayType = currentExpType;
+    if (!ends_with(currentExpType, "[]"))
+    {
+        auto message = "We are trying to access a type that is not an array: (type): <" + currentExpType + ">";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+
+    if(currentExpType != "int")
+    {
+        auto message = "Only way to access an array is using an integer, can't use type: <" + currentExpType + ">";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    // after accessing an array the type is the type of the Array without []
+    if (ends_with(arrayType, "[]"))
+    {
+        currentExpType = arrayType.substr(0, arrayType.length() - std::string("[]").length());
+    }
     return visitChildren(node, data);
 }
 
