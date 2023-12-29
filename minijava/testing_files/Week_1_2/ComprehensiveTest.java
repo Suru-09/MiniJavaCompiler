@@ -17,7 +17,7 @@ class DummyClass extends CyclicDependencyClass {
     }
 }
 
-class CyclicDependencyClass extends DummyClass {
+class CyclicDependencyClass {
     CyclicDependencyClass cyclicDependencyField;
 
     public CyclicDependencyClass CyclicDependencyClass(CyclicDependencyClass cyclicDependencyParam) {

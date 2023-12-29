@@ -709,6 +709,14 @@ void TypesTable::addType(const std::pair<std::string, int64_t>& type) {
     typesTable.insert(type);
 }
 
+std::string TypesTable::getTypeAfterID(const int64_t& typeID) const {
+   for (auto it = typesTable.begin(); it != typesTable.end(); ++it)
+    if (it->second == typeID)
+        return it->first;
+
+    return "";
+}
+
 void TypesTable::printTypesTable() const {
     logger::log(logger::log_level::Mandatory, "Printing types table: ");
     tabulate::Table typesTabulate;

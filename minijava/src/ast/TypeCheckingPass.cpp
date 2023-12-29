@@ -7,8 +7,95 @@ namespace ast {
 TypeCheckingPass::TypeCheckingPass(SymbolTable& symbolTable, TypesTable& typesTable)
 : 
 symbolTable(symbolTable), 
-typesTable(typesTable) 
+typesTable(typesTable),
+isConditionBoolean(false)
 {
+}
+
+std::string TypeCheckingPass::getIdentifierType(const std::string& identifier)
+{
+    // watch in formal params
+    auto optParamInfo = symbolTable.retrieveParam(identifier, currentClassName, currentMethod);
+    if (optParamInfo.has_value())
+    {
+        return optParamInfo.value().paramType;
+    }
+
+    // watch in local vars
+    auto optLocalVarInfo = symbolTable.retrieveLocalVar(identifier, currentClassName, currentMethod);
+    if (optLocalVarInfo.has_value())
+    {
+        return optLocalVarInfo.value().varType;
+    }
+
+    // watch in members
+    auto optMemberInfo = symbolTable.retrieveMember(identifier, currentClassName);
+    if (optMemberInfo.has_value())
+    {
+        auto member = optMemberInfo.value();
+        if (member.memberType == MemberTable::MemberType::FIELD) {
+            return member.returnType;
+        }
+        else {
+            return "";
+        }
+    }
+
+    // watch in parent class
+    auto optClassInfo = symbolTable.retrieveClass(currentClassName);
+    if (optClassInfo.has_value())
+    {
+        auto parentId = optClassInfo.value().parrrentClassId;
+        while(parentId != -1)
+        {
+            auto optParentClassInfo = symbolTable.retrieveClass(parentId);
+            if (optParentClassInfo.has_value())
+            {
+                auto optParentMemberInfo = symbolTable.retrieveMember(identifier, optParentClassInfo.value().className);
+                if (optParentMemberInfo.has_value())
+                {
+                    auto member = optParentMemberInfo.value();
+                    if (member.memberType == MemberTable::MemberType::FIELD) {
+                        return member.returnType;
+                    }
+                    else {
+                        return "";
+                    }
+                }
+                parentId = optParentClassInfo.value().parrrentClassId;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    // if it is a number, it is ok
+    auto is_number = [](const std::string& s) -> bool {
+        return !s.empty() && std::find_if(s.begin(), 
+            s.end(), [](unsigned char c) { 
+                return !std::isdigit(c); 
+            }) == s.end();
+    };
+    if (is_number(identifier))
+    {
+        return "";
+    }
+
+    // if it is a string literal, it is ok
+    if (identifier.size() > 0 && identifier[0] == '"')
+    {
+        return "";
+    }
+
+    // if it is a boolean literal, it is ok
+    if (identifier == "true" || identifier == "false")
+    {
+        return "boolean";
+    }
+
+    return "";
 }
 
 void* TypeCheckingPass::visitChildren(const SimpleNode* node, void* data, const std::size_t& start/* = 0*/)
@@ -74,7 +161,17 @@ void* TypeCheckingPass::visit(const ASTReturnStatementNode *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTIfStatementNode *node, void* data) {
-    return visitChildren(node, data);
+    assert(node->jjtGetNumChildren() >= 1);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+    std::string false_or_true = isConditionBoolean ? "true": "false";
+    logger::log(logger::log_level::Info, "Cond boolean: " + false_or_true);
+    if (!isConditionBoolean) {
+        std::string message = "Condition is not a boolean!!!";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+    isConditionBoolean = false;
+    return visitChildren(node, data, 1);
 }
 
 void* TypeCheckingPass::visit(const ASTWhileStatement *node, void* data) {
@@ -94,19 +191,27 @@ void* TypeCheckingPass::visit(const ASTAssignNode *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTOrNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    isConditionBoolean = true;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAndNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    isConditionBoolean = true;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTEqualNotEqualNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    isConditionBoolean = true;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTRelationalNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    isConditionBoolean = true;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAdditiveNode *node, void* data) {
@@ -118,7 +223,9 @@ void* TypeCheckingPass::visit(const ASTMultiplicativeNode *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTUnaryNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    isConditionBoolean = true;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTLiteralNode *node, void* data) {
@@ -204,7 +311,21 @@ void* TypeCheckingPass::visit(const ASTInheritance *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
-    return visitChildren(node, data);
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+
+    auto identifierType = getIdentifierType(returnValue);
+    visitChildren(node, data, 1);
+
+    // look for identifier in the st && check if it is a condition or not
+    if (identifierType == "boolean") {
+        isConditionBoolean = true;
+    } 
+    else {
+        isConditionBoolean = false;
+    }
+
+    return data;
 }
 
 }  // namespace ast

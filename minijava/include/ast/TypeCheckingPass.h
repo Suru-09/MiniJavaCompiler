@@ -48,6 +48,10 @@ private:
     std::string currentClassName;
     std::string currentMethod;
 
+    bool isConditionBoolean;
+
+    std::string getIdentifierType(const std::string& indentifier);
+
     void* visitChildren(const SimpleNode* node, void* data, const std::size_t& start = 0);
 };
 

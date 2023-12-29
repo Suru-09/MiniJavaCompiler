@@ -15,6 +15,7 @@ public:
 
     bool isTypeDefined(const std::string& type) const;
     void addType(const std::pair<std::string, int64_t>& type);
+    std::string getTypeAfterID(const int64_t& typeID) const;
 
     void printTypesTable() const;
 

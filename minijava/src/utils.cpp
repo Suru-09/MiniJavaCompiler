@@ -86,6 +86,7 @@ void utils::buildSymbolTable(SimpleNode* root)
     ast::BindingVisitor bindingVisitor(symbolTable, typesTable);
     ast::TypeCheckingPass typeCheckingPass(symbolTable, typesTable);
     root->jjtAccept(&bindingVisitor, nullptr);
+    root->jjtAccept(&typeCheckingPass, nullptr);
     bindingVisitor.printSymbolTable();
 }
 

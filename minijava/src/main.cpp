@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 
     utils::cleanUpVisuliazerFiles();
     std::filesystem::path testFilePath = "../testing_files/Week_1_2/ComprehensiveTest.java";
-    auto errors = utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest", false);
+    auto errors = utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest", true);
     if(errors > 0)
     {
         logger::log(logger::log_level::Error, "Parsing was unsuccessful with " + std::to_string(errors) + " errors");
