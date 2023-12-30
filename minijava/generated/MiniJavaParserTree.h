@@ -32,6 +32,8 @@
 #include "ASTReturnStatementNode.h"
 #include "ASTRoot.h"
 #include "ASTMainClass.h"
+#include "ASTFunCall.h"
+#include "ASTFunArgs.h"
 #include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=a7b1d122ad48fba8e0d978095f2142ce (do not edit this line) */
+/* JavaCC - OriginalChecksum=71d76922eb7f8da233d2db1fa67f6857 (do not edit this line) */

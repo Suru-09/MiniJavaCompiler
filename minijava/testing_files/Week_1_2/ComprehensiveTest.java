@@ -72,6 +72,12 @@ class SimpleNewClass extends DummyClass {
         return dummyArrayField[0].dummyField;
     }
 
+    public int callFunc() {
+        int result;
+        result = accessIntFromDummyArray();
+        return result;
+    }
+
     public int testIf(int integerField, int[] arrayInteger) {
         intField = integerField;
         intArrayField = arrayInteger;

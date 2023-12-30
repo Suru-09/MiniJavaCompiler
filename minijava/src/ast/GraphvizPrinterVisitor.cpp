@@ -307,4 +307,19 @@ void* GraphvizPrinterVisitor::visit(const ASTPrimaryExpNode *node, void* data)
     return reinterpret_cast<void*>(identifierId);
 }
 
+void* GraphvizPrinterVisitor::visit(const ASTFunCall *node, void* data)
+{
+    uint64_t identifierId = addNode(node->toString());
+    visitChildrenAndAddEdges(node, identifierId);
+    return reinterpret_cast<void*>(identifierId);
+}
+
+void* GraphvizPrinterVisitor::visit(const ASTFunArgs *node, void* data)
+{
+    uint64_t identifierId = addNode(node->toString());
+    visitChildrenAndAddEdges(node, identifierId);
+    return reinterpret_cast<void*>(identifierId);
+}
+
+
 }

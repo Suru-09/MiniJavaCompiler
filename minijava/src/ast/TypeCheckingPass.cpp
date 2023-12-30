@@ -544,4 +544,45 @@ void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
     return visitChildren(node, data);
 }
 
+void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
+{
+    /**
+     * @brief case when we access an identifier after a primary expression.
+     * e.g. vec.length or calling a function.
+     */
+    assert(node->jjtGetNumChildren() != 0);
+    node->jjtGetChild(0)->jjtAccept(this, data);
+
+    logger::log(logger::log_level::Info, "io i Visit funcall: " + returnValue);
+    
+
+    return visitChildren(node, data, 1);
+}
+
+void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
+{
+    auto functionName = returnValue;
+    logger::log(logger::log_level::Info, "ASTFunArgs: " + functionName);
+
+    auto memberInfoOpt = symbolTable.retrieveMember(functionName, currentClassName);
+    if (!memberInfoOpt.has_value())
+    {
+        auto message = "Function with name: " + functionName + "has not been defined";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    if(memberInfoOpt.value().memberType == MemberTable::MemberType::FIELD)
+    {
+        auto message = functionName + " is a filed, not a method!!!";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    currentExpType = memberInfoOpt.value().returnType;
+
+    return visitChildren(node, data);
+}
+
+
 }  // namespace ast

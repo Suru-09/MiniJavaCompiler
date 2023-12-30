@@ -33,8 +33,10 @@ enum {
   JJTPRIMARYEXPNODE = 26,
   JJTACCESSIDENTIFIER = 27,
   JJTACCESSARRAY = 28,
-  JJTLITERALNODE = 29,
-  JJTIDENTIFIER = 30,
+  JJTFUNCALL = 29,
+  JJTFUNARGS = 30,
+  JJTLITERALNODE = 31,
+  JJTIDENTIFIER = 32,
 };
 
   static JJChar jjtNodeName_arr_0[] = 
@@ -96,8 +98,12 @@ enum {
   static JJChar jjtNodeName_arr_28[] = 
 {0x41, 0x63, 0x63, 0x65, 0x73, 0x73, 0x41, 0x72, 0x72, 0x61, 0x79, 0};
   static JJChar jjtNodeName_arr_29[] = 
-{0x4c, 0x69, 0x74, 0x65, 0x72, 0x61, 0x6c, 0x4e, 0x6f, 0x64, 0x65, 0};
+{0x46, 0x75, 0x6e, 0x43, 0x61, 0x6c, 0x6c, 0};
   static JJChar jjtNodeName_arr_30[] = 
+{0x46, 0x75, 0x6e, 0x41, 0x72, 0x67, 0x73, 0};
+  static JJChar jjtNodeName_arr_31[] = 
+{0x4c, 0x69, 0x74, 0x65, 0x72, 0x61, 0x6c, 0x4e, 0x6f, 0x64, 0x65, 0};
+  static JJChar jjtNodeName_arr_32[] = 
 {0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0};
   static JJString jjtNodeName[] = {
 jjtNodeName_arr_0, 
@@ -131,6 +137,8 @@ jjtNodeName_arr_27,
 jjtNodeName_arr_28, 
 jjtNodeName_arr_29, 
 jjtNodeName_arr_30, 
+jjtNodeName_arr_31, 
+jjtNodeName_arr_32, 
   };
 #endif
-/* JavaCC - OriginalChecksum=31bf12fcecd332850572168fffa4a1d9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=7a1b34c6a8e49662f5d17a6abc489b6f (do not edit this line) */

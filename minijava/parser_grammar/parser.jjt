@@ -396,7 +396,7 @@ void UnaryExp() :
 void PrimaryExp() #PrimaryExpNode :
 {}
 {
-  BeforePrimay() ( AfterPrimary() )*
+ BeforePrimay() ( LOOKAHEAD(3) AfterPrimary() )*
 }
 
 void BeforePrimay() : {}
@@ -418,9 +418,9 @@ void AfterPrimary() : {}
 {
   (<LBRACKET> Exp() <RBRACKET>) #AccessArray
 |
-  <DOT> Identifier()
+  ( <DOT> Identifier() ) #FunCall
 | 
-  <LPAREN> (ExpList())? <RPAREN>
+  (<LPAREN> (ExpList())? <RPAREN>) #FunArgs
 }
 
 

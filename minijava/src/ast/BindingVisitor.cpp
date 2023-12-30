@@ -370,5 +370,15 @@ void* BindingVisitor::visit(const ASTPrimaryExpNode *node, void* data)
     return visitChildrenNodes(node, data);
 }
 
+void* BindingVisitor::visit(const ASTFunCall *node, void* data)
+{
+    return visitChildrenNodes(node, data);
+}
+
+void* BindingVisitor::visit(const ASTFunArgs *node, void* data)
+{
+    return visitChildrenNodes(node, data);
+}
+
 
 }   // namespace ast

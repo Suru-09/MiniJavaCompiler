@@ -899,21 +899,21 @@ void PrimaryExp()                 :
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) PrimaryExpNode */
-  try {
+ try {
 /*@egen*/
-  BeforePrimay() ( AfterPrimary() )*/*@bgen(jjtree)*/
-  } catch (...) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-  } {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
+ BeforePrimay() ( LOOKAHEAD(3) AfterPrimary() )*/*@bgen(jjtree)*/
+ } catch (...) {
+   if (jjtc000) {
+     jjtree.clearNodeScope(jjtn000);
+     jjtc000 = false;
+   } else {
+     jjtree.popNode();
+   }
+ } {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
 /*@egen*/
 }
 
@@ -975,10 +975,50 @@ void AfterPrimary() : {}
     }
   }
 /*@egen*/             
-|
-  <DOT> Identifier()
-| 
-  <LPAREN> (ExpList())? <RPAREN>
+|/*@bgen(jjtree) FunCall */
+  {
+    ASTFunCall *jjtn002 = new ASTFunCall(JJTFUNCALL);
+    bool jjtc002 = true;
+    jjtree.openNodeScope(jjtn002);
+  }
+  try {
+/*@egen*/
+  ( <DOT> Identifier() )/*@bgen(jjtree)*/
+  } catch (...) {
+    if (jjtc002) {
+      jjtree.clearNodeScope(jjtn002);
+      jjtc002 = false;
+    } else {
+      jjtree.popNode();
+    }
+  } {
+    if (jjtc002) {
+      jjtree.closeNodeScope(jjtn002, true);
+    }
+  }
+/*@egen*/         
+|/*@bgen(jjtree) FunArgs */
+  {
+    ASTFunArgs *jjtn003 = new ASTFunArgs(JJTFUNARGS);
+    bool jjtc003 = true;
+    jjtree.openNodeScope(jjtn003);
+  }
+  try {
+/*@egen*/ 
+  (<LPAREN> (ExpList())? <RPAREN>)/*@bgen(jjtree)*/
+  } catch (...) {
+    if (jjtc003) {
+      jjtree.clearNodeScope(jjtn003);
+      jjtc003 = false;
+    } else {
+      jjtree.popNode();
+    }
+  } {
+    if (jjtc003) {
+      jjtree.closeNodeScope(jjtn003, true);
+    }
+  }
+/*@egen*/         
 }
 
 
