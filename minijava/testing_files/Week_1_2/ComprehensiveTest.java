@@ -69,6 +69,8 @@ class SimpleNewClass extends DummyClass {
     }
 
     public int accessIntFromDummyArray() {
+        int some_name;
+        some_name = dummyArrayField.length;
         return dummyArrayField[0].dummyField;
     }
 

@@ -3,9 +3,9 @@
 #include "TokenMgrError.h"
 #include "SimpleNode.h"
   unsigned int jj_la1_0[] = {
-0x10000,0x400000,0xc000,0x20000,0x6f800400,0x0,0xc000,0xc000,0x0,0xc000,0x6f800400,0x6f80c400,0x6f80c400,0x7800400,0x7800400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7800400,0x3800400,0x7800400,0x0,0x7800400,0x0,0xc000,0x1800400,0x0,};
+0x10000,0x400000,0xc000,0x20000,0x6f800400,0x0,0xc000,0xc000,0x0,0xc000,0x6f800400,0x6f80c400,0x6f80c400,0x7800400,0x7800400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7800400,0x3800400,0x80000000,0x7800400,0x0,0x7800400,0x0,0xc000,0x1800400,0x0,};
   unsigned int jj_la1_1[] = {
-0x0,0x0,0x1000000,0x0,0x1000117,0x200,0x1000000,0x1000000,0x40,0x0,0x1000117,0x1000117,0x1000117,0x1000011,0x1000011,0x800,0x800000,0x400000,0x3000,0x3000,0x3c000,0x3c000,0xc0000,0xc0000,0x300000,0x300000,0x1000011,0x1000010,0x1000011,0x450,0x1000011,0x50,0x1000000,0x0,0x200,};
+0x0,0x0,0x1000000,0x0,0x1000117,0x200,0x1000000,0x1000000,0x40,0x0,0x1000117,0x1000117,0x1000117,0x1000011,0x1000011,0x800,0x800000,0x400000,0x3000,0x3000,0x3c000,0x3c000,0xc0000,0xc0000,0x300000,0x300000,0x1000011,0x1000010,0x1000000,0x1000011,0x450,0x1000011,0x50,0x1000000,0x0,0x200,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -1613,33 +1613,64 @@ if (jjtc001) {
       break;
       }
     case DOT:{
-ASTFunCall *jjtn002 = new ASTFunCall(JJTFUNCALL);
-    bool jjtc002 = true;
-    jjtree.openNodeScope(jjtn002);
+ASTFunCall *jjtn003 = new ASTFunCall(JJTFUNCALL);
+    bool jjtc003 = true;
+    jjtree.openNodeScope(jjtn003);
       try {
         jj_consume_token(DOT);
             { if (hasError) { return __ERROR_RET__; } }
         
-        Identifier();
-            { if (hasError) { return __ERROR_RET__; } }
-        
-      } catch ( ...) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case IDENTIFIER:{
+          Identifier();
+              { if (hasError) { return __ERROR_RET__; } }
+          
+          break;
+          }
+        case LENGTH:{
+ASTAccessLength *jjtn002 = new ASTAccessLength(JJTACCESSLENGTH);
+        bool jjtc002 = true;
+        jjtree.openNodeScope(jjtn002);
+          try {
+            jj_consume_token(LENGTH);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+          } catch ( ...) {
 if (jjtc002) {
-      jjtree.clearNodeScope(jjtn002);
-      jjtc002 = false;
+          jjtree.clearNodeScope(jjtn002);
+          jjtc002 = false;
+        } else {
+          jjtree.popNode();
+        }
+          }
+if (jjtc002) {
+          jjtree.closeNodeScope(jjtn002, true);
+        }
+          break;
+          }
+        default:
+          jj_la1[28] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+          
+        }
+      } catch ( ...) {
+if (jjtc003) {
+      jjtree.clearNodeScope(jjtn003);
+      jjtc003 = false;
     } else {
       jjtree.popNode();
     }
       }
-if (jjtc002) {
-      jjtree.closeNodeScope(jjtn002, true);
+if (jjtc003) {
+      jjtree.closeNodeScope(jjtn003, true);
     }
       break;
       }
     case LPAREN:{
-ASTFunArgs *jjtn003 = new ASTFunArgs(JJTFUNARGS);
-    bool jjtc003 = true;
-    jjtree.openNodeScope(jjtn003);
+ASTFunArgs *jjtn004 = new ASTFunArgs(JJTFUNARGS);
+    bool jjtc004 = true;
+    jjtree.openNodeScope(jjtn004);
       try {
         jj_consume_token(LPAREN);
             { if (hasError) { return __ERROR_RET__; } }
@@ -1659,27 +1690,27 @@ ASTFunArgs *jjtn003 = new ASTFunArgs(JJTFUNARGS);
           break;
           }
         default:
-          jj_la1[28] = jj_gen;
+          jj_la1[29] = jj_gen;
           ;
         }
         jj_consume_token(RPAREN);
             { if (hasError) { return __ERROR_RET__; } }
         
       } catch ( ...) {
-if (jjtc003) {
-      jjtree.clearNodeScope(jjtn003);
-      jjtc003 = false;
+if (jjtc004) {
+      jjtree.clearNodeScope(jjtn004);
+      jjtc004 = false;
     } else {
       jjtree.popNode();
     }
       }
-if (jjtc003) {
-      jjtree.closeNodeScope(jjtn003, true);
+if (jjtc004) {
+      jjtree.closeNodeScope(jjtn004, true);
     }
       break;
       }
     default:
-      jj_la1[29] = jj_gen;
+      jj_la1[30] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1724,7 +1755,7 @@ void MiniJavaParser::AllocateMemory() {
           break;
           }
         default:
-          jj_la1[30] = jj_gen;
+          jj_la1[31] = jj_gen;
           ;
         }
         jj_consume_token(RPAREN);
@@ -1745,7 +1776,7 @@ void MiniJavaParser::AllocateMemory() {
         break;
         }
       default:
-        jj_la1[31] = jj_gen;
+        jj_la1[32] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
         
@@ -1760,7 +1791,7 @@ void MiniJavaParser::AllocateMemory() {
       break;
       }
     default:
-      jj_la1[32] = jj_gen;
+      jj_la1[33] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1810,7 +1841,7 @@ jjtn000->setValue(t->image);
         break;
         }
       default:
-        jj_la1[33] = jj_gen;
+        jj_la1[34] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
         
@@ -1881,7 +1912,7 @@ void MiniJavaParser::ExpList() {
         break;
         }
       default:
-        jj_la1[34] = jj_gen;
+        jj_la1[35] = jj_gen;
         goto end_label_15;
       }
       jj_consume_token(COMMA);
@@ -1926,7 +1957,7 @@ void MiniJavaParser::ReInit(TokenManager* tokenManager){
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 36; i++) jj_la1[i] = -1;
   }
 
 

@@ -977,35 +977,38 @@ void AfterPrimary() : {}
 /*@egen*/             
 |/*@bgen(jjtree) FunCall */
   {
-    ASTFunCall *jjtn002 = new ASTFunCall(JJTFUNCALL);
-    bool jjtc002 = true;
-    jjtree.openNodeScope(jjtn002);
-  }
-  try {
-/*@egen*/
-  ( <DOT> Identifier() )/*@bgen(jjtree)*/
-  } catch (...) {
-    if (jjtc002) {
-      jjtree.clearNodeScope(jjtn002);
-      jjtc002 = false;
-    } else {
-      jjtree.popNode();
-    }
-  } {
-    if (jjtc002) {
-      jjtree.closeNodeScope(jjtn002, true);
-    }
-  }
-/*@egen*/         
-|/*@bgen(jjtree) FunArgs */
-  {
-    ASTFunArgs *jjtn003 = new ASTFunArgs(JJTFUNARGS);
+    ASTFunCall *jjtn003 = new ASTFunCall(JJTFUNCALL);
     bool jjtc003 = true;
     jjtree.openNodeScope(jjtn003);
   }
   try {
-/*@egen*/ 
-  (<LPAREN> (ExpList())? <RPAREN>)/*@bgen(jjtree)*/
+/*@egen*/
+  ( <DOT>
+    ( Identifier() 
+    |/*@bgen(jjtree) AccessLength */
+      {
+        ASTAccessLength *jjtn002 = new ASTAccessLength(JJTACCESSLENGTH);
+        bool jjtc002 = true;
+        jjtree.openNodeScope(jjtn002);
+      }
+      try {
+/*@egen*/
+      ( <LENGTH> )/*@bgen(jjtree)*/
+      } catch (...) {
+        if (jjtc002) {
+          jjtree.clearNodeScope(jjtn002);
+          jjtc002 = false;
+        } else {
+          jjtree.popNode();
+        }
+      } {
+        if (jjtc002) {
+          jjtree.closeNodeScope(jjtn002, true);
+        }
+      }
+/*@egen*/               
+    )
+  )/*@bgen(jjtree)*/
   } catch (...) {
     if (jjtc003) {
       jjtree.clearNodeScope(jjtn003);
@@ -1016,6 +1019,28 @@ void AfterPrimary() : {}
   } {
     if (jjtc003) {
       jjtree.closeNodeScope(jjtn003, true);
+    }
+  }
+/*@egen*/         
+|/*@bgen(jjtree) FunArgs */
+  {
+    ASTFunArgs *jjtn004 = new ASTFunArgs(JJTFUNARGS);
+    bool jjtc004 = true;
+    jjtree.openNodeScope(jjtn004);
+  }
+  try {
+/*@egen*/ 
+  (<LPAREN> (ExpList())? <RPAREN>)/*@bgen(jjtree)*/
+  } catch (...) {
+    if (jjtc004) {
+      jjtree.clearNodeScope(jjtn004);
+      jjtc004 = false;
+    } else {
+      jjtree.popNode();
+    }
+  } {
+    if (jjtc004) {
+      jjtree.closeNodeScope(jjtn004, true);
     }
   }
 /*@egen*/         

@@ -143,6 +143,10 @@ std::string TypeCheckingPass::getIdentifierType(const std::string& identifier)
         return "boolean";
     }
 
+    if (identifier == "length") {
+        return "int";
+    }
+
     return "";
 }
 
@@ -550,7 +554,10 @@ void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
      * @brief case when we access an identifier after a primary expression.
      * e.g. vec.length or calling a function.
      */
-    assert(node->jjtGetNumChildren() != 0);
+    if (node->jjtGetNumChildren() == 0)
+    {
+        return data;
+    }
     node->jjtGetChild(0)->jjtAccept(this, data);
 
     logger::log(logger::log_level::Info, "io i Visit funcall: " + returnValue);
@@ -574,13 +581,19 @@ void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
 
     if(memberInfoOpt.value().memberType == MemberTable::MemberType::FIELD)
     {
-        auto message = functionName + " is a filed, not a method!!!";
+        auto message = functionName + " is a field, not a method!!!";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
 
     currentExpType = memberInfoOpt.value().returnType;
 
+    return visitChildren(node, data);
+}
+
+void* TypeCheckingPass::visit(const ASTAccessLength *node, void* data)
+{
+    currentExpType = "int";
     return visitChildren(node, data);
 }
 

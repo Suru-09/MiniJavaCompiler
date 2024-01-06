@@ -418,7 +418,12 @@ void AfterPrimary() : {}
 {
   (<LBRACKET> Exp() <RBRACKET>) #AccessArray
 |
-  ( <DOT> Identifier() ) #FunCall
+  ( <DOT>
+    ( Identifier() 
+    |
+      ( <LENGTH> ) #AccessLength 
+    )
+  ) #FunCall
 | 
   (<LPAREN> (ExpList())? <RPAREN>) #FunArgs
 }
