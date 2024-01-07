@@ -418,7 +418,7 @@ void AfterPrimary() : {}
   (<LBRACKET> Exp() <RBRACKET>) #AccessArray
 |
   ( <DOT>
-    ( Identifier() 
+    ( (Identifier()) #AccessIdentifier
     |
       ( <LENGTH> ) #AccessLength 
     )

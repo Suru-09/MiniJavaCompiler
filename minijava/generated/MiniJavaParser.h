@@ -222,7 +222,7 @@ void ExpList();
     return false;
   }
 
- inline bool jj_3R_AfterPrimary_421_7_21()
+ inline bool jj_3R_AfterPrimary_422_7_21()
  {
     if (jj_done) return true;
     if (jj_3R_Identifier_468_3_25()) return true;
@@ -253,7 +253,7 @@ void ExpList();
     if (jj_scan_token(DOT)) return true;
     Token * xsp;
     xsp = jj_scanpos;
-    if (jj_3R_AfterPrimary_421_7_21()) {
+    if (jj_3R_AfterPrimary_422_7_21()) {
     jj_scanpos = xsp;
     if (jj_3R_AfterPrimary_423_7_22()) return true;
     }

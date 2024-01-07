@@ -61,6 +61,7 @@ private:
 
     bool isConditionBoolean;
     bool isNodeBeforeAllocatingMemory;
+    bool overwriteFunCall;
 
     void fillSupertypeMap();
     bool isLeftTypeSuperTypeOrNot(const std::string& lhs, const std::string& rhs) const;

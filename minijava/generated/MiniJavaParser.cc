@@ -1613,26 +1613,20 @@ if (jjtc001) {
       break;
       }
     case DOT:{
-ASTFunCall *jjtn003 = new ASTFunCall(JJTFUNCALL);
-    bool jjtc003 = true;
-    jjtree.openNodeScope(jjtn003);
+ASTFunCall *jjtn004 = new ASTFunCall(JJTFUNCALL);
+    bool jjtc004 = true;
+    jjtree.openNodeScope(jjtn004);
       try {
         jj_consume_token(DOT);
             { if (hasError) { return __ERROR_RET__; } }
         
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
         case IDENTIFIER:{
-          Identifier();
-              { if (hasError) { return __ERROR_RET__; } }
-          
-          break;
-          }
-        case LENGTH:{
-ASTAccessLength *jjtn002 = new ASTAccessLength(JJTACCESSLENGTH);
+ASTAccessIdentifier *jjtn002 = new ASTAccessIdentifier(JJTACCESSIDENTIFIER);
         bool jjtc002 = true;
         jjtree.openNodeScope(jjtn002);
           try {
-            jj_consume_token(LENGTH);
+            Identifier();
                 { if (hasError) { return __ERROR_RET__; } }
             
           } catch ( ...) {
@@ -1648,6 +1642,27 @@ if (jjtc002) {
         }
           break;
           }
+        case LENGTH:{
+ASTAccessLength *jjtn003 = new ASTAccessLength(JJTACCESSLENGTH);
+        bool jjtc003 = true;
+        jjtree.openNodeScope(jjtn003);
+          try {
+            jj_consume_token(LENGTH);
+                { if (hasError) { return __ERROR_RET__; } }
+            
+          } catch ( ...) {
+if (jjtc003) {
+          jjtree.clearNodeScope(jjtn003);
+          jjtc003 = false;
+        } else {
+          jjtree.popNode();
+        }
+          }
+if (jjtc003) {
+          jjtree.closeNodeScope(jjtn003, true);
+        }
+          break;
+          }
         default:
           jj_la1[28] = jj_gen;
           jj_consume_token(-1);
@@ -1655,22 +1670,22 @@ if (jjtc002) {
           
         }
       } catch ( ...) {
-if (jjtc003) {
-      jjtree.clearNodeScope(jjtn003);
-      jjtc003 = false;
+if (jjtc004) {
+      jjtree.clearNodeScope(jjtn004);
+      jjtc004 = false;
     } else {
       jjtree.popNode();
     }
       }
-if (jjtc003) {
-      jjtree.closeNodeScope(jjtn003, true);
+if (jjtc004) {
+      jjtree.closeNodeScope(jjtn004, true);
     }
       break;
       }
     case LPAREN:{
-ASTFunArgs *jjtn004 = new ASTFunArgs(JJTFUNARGS);
-    bool jjtc004 = true;
-    jjtree.openNodeScope(jjtn004);
+ASTFunArgs *jjtn005 = new ASTFunArgs(JJTFUNARGS);
+    bool jjtc005 = true;
+    jjtree.openNodeScope(jjtn005);
       try {
         jj_consume_token(LPAREN);
             { if (hasError) { return __ERROR_RET__; } }
@@ -1697,15 +1712,15 @@ ASTFunArgs *jjtn004 = new ASTFunArgs(JJTFUNARGS);
             { if (hasError) { return __ERROR_RET__; } }
         
       } catch ( ...) {
-if (jjtc004) {
-      jjtree.clearNodeScope(jjtn004);
-      jjtc004 = false;
+if (jjtc005) {
+      jjtree.clearNodeScope(jjtn005);
+      jjtc005 = false;
     } else {
       jjtree.popNode();
     }
       }
-if (jjtc004) {
-      jjtree.closeNodeScope(jjtn004, true);
+if (jjtc005) {
+      jjtree.closeNodeScope(jjtn005, true);
     }
       break;
       }

@@ -73,8 +73,9 @@ class SimpleNewClass extends DummyClass {
         myNewArray = new int[10];
         some_name = dummyArrayField.length;
         some_name = callFunc(some_name, false);
-        some_name = this.boolField;
-        return dummyArrayField[0].dummyField;
+        some_name = this.intField;
+        some_name = dummyArrayField[0].dummyField;
+        return some_name;
     }
 
     public int testIf(int integerField, int[] arrayInteger) {
