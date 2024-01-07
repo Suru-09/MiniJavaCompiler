@@ -44,6 +44,9 @@ public:
   void* visit(const ASTFunCall *node, void* data);
   void* visit(const ASTFunArgs *node, void* data);
   void* visit(const ASTAccessLength *node, void* data);
+  void* visit(const ASTAllocateIdentifier *node, void* data);
+  void* visit(const ASTAllocateArray *node, void* data);
+  
 public:
     std::string graphName;
     std::string graph;

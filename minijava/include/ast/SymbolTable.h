@@ -44,7 +44,7 @@ public:
     std::optional<FormalParamInfo> retrieveParam(const std::string& paramName) const;
 
     void updateParam(const FormalParamInfo& paramInfo);
-private:
+public:
     TypesTable& typesTable;
     std::vector<FormalParamInfo> params;
     int64_t currentParamId;
@@ -119,6 +119,7 @@ public:
     std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& memberName) const;
     std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& memberName) const;
     std::optional<MemberInfo> retrieveMember(const std::string& memberName) const;
+    std::optional<FormalParamTable> retrieveParamTable(const std::string& memberName) const;
 
     void updateMember(const MemberInfo& memberInfo);
     void updateParam(const FormalParamTable::FormalParamInfo& paramInfo, const std::string& memberName);
@@ -166,6 +167,7 @@ public:
     std::optional<ClassTable::ClassInfo> retrieveClass(const int64_t& classId) const;
     std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
     std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
+    std::optional<FormalParamTable> retrieveParamTable(const std::string& className, const std::string& memberName) const;
 
     void updateClass(const ClassTable::ClassInfo& classInfo);
     void updateMember(const MemberTable::MemberInfo& memberInfo, const std::string& className);
@@ -193,6 +195,7 @@ public:
     std::optional<ClassTable::ClassInfo> retrieveClass(const int64_t& classId) const;
     std::optional<LocalVarTable::LocalVarInfo> retrieveLocalVar(const std::string& varName, const std::string& className, const std::string& memberName) const;
     std::optional<FormalParamTable::FormalParamInfo> retrieveParam(const std::string& paramName, const std::string& className, const std::string& memberName) const;
+    std::optional<FormalParamTable> retrieveParamTable(const std::string& className, const std::string& memberName) const;
 
     void updateClass(const ClassTable::ClassInfo& classInfo);
     void updateMember(const MemberTable::MemberInfo& memberInfo, const std::string& className);

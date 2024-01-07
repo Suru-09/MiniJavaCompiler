@@ -409,7 +409,6 @@ void BeforePrimay() : {}
 | 
   <LPAREN> Exp() <RPAREN>
 |
-  LOOKAHEAD(2)
   AllocateMemory()
 
 }
@@ -429,18 +428,14 @@ void AfterPrimary() : {}
 }
 
 
-void AllocateMemory() : {}
+void AllocateMemory()  : {}
 {
   <NEW> 
+  (Identifier() | SimpleType())
   (
-    Identifier() 
-    (
-      (<LPAREN> (ExpList())? <RPAREN>) 
-    | 
-      (<LBRACKET> <INTEGER_LITERAL> <RBRACKET>)
-    )
-  |
-    SimpleType()
+    (<LPAREN> (ExpList())? <RPAREN>) #AllocateIdentifier
+  | 
+    (<LBRACKET> <INTEGER_LITERAL> <RBRACKET>) #AllocateArray
   )
 }
 

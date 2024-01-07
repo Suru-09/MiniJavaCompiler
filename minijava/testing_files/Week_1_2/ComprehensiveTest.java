@@ -4,10 +4,13 @@ class Main {
     }
 }
 
+class Random {
+    int randomField;
+}
+
 /*
     * Testing the following:
 */
-
 class DummyClass extends CyclicDependencyClass {
     int dummyField;
 
@@ -32,7 +35,6 @@ class SimpleNewClass extends DummyClass {
     int[] intArrayField;
     boolean boolField;
     boolean[] boolArrayField;
-    DummyClass dummyField;
     DummyClass[] dummyArrayField;
 
 
@@ -52,32 +54,26 @@ class SimpleNewClass extends DummyClass {
     }
 
     public boolean[] returnBoolArray() {
-        //dummyField = new DummyClass(5);
         return boolArrayField;
-    }
-
-    public DummyClass returnDummy() {
-        return dummyField;
     }
 
     public DummyClass[] returnDummyArray() {
         return dummyArrayField;
     }
 
-    public int accessIntFromDummy() {
-        return dummyField.dummyField;
-    }
-
-    public int accessIntFromDummyArray() {
-        int some_name;
-        some_name = dummyArrayField.length;
-        return dummyArrayField[0].dummyField;
-    }
-
-    public int callFunc() {
+    public int callFunc(int field1, boolean field2) {
         int result;
-        result = accessIntFromDummyArray();
+        result = returnInt();
         return result;
+    }
+
+     public int accessIntFromDummyArray() {
+        int/*boolean*/ some_name;
+        int[] myNewArray;
+        myNewArray = new int[10];
+        some_name = dummyArrayField.length;
+        some_name = callFunc(some_name, false);
+        return dummyArrayField[0].dummyField;
     }
 
     public int testIf(int integerField, int[] arrayInteger) {

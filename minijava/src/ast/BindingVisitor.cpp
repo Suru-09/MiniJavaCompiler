@@ -198,7 +198,7 @@ void* BindingVisitor::visit(const ASTArgsList *node, void* data) {
         node->jjtGetChild(i + 1)->jjtAccept(this, data);
         std::string identifier = returnValue;
 
-        logger::log(logger::log_level::Info, std::string("Adding param").append(type).append(" ").append(identifier).append(" to method ").append(currentMemberName).append(" of class ").append(currentClassName));
+        logger::log(logger::log_level::Info, std::string("Adding param with type:").append(" ").append(type).append(" ").append(identifier).append(" to method ").append(currentMemberName).append(" of class ").append(currentClassName));
         symbolTable.addParam(std::make_pair(type, identifier), currentClassName, currentMemberName);
         argsList += type.append("").append(identifier);
         if(i != node->jjtGetNumChildren() - 2)
@@ -381,6 +381,16 @@ void* BindingVisitor::visit(const ASTFunArgs *node, void* data)
 }
 
 void* BindingVisitor::visit(const ASTAccessLength *node, void* data)
+{
+    return visitChildrenNodes(node, data);
+}
+
+void* BindingVisitor::visit(const ASTAllocateIdentifier *node, void* data)
+{
+    return visitChildrenNodes(node, data);
+}
+
+void* BindingVisitor::visit(const ASTAllocateArray *node, void* data)
 {
     return visitChildrenNodes(node, data);
 }

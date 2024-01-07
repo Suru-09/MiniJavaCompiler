@@ -947,7 +947,6 @@ void BeforePrimay() : {}
 | 
   <LPAREN> Exp() <RPAREN>
 |
-  LOOKAHEAD(2)
   AllocateMemory()
 
 }
@@ -1047,18 +1046,54 @@ void AfterPrimary() : {}
 }
 
 
-void AllocateMemory() : {}
+void AllocateMemory()  : {}
 {
   <NEW> 
-  (
-    Identifier() 
-    (
-      (<LPAREN> (ExpList())? <RPAREN>) 
-    | 
-      (<LBRACKET> <INTEGER_LITERAL> <RBRACKET>)
-    )
-  |
-    SimpleType()
+  (Identifier() | SimpleType())
+  (/*@bgen(jjtree) AllocateIdentifier */
+    {
+      ASTAllocateIdentifier *jjtn001 = new ASTAllocateIdentifier(JJTALLOCATEIDENTIFIER);
+      bool jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
+    }
+    try {
+/*@egen*/
+    (<LPAREN> (ExpList())? <RPAREN>)/*@bgen(jjtree)*/
+    } catch (...) {
+      if (jjtc001) {
+        jjtree.clearNodeScope(jjtn001);
+        jjtc001 = false;
+      } else {
+        jjtree.popNode();
+      }
+    } {
+      if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001, true);
+      }
+    }
+/*@egen*/                    
+  |/*@bgen(jjtree) AllocateArray */
+    {
+      ASTAllocateArray *jjtn002 = new ASTAllocateArray(JJTALLOCATEARRAY);
+      bool jjtc002 = true;
+      jjtree.openNodeScope(jjtn002);
+    }
+    try {
+/*@egen*/ 
+    (<LBRACKET> <INTEGER_LITERAL> <RBRACKET>)/*@bgen(jjtree)*/
+    } catch (...) {
+      if (jjtc002) {
+        jjtree.clearNodeScope(jjtn002);
+        jjtc002 = false;
+      } else {
+        jjtree.popNode();
+      }
+    } {
+      if (jjtc002) {
+        jjtree.closeNodeScope(jjtn002, true);
+      }
+    }
+/*@egen*/               
   )
 }
 

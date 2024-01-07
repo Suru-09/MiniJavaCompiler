@@ -128,6 +128,14 @@ std::optional<FormalParamTable::FormalParamInfo> SymbolTable::retrieveParam(cons
     return classTable.value().retrieveParam(paramName, className, memberName);
 }
 
+std::optional<FormalParamTable> SymbolTable::retrieveParamTable(const std::string& className, const std::string& memberName) const
+{
+    if (!classTable.has_value()) {
+        return std::nullopt;
+    }
+    return classTable.value().retrieveParamTable(className, memberName);
+}
+
 void SymbolTable::updateClass(const ClassTable::ClassInfo& classInfo) {
     if (!classTable.has_value()) {
         throw std::runtime_error("Class table is not defined");
@@ -312,6 +320,20 @@ std::optional<FormalParamTable::FormalParamInfo> ClassTable::retrieveParam(const
     }
 
     return memberInfo.value().formalParamTable.value().retrieveParam(paramName);
+}
+
+std::optional<FormalParamTable> ClassTable::retrieveParamTable(const std::string& className, const std::string& memberName) const
+{
+    auto memberInfo = retrieveMember(memberName, className);
+    if (!memberInfo.has_value()) {
+        return std::nullopt;
+    }
+
+    if (!memberInfo.value().formalParamTable.has_value()) {
+        return std::nullopt;
+    }
+
+    return memberInfo.value().formalParamTable.value();
 }
 
 void ClassTable::updateClass(const ClassTable::ClassInfo& classInfo) {

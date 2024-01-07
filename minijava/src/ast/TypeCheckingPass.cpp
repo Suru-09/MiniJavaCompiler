@@ -8,7 +8,8 @@ TypeCheckingPass::TypeCheckingPass(SymbolTable& symbolTable, TypesTable& typesTa
 : 
 symbolTable(symbolTable), 
 typesTable(typesTable),
-isConditionBoolean(false)
+isConditionBoolean(false),
+isNodeBeforeAllocatingMemory(false)
 {
     fillSupertypeMap();
 }
@@ -205,10 +206,16 @@ void* TypeCheckingPass::visit(const ASTArgsList *node, void* data) {
 }
 
 void* TypeCheckingPass::visit(const ASTArrayDeclNode *node, void* data) {
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    if (!ends_with(currentExpType, "[]"))
+    {
+        currentExpType += "[]";
+    }
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTSimpleTypeNode *node, void* data) {
+    currentExpType = node->toString();
     return visitChildren(node, data);
 }
 
@@ -405,7 +412,7 @@ void* TypeCheckingPass::visit(const ASTUnaryNode *node, void* data) {
 
 void* TypeCheckingPass::visit(const ASTLiteralNode *node, void* data) {
     auto valueAsString = node->toString();
-    if (valueAsString == "true" || valueAsString == "false")
+    if (valueAsString == "true" || valueAsString == "false" || valueAsString == "boolean")
     {
         currentExpType = "boolean";
     }
@@ -513,15 +520,17 @@ void* TypeCheckingPass::visit(const ASTAccessIdentifier *node, void* data) {
         isConditionBoolean = false;
     }
 
+    functionCalled = returnVal;
     return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAccessArray *node, void* data)
 {
     auto arrayType = currentExpType;
-    if (!ends_with(currentExpType, "[]"))
+    logger::log(logger::log_level::Error, "Array type before access of children: <" + arrayType + ">");
+    if (!ends_with(arrayType, "[]"))
     {
-        auto message = "We are trying to access a type that is not an array: (type): <" + currentExpType + ">";
+        auto message = "We are trying to access a type that is not an array: (type): <" + arrayType + ">";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
@@ -534,13 +543,17 @@ void* TypeCheckingPass::visit(const ASTAccessArray *node, void* data)
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
-
-    // after accessing an array the type is the type of the Array without []
-    if (ends_with(arrayType, "[]"))
+    
+    // if we are accessing the array only to allocate memory then we need to return
+    // the array type like e.g. int[] and not simply int.
+    if (isNodeBeforeAllocatingMemory)
     {
-        currentExpType = arrayType.substr(0, arrayType.length() - std::string("[]").length());
+        currentExpType = arrayType;
     }
-    return visitChildren(node, data);
+    auto message = "Type of current expression is: <" + currentExpType + ">" + " and arrayType: <" + arrayType + ">";
+    logger::log(logger::log_level::Error, message);
+    isNodeBeforeAllocatingMemory = false;
+    return visitChildren(node, data, 1);
 }
 
 void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
@@ -550,45 +563,68 @@ void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
 
 void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
 {
-    /**
-     * @brief case when we access an identifier after a primary expression.
-     * e.g. vec.length or calling a function.
-     */
-    if (node->jjtGetNumChildren() == 0)
-    {
-        return data;
-    }
-    node->jjtGetChild(0)->jjtAccept(this, data);
-
-    logger::log(logger::log_level::Info, "io i Visit funcall: " + returnValue);
-    
-
-    return visitChildren(node, data, 1);
+    auto functionName = returnValue;
+    logger::log(logger::log_level::Info, "ASTFunArgs: " + functionName);
+    return visitChildren(node, data);
 }
 
 void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
 {
-    auto functionName = returnValue;
-    logger::log(logger::log_level::Info, "ASTFunArgs: " + functionName);
-
-    auto memberInfoOpt = symbolTable.retrieveMember(functionName, currentClassName);
+     auto memberInfoOpt = symbolTable.retrieveMember(functionCalled, currentClassName);
     if (!memberInfoOpt.has_value())
     {
-        auto message = "Function with name: " + functionName + "has not been defined";
+        auto message = "Function with name: " + functionCalled + "has not been defined";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
 
     if(memberInfoOpt.value().memberType == MemberTable::MemberType::FIELD)
     {
-        auto message = functionName + " is a field, not a method!!!";
+        auto message = functionCalled + " is a field, not a method!!!";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
     }
 
-    currentExpType = memberInfoOpt.value().returnType;
+    // get a list of parameters types
+    std::vector<std::string> paramsTypes;
+    const auto paramTable = symbolTable.retrieveParamTable(currentClassName, functionCalled);
+    if (paramTable.has_value())
+    {
+        for(const auto& param: paramTable.value().params)
+        {
+            paramsTypes.push_back(param.paramType);
+        }
+    }
+    auto numChildren = node->jjtGetNumChildren();
 
-    return visitChildren(node, data);
+    if (numChildren != paramsTypes.size())
+    {
+        std::string message;
+        if (numChildren < paramsTypes.size())
+        {
+            message = "Not enough parameters have been entered in order to call function: " + functionCalled;
+        }
+        else {
+            message = "Too many parameters have been entered in order to call function: " + functionCalled;
+        }
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    for (int cIdx = 0 ; cIdx < numChildren; ++cIdx)
+    {
+        node->jjtGetChild(cIdx)->jjtAccept(this, data);
+        logger::log(logger::log_level::Error, "Functions param: " + paramsTypes.at(cIdx) + " and given: " + currentExpType + " with name: " + returnValue);
+        if (currentExpType != paramsTypes.at(cIdx))
+        {
+            auto message = "Given parameters with type: <" + currentExpType + "> does not match function's parameters type: <" + paramsTypes.at(cIdx) + ">";
+            logger::log(logger::log_level::Error, message);
+            throw std::runtime_error(message);
+        }
+    }
+
+    currentExpType = memberInfoOpt.value().returnType;
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTAccessLength *node, void* data)
@@ -597,5 +633,24 @@ void* TypeCheckingPass::visit(const ASTAccessLength *node, void* data)
     return visitChildren(node, data);
 }
 
+void* TypeCheckingPass::visit(const ASTAllocateIdentifier *node, void* data)
+{
+    auto initialType = currentExpType;
+    visitChildren(node, data);
+    // it will be replaced by the values in (...), but we need the immediate type
+    // after new, eg. new DummyClass(5) -> we should return DummyClass and not int!!
+    currentExpType = initialType;
+    return data;
+}
 
+void* TypeCheckingPass::visit(const ASTAllocateArray *node, void* data)
+{
+    isNodeBeforeAllocatingMemory = true;
+    if (!ends_with(currentExpType, "[]"))
+    {
+        currentExpType += "[]";
+    }
+    visitChildren(node, data);
+    return data;
+}
 }  // namespace ast

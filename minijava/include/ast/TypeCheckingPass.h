@@ -44,6 +44,8 @@ public:
     void* visit(const ASTFunCall *node, void* data);
     void* visit(const ASTFunArgs *node, void* data);
     void* visit(const ASTAccessLength *node, void* data);
+    void* visit(const ASTAllocateIdentifier *node, void* data);
+    void* visit(const ASTAllocateArray *node, void* data);
 
 private:
     SymbolTable& symbolTable;
@@ -54,9 +56,11 @@ private:
     std::string currentMethod;
 
     std::string currentExpType;
+    std::string functionCalled;
     std::unordered_map<std::string, std::string> superTypeMap;
 
     bool isConditionBoolean;
+    bool isNodeBeforeAllocatingMemory;
 
     void fillSupertypeMap();
     bool isLeftTypeSuperTypeOrNot(const std::string& lhs, const std::string& rhs) const;

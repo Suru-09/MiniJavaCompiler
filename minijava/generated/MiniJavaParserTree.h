@@ -14,9 +14,11 @@
 #include "ASTArgsList.h"
 #include "ASTLiteralNode.h"
 #include "ASTAccessArray.h"
+#include "ASTAllocateIdentifier.h"
 #include "ASTOrNode.h"
 #include "ASTPrintStatement.h"
 #include "ASTEqualNotEqualNode.h"
+#include "ASTAllocateArray.h"
 #include "ASTBlockStatementNode.h"
 #include "ASTAdditiveNode.h"
 #include "ASTAccessIdentifier.h"
@@ -37,4 +39,4 @@
 #include "ASTFunArgs.h"
 #include "ASTAndNode.h"
 #endif
-/* JavaCC - OriginalChecksum=dfd6defd46d9a380e8f0d357cff347e1 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b5a0cf8af2b09c1825304f6dd9e30172 (do not edit this line) */

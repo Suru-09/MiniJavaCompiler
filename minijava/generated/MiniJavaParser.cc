@@ -3,9 +3,9 @@
 #include "TokenMgrError.h"
 #include "SimpleNode.h"
   unsigned int jj_la1_0[] = {
-0x10000,0x400000,0xc000,0x20000,0x6f800400,0x0,0xc000,0xc000,0x0,0xc000,0x6f800400,0x6f80c400,0x6f80c400,0x7800400,0x7800400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7800400,0x3800400,0x80000000,0x7800400,0x0,0x7800400,0x0,0xc000,0x1800400,0x0,};
+0x10000,0x400000,0xc000,0x20000,0x6f800400,0x0,0xc000,0xc000,0x0,0xc000,0x6f800400,0x6f80c400,0x6f80c400,0x7800400,0x7800400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7800400,0x7800400,0x80000000,0x7800400,0x0,0xc000,0x7800400,0x0,0x1800400,0x0,};
   unsigned int jj_la1_1[] = {
-0x0,0x0,0x1000000,0x0,0x1000117,0x200,0x1000000,0x1000000,0x40,0x0,0x1000117,0x1000117,0x1000117,0x1000011,0x1000011,0x800,0x800000,0x400000,0x3000,0x3000,0x3c000,0x3c000,0xc0000,0xc0000,0x300000,0x300000,0x1000011,0x1000010,0x1000000,0x1000011,0x450,0x1000011,0x50,0x1000000,0x0,0x200,};
+0x0,0x0,0x1000000,0x0,0x1000117,0x200,0x1000000,0x1000000,0x40,0x0,0x1000117,0x1000117,0x1000117,0x1000011,0x1000011,0x800,0x800000,0x400000,0x3000,0x3000,0x3c000,0x3c000,0xc0000,0xc0000,0x300000,0x300000,0x1000011,0x1000010,0x1000000,0x1000011,0x450,0x1000000,0x1000011,0x50,0x0,0x200,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -1560,17 +1560,17 @@ if (jjtc001) {
       
       break;
       }
+    case NEW:{
+      AllocateMemory();
+          { if (hasError) { return __ERROR_RET__; } }
+      
+      break;
+      }
     default:
       jj_la1[27] = jj_gen;
-      if (jj_2_2(2)) {
-        AllocateMemory();
-            { if (hasError) { return __ERROR_RET__; } }
-        
-      } else {
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
-        
-      }
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+      
     }
 
 #undef __ERROR_RET__
@@ -1735,8 +1735,27 @@ void MiniJavaParser::AllocateMemory() {
       Identifier();
           { if (hasError) { return __ERROR_RET__; } }
       
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LPAREN:{
+      break;
+      }
+    case INT:
+    case BOOLEAN:{
+      SimpleType();
+          { if (hasError) { return __ERROR_RET__; } }
+      
+      break;
+      }
+    default:
+      jj_la1[31] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
+      
+    }
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case LPAREN:{
+ASTAllocateIdentifier *jjtn001 = new ASTAllocateIdentifier(JJTALLOCATEIDENTIFIER);
+      bool jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
+      try {
         jj_consume_token(LPAREN);
             { if (hasError) { return __ERROR_RET__; } }
         
@@ -1755,15 +1774,30 @@ void MiniJavaParser::AllocateMemory() {
           break;
           }
         default:
-          jj_la1[31] = jj_gen;
+          jj_la1[32] = jj_gen;
           ;
         }
         jj_consume_token(RPAREN);
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      case LBRACKET:{
+      } catch ( ...) {
+if (jjtc001) {
+        jjtree.clearNodeScope(jjtn001);
+        jjtc001 = false;
+      } else {
+        jjtree.popNode();
+      }
+      }
+if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001, true);
+      }
+      break;
+      }
+    case LBRACKET:{
+ASTAllocateArray *jjtn002 = new ASTAllocateArray(JJTALLOCATEARRAY);
+      bool jjtc002 = true;
+      jjtree.openNodeScope(jjtn002);
+      try {
         jj_consume_token(LBRACKET);
             { if (hasError) { return __ERROR_RET__; } }
         
@@ -1773,21 +1807,17 @@ void MiniJavaParser::AllocateMemory() {
         jj_consume_token(RBRACKET);
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[32] = jj_gen;
-        jj_consume_token(-1);
-        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
-        
+      } catch ( ...) {
+if (jjtc002) {
+        jjtree.clearNodeScope(jjtn002);
+        jjtc002 = false;
+      } else {
+        jjtree.popNode();
       }
-      break;
       }
-    case INT:
-    case BOOLEAN:{
-      SimpleType();
-          { if (hasError) { return __ERROR_RET__; } }
-      
+if (jjtc002) {
+        jjtree.closeNodeScope(jjtn002, true);
+      }
       break;
       }
     default:
@@ -1988,7 +2018,7 @@ Token * MiniJavaParser::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -2082,14 +2112,13 @@ int MiniJavaParser::jj_ntk_f(){
 
   void MiniJavaParser::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
           jj_la = p->arg; jj_lastpos = jj_scanpos = p->first;
           switch (i) {
             case 0: jj_3_1(); break;
-            case 1: jj_3_2(); break;
           }
         }
         p = p->next;

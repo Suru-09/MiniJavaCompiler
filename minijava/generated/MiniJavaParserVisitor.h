@@ -39,6 +39,8 @@ class MiniJavaParserVisitor
   virtual void* visit(const ASTAccessLength *node, void* data) = 0;
   virtual void* visit(const ASTFunCall *node, void* data) = 0;
   virtual void* visit(const ASTFunArgs *node, void* data) = 0;
+  virtual void* visit(const ASTAllocateIdentifier *node, void* data) = 0;
+  virtual void* visit(const ASTAllocateArray *node, void* data) = 0;
   virtual void* visit(const ASTLiteralNode *node, void* data) = 0;
   virtual void* visit(const ASTIdentifier *node, void* data) = 0;
   virtual ~MiniJavaParserVisitor() { }
@@ -142,6 +144,12 @@ public:
   virtual void* visit(const ASTFunArgs *node, void* data) {
     return defaultVisit(node, data);
   }
+  virtual void* visit(const ASTAllocateIdentifier *node, void* data) {
+    return defaultVisit(node, data);
+  }
+  virtual void* visit(const ASTAllocateArray *node, void* data) {
+    return defaultVisit(node, data);
+  }
   virtual void* visit(const ASTLiteralNode *node, void* data) {
     return defaultVisit(node, data);
   }
@@ -151,4 +159,4 @@ public:
   ~MiniJavaParserDefaultVisitor() { }
 };
 #endif
-/* JavaCC - OriginalChecksum=96585460a542eea7e910d85029bff3fa (do not edit this line) */
+/* JavaCC - OriginalChecksum=03413bbd8a4b3b7907e5f1e7e9bcbc24 (do not edit this line) */
