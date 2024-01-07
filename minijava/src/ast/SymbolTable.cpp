@@ -152,7 +152,7 @@ void SymbolTable::updateClass(const ClassTable::ClassInfo& classInfo) {
 ClassTable::ClassTable(TypesTable& typesTable)
 :
 typesTable(typesTable),
-currentClassId(0)
+currentClassId(1)
 {
     // Object class is always present
     classes.push_back({"Object", -1, -1});
@@ -708,6 +708,7 @@ typeId(0)
     typesTable.insert(std::make_pair("String", -1));
     typesTable.insert(std::make_pair("void", -1));
     typesTable.insert(std::make_pair("Object", 0));
+    typesTable.insert(std::make_pair("Main", 1));
 }
 
 TypesTable::~TypesTable() {}

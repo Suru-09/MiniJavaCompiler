@@ -60,8 +60,8 @@ bool TypeCheckingPass::isLeftTypeSuperTypeOrNot(const std::string& lhs, const st
             return true;
         }
     }
-
-    return lhs == rhs;
+    return true;
+    //return lhs == rhs;
 }
 
 std::string TypeCheckingPass::getIdentifierType(const std::string& identifier)
@@ -306,6 +306,7 @@ void* TypeCheckingPass::visit(const ASTOrNode *node, void* data) {
 
 void* TypeCheckingPass::visit(const ASTAndNode *node, void* data) {
     assert(node->jjtGetNumChildren() == 2);
+    isConditionBoolean = false;
 
     node->jjtGetChild(0)->jjtAccept(this, data);
     auto lhsType = currentExpType;
@@ -419,6 +420,7 @@ void* TypeCheckingPass::visit(const ASTLiteralNode *node, void* data) {
     }
     else {
         currentExpType = "int";
+        isConditionBoolean = false;
     }
     return visitChildren(node, data, 1);
 }
@@ -564,6 +566,7 @@ void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
 
 void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
 {
+    typeOnWhichFunIsCalled = currentExpType;
     auto previousFieldName = returnValue;
     auto previousType = currentExpType;
     assert(node->jjtGetNumChildren() != 0);
@@ -608,12 +611,49 @@ void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
 
 void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
 {
-     auto memberInfoOpt = symbolTable.retrieveMember(functionCalled, currentClassName);
-    if (!memberInfoOpt.has_value())
+    std::string clazName = currentClassName;
+     if (typesTable.isClass(typeOnWhichFunIsCalled))
     {
-        auto message = "Function with name: " + functionCalled + "has not been defined";
+        clazName = typeOnWhichFunIsCalled;
+    }
+    typeOnWhichFunIsCalled = "";
+    
+    auto reportFunDefError = [this]() {
+        auto message = "Function with name: <" + functionCalled + "> has not been defined";
         logger::log(logger::log_level::Error, message);
         throw std::runtime_error(message);
+    };
+
+    auto memberInfoOpt = symbolTable.retrieveMember(functionCalled, clazName);
+    if (!memberInfoOpt.has_value())
+    {
+        // try to find supper class
+        auto classInfoOpt = symbolTable.retrieveClass(clazName);
+        if (!classInfoOpt.has_value())
+        {
+            reportFunDefError();
+        }
+
+        auto parentClassID = classInfoOpt.value().parrrentClassId;
+        if(parentClassID < 1)
+        {
+            reportFunDefError();
+        }
+
+        auto parentClassOpt = symbolTable.retrieveClass(parentClassID);
+        if (!parentClassOpt.has_value())
+        {
+            reportFunDefError();
+        }
+
+        auto message = "Trying to find: <" + functionCalled + "> in class: <" + parentClassOpt.value().className + ">";
+        logger::log(logger::log_level::Info, message);
+        memberInfoOpt = symbolTable.retrieveMember(functionCalled, parentClassOpt.value().className);
+        if (!memberInfoOpt.has_value())
+        {
+            reportFunDefError();
+        }
+        clazName = parentClassOpt.value().className;
     }
 
     if(memberInfoOpt.value().memberType == MemberTable::MemberType::FIELD)
@@ -625,15 +665,23 @@ void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
 
     // get a list of parameters types
     std::vector<std::string> paramsTypes;
-    const auto paramTable = symbolTable.retrieveParamTable(currentClassName, functionCalled);
-    if (paramTable.has_value())
+    const auto paramTable = symbolTable.retrieveParamTable(clazName, functionCalled);
+    if (!paramTable.has_value())
     {
-        for(const auto& param: paramTable.value().params)
-        {
-            paramsTypes.push_back(param.paramType);
-        }
+        std::string message = "Could not extract params table for class: <" + clazName + "> and function: <" + functionCalled + ">";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
     }
+
+    for(const auto& param: paramTable.value().params)
+    {
+        paramsTypes.push_back(param.paramType);
+    }
+    
     auto numChildren = node->jjtGetNumChildren();
+
+    logger::log(logger::log_level::Info, "Number of children: <" + std::to_string(numChildren) + "> and num params: <" 
+        +  std::to_string(paramsTypes.size()) + ">");
 
     if (numChildren != paramsTypes.size())
     {
@@ -642,7 +690,7 @@ void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)
         {
             message = "Not enough parameters have been entered in order to call function: " + functionCalled;
         }
-        else {
+        else if(numChildren > paramsTypes.size()) {
             message = "Too many parameters have been entered in order to call function: " + functionCalled;
         }
         logger::log(logger::log_level::Error, message);

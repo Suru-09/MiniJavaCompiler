@@ -10,6 +10,7 @@ int main(int argc, char* argv[]) {
 
     utils::cleanUpVisuliazerFiles();
     std::filesystem::path testFilePath = "../testing_files/Week_1_2/ComprehensiveTest.java";
+    // std::filesystem::path testFilePath = "../testing_files/DomainAnalysisExample.java";
     auto errors = utils::parseAndReportErrorsFromFile(testFilePath, "ComprehensiveTest", true);
     if(errors > 0)
     {

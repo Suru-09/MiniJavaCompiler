@@ -57,6 +57,7 @@ private:
 
     std::string currentExpType;
     std::string functionCalled;
+    std::string typeOnWhichFunIsCalled;
     std::unordered_map<std::string, std::string> superTypeMap;
 
     bool isConditionBoolean;

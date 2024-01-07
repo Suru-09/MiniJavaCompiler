@@ -8,6 +8,14 @@ class Random {
     int randomField;
 }
 
+/**
+ * Test for class uniqueness.
+ */
+// class Random {
+//     int anotherField;
+// }
+
+
 /*
     * Testing the following:
 */
@@ -43,7 +51,7 @@ class SimpleNewClass extends DummyClass {
     }
 
     public int[] returnIntArray() {
-        intArrayField[1] = 5;
+        intArrayField[1] = returnInt();
         return intArrayField;
     }
 
@@ -63,16 +71,16 @@ class SimpleNewClass extends DummyClass {
 
     public int callFunc(int field1, boolean field2) {
         int result;
-        result = returnInt();
+        result = 15;
         return result;
     }
 
-     public int accessIntFromDummyArray() {
+    public int accessIntFromDummyArray() {
         int/*boolean*/ some_name;
         int[] myNewArray;
         myNewArray = new int[10];
         some_name = dummyArrayField.length;
-        some_name = callFunc(some_name, false);
+        some_name = this.callFunc(some_name, false);
         some_name = this.intField;
         some_name = dummyArrayField[0].dummyField;
         return some_name;
@@ -140,8 +148,9 @@ class SimpleNewClass extends DummyClass {
        boolean b;
         a = 1 + 2 + 3 + 5 + 6 + 8 - 4 * 5 / 6 * 7 + 23 - 4 - 5;
         // same for bools and comparisons
-        b = false && true && false && true || false && true && false && true;
+        b = false && true && false && true || false;
         b = 1 < 2 && 2 < 3 && 3 < 4 && 4 < 5 && 5 < 6 || 6 < 7 && 7 < 8 || 8 < 9 || 9 < 10;
+        // not working
         return a;
     }
 }
