@@ -1,0 +1,20 @@
+# ninja log v5
+1	313	1704631737950212404	generated/CMakeFiles/PostfixVisitor-generated.dir/ASTExpression.cc.o	8b5a649825e1f245
+2	317	1704631737951384425	generated/CMakeFiles/PostfixVisitor-generated.dir/CharStream.cc.o	f17f80f79829515a
+1	326	1704631737961104556	generated/CMakeFiles/PostfixVisitor-generated.dir/ASTFactor.cc.o	23a1c7c7a6e21eb7
+1	332	1704631737969102740	generated/CMakeFiles/PostfixVisitor-generated.dir/ASTRoot.cc.o	ab7703e88306bf81
+1	340	1704631737972723387	generated/CMakeFiles/PostfixVisitor-generated.dir/ASTIntegerConstant.cc.o	fcae5b29de07ac71
+2	351	1704631737986349629	generated/CMakeFiles/PostfixVisitor-generated.dir/ASTTerm.cc.o	391b08f4c337af99
+0	466	1704631738098860626	src/CMakeFiles/PostfixVisitor.dir/InfixVisitor.cpp.o	7a42b159e9f91072
+1	501	1704631738121869576	src/CMakeFiles/PostfixVisitor.dir/PrefixVisitor.cpp.o	949d6e6be488ad0f
+317	589	1704631738215561282	generated/CMakeFiles/PostfixVisitor-generated.dir/ParseException.cc.o	a01d30f416b8f912
+1	610	1704631738246829045	src/CMakeFiles/PostfixVisitor.dir/EvaluatorVisitor.cpp.o	8b529e7eefc24665
+351	649	1704631738286293288	generated/CMakeFiles/PostfixVisitor-generated.dir/Token.cc.o	9e07470f5e3750ac
+340	651	1704631738289459594	generated/CMakeFiles/PostfixVisitor-generated.dir/SimpleNode.cc.o	cbeb7fe41b76764d
+1	667	1704631738304431693	src/CMakeFiles/PostfixVisitor.dir/main.cpp.o	9e5f0ace76b0d438
+314	679	1704631738317496842	generated/CMakeFiles/PostfixVisitor-generated.dir/JJTPrefixParserState.cc.o	db730d2efe95e6f0
+332	688	1704631738325956825	generated/CMakeFiles/PostfixVisitor-generated.dir/PrefixParserTokenManager.cc.o	9198202656e68f73
+466	699	1704631738337803286	generated/CMakeFiles/PostfixVisitor-generated.dir/TokenMgrError.cc.o	8bb7c57ad856b691
+326	705	1704631738342288199	generated/CMakeFiles/PostfixVisitor-generated.dir/PrefixParser.cc.o	9acaed3c05f149ad
+705	726	1704631738367306000	generated/libPostfixVisitor-generated.a	8fd39059ec343b3a
+726	762	1704631738401898007	PostfixVisitor	53d351afaee4b6a8

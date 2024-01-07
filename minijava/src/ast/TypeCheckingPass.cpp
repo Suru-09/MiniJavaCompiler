@@ -544,16 +544,23 @@ void* TypeCheckingPass::visit(const ASTAccessArray *node, void* data)
         throw std::runtime_error(message);
     }
     
+    visitChildren(node, data, 1);
+    
     // if we are accessing the array only to allocate memory then we need to return
     // the array type like e.g. int[] and not simply int.
     if (isNodeBeforeAllocatingMemory)
     {
         currentExpType = arrayType;
     }
+    
+    if (ends_with(arrayType, "[]") && !isNodeBeforeAllocatingMemory)
+    {
+        currentExpType = arrayType.substr(0, arrayType.length() - std::string("[]").length());
+    }
     auto message = "Type of current expression is: <" + currentExpType + ">" + " and arrayType: <" + arrayType + ">";
     logger::log(logger::log_level::Error, message);
     isNodeBeforeAllocatingMemory = false;
-    return visitChildren(node, data, 1);
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
@@ -563,9 +570,27 @@ void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
 
 void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
 {
-    auto functionName = returnValue;
-    logger::log(logger::log_level::Info, "ASTFunArgs: " + functionName);
-    return visitChildren(node, data);
+    visitChildren(node, data);
+    auto fieldName = returnValue;
+
+    // using this scenario (e.g. this.field)
+    auto memberInfoOpt = symbolTable.retrieveMember(fieldName, currentClassName);
+
+    if (!memberInfoOpt.has_value())
+    {
+        auto message = "Field with name: <" + fieldName + "> has not been defined & current type is: <" + currentExpType +">";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    if(memberInfoOpt.value().memberType == MemberTable::MemberType::METHOD)
+    {
+        auto message = "There is no sense calling a method on \' this \' object";
+        logger::log(logger::log_level::Error, message);
+        throw std::runtime_error(message);
+    }
+
+    return data;
 }
 
 void* TypeCheckingPass::visit(const ASTFunArgs *node, void* data)

@@ -73,6 +73,7 @@ class SimpleNewClass extends DummyClass {
         myNewArray = new int[10];
         some_name = dummyArrayField.length;
         some_name = callFunc(some_name, false);
+        some_name = this.boolField;
         return dummyArrayField[0].dummyField;
     }
 
