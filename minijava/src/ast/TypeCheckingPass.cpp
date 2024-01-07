@@ -565,12 +565,27 @@ void* TypeCheckingPass::visit(const ASTPrimaryExpNode *node, void* data)
 void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
 {
     auto previousFieldName = returnValue;
+    auto previousType = currentExpType;
     assert(node->jjtGetNumChildren() != 0);
     node->jjtGetChild(0)->jjtAccept(this, data);
     auto fieldName = returnValue;
 
-    // using this scenario (e.g. this.field)
-    auto memberInfoOpt = symbolTable.retrieveMember(fieldName, currentClassName);
+    auto message = "Field: <" + fieldName + "> and old field:<" + previousType + ">";
+    logger::log(logger::log_level::Info, message);
+
+    if (overwriteFunCall)
+    {
+        currentExpType = "int";
+        overwriteFunCall = false;
+    }
+    return data;
+
+    std::string clazName = currentClassName;
+    if (typesTable.isClass(previousType))
+    {
+        clazName = previousType;
+    }
+    auto memberInfoOpt = symbolTable.retrieveMember(fieldName, clazName);
 
     if (!memberInfoOpt.has_value())
     {
@@ -586,14 +601,8 @@ void* TypeCheckingPass::visit(const ASTFunCall *node, void* data)
         throw std::runtime_error(message);
     }
 
-    auto message = "Field: <" + fieldName + "> and old field:<" + previousFieldName + "> with type: <" + memberInfoOpt.value().returnType + ">";
-    logger::log(logger::log_level::Info, message);
+
     currentExpType = memberInfoOpt.value().returnType;
-    if (overwriteFunCall)
-    {
-        currentExpType = "int";
-        overwriteFunCall = false;
-    }
     return data;
 }
 

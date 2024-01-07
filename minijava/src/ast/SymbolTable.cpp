@@ -722,6 +722,16 @@ bool TypesTable::isTypeDefined(const std::string& type) const {
     return typesTable.find(typeWithoutArray) != typesTable.end();
 }
 
+bool TypesTable::isClass(const std::string& type) const {
+    // make sure that given type is not an array, strip [] from the end
+    std::string typeWithoutArray = type;
+    if (typeWithoutArray.find("[]") != std::string::npos) {
+        typeWithoutArray = typeWithoutArray.substr(0, typeWithoutArray.size() - 2);
+    }
+    auto it = typesTable.find(typeWithoutArray);
+    return  it != typesTable.end() && (*it).second > 0;
+}
+
 void TypesTable::addType(const std::pair<std::string, int64_t>& type) {
     // if type is already defined, throw an error
     if (isTypeDefined(type.first)) {
