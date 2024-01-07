@@ -2,7 +2,7 @@ options {
     OUTPUT_LANGUAGE = "c++";
     OUTPUT_DIRECTORY = "generated";
     OUTPUT_FILE="parser.jj";
-    LOOKAHEAD = 1;
+    LOOKAHEAD = 2;
     CHOICE_AMBIGUITY_CHECK = 3;
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = true;
@@ -105,7 +105,7 @@ TOKEN:
 | < DIV: "/" >
 | < AND: "&&" >
 | < OR: "||" >
-| < IDENTIFIER: <IDENT_START> (<IDENT_BODY>)* >
+| <IDENTIFIER: <IDENT_START> (<IDENT_BODY>)*>
 | 
   <IDENT_START:
     [
@@ -174,9 +174,7 @@ void MethodDecl() #MethodDeclNode(>2) :
   Type()
   ( Identifier() ) #MethodIDNode
   <LPAREN> ArgsList() <RPAREN>
-  (
-    Statement()
-  )*
+  (Statement())*
 }
 
 void ArgsList() :
@@ -220,9 +218,9 @@ void SimpleType() #SimpleTypeNode :
 
 void Statement() : {}
 {
-  BlockStatement()
-|
   OptionalExprStmt()
+|
+  BlockStatement()
 |
   IfStatement()
 | 
@@ -237,7 +235,7 @@ void BlockStatement() #BlockStatementNode : {}
 {
   <LBRACE>
   ( 
-    Statement() 
+    Statement()
   |
     VarDecl()
   )*

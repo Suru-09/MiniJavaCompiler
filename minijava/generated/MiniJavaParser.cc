@@ -2,10 +2,6 @@
 #include "MiniJavaParser.h"
 #include "TokenMgrError.h"
 #include "SimpleNode.h"
-  unsigned int jj_la1_0[] = {
-0x10000,0x400000,0xc000,0x20000,0x6f800400,0x0,0xc000,0xc000,0x0,0xc000,0x6f800400,0x6f80c400,0x6f80c400,0x7800400,0x7800400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7800400,0x7800400,0x80000000,0x7800400,0x0,0xc000,0x7800400,0x0,0x1800400,0x0,};
-  unsigned int jj_la1_1[] = {
-0x0,0x0,0x1000000,0x0,0x1000117,0x200,0x1000000,0x1000000,0x40,0x0,0x1000117,0x1000117,0x1000117,0x1000011,0x1000011,0x800,0x800000,0x400000,0x3000,0x3000,0x3c000,0x3c000,0xc0000,0xc0000,0x300000,0x300000,0x1000011,0x1000010,0x1000000,0x1000011,0x450,0x1000000,0x1000011,0x50,0x0,0x200,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -26,13 +22,9 @@ ASTRoot       * MiniJavaParser::Program() {
           { if (hasError) { return __ERROR_RET__; } }
       
       while (!hasError) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case CLASS:{
+        if (jj_2_1(2)) {
           ;
-          break;
-          }
-        default:
-          jj_la1[0] = jj_gen;
+        } else {
           goto end_label_1;
         }
         ClassDecl();
@@ -158,8 +150,7 @@ void MiniJavaParser::ClassDecl() {
       Identifier();
           { if (hasError) { return __ERROR_RET__; } }
       
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case EXTENDS:{
+      if (jj_2_2(2)) {
 ASTInheritance *jjtn001 = new ASTInheritance(JJTINHERITANCE);
       bool jjtc001 = true;
       jjtree.openNodeScope(jjtn001);
@@ -181,25 +172,16 @@ if (jjtc001) {
 if (jjtc001) {
         jjtree.closeNodeScope(jjtn001,  1);
       }
-        break;
-        }
-      default:
-        jj_la1[1] = jj_gen;
+      } else {
         ;
       }
       jj_consume_token(LBRACE);
           { if (hasError) { return __ERROR_RET__; } }
       
       while (!hasError) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INT:
-        case BOOLEAN:
-        case IDENTIFIER:{
+        if (jj_2_3(2)) {
           ;
-          break;
-          }
-        default:
-          jj_la1[2] = jj_gen;
+        } else {
           goto end_label_2;
         }
         VarDecl();
@@ -208,13 +190,9 @@ if (jjtc001) {
       }
       end_label_2: ;
       while (!hasError) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case PUBLIC:{
+        if (jj_2_4(2)) {
           ;
-          break;
-          }
-        default:
-          jj_la1[3] = jj_gen;
+        } else {
           goto end_label_3;
         }
         MethodDecl();
@@ -322,26 +300,9 @@ if (jjtc001) {
           { if (hasError) { return __ERROR_RET__; } }
       
       while (!hasError) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INTEGER_LITERAL:
-        case TRUE:
-        case FALSE:
-        case THIS:
-        case NEW:
-        case IF:
-        case WHILE:
-        case SYSTEM_OUT_PRINTLN:
-        case NOT:
-        case RETURN:
-        case LBRACE:
-        case LPAREN:
-        case SEMICOLON:
-        case IDENTIFIER:{
+        if (jj_2_5(2)) {
           ;
-          break;
-          }
-        default:
-          jj_la1[4] = jj_gen;
+        } else {
           goto end_label_4;
         }
         Statement();
@@ -376,10 +337,7 @@ ASTArgsList *jjtn001 = new ASTArgsList(JJTARGSLIST);
     bool jjtc001 = true;
     jjtree.openNodeScope(jjtn001);
     try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INT:
-      case BOOLEAN:
-      case IDENTIFIER:{
+      if (jj_2_7(2)) {
         Type();
             { if (hasError) { return __ERROR_RET__; } }
         
@@ -387,13 +345,9 @@ ASTArgsList *jjtn001 = new ASTArgsList(JJTARGSLIST);
             { if (hasError) { return __ERROR_RET__; } }
         
         while (!hasError) {
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case COMMA:{
+          if (jj_2_6(2)) {
             ;
-            break;
-            }
-          default:
-            jj_la1[5] = jj_gen;
+          } else {
             goto end_label_5;
           }
           FormalRest();
@@ -401,10 +355,7 @@ ASTArgsList *jjtn001 = new ASTArgsList(JJTARGSLIST);
           
         }
         end_label_5: ;
-        break;
-        }
-      default:
-        jj_la1[6] = jj_gen;
+      } else {
         ;
       }
     } catch ( ...) {
@@ -455,35 +406,24 @@ void MiniJavaParser::Type() {
   bool jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INT:
-      case BOOLEAN:{
+      if (jj_2_8(2)) {
         SimpleType();
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      case IDENTIFIER:{
+      } else if (jj_2_9(2)) {
         Identifier();
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[7] = jj_gen;
+      } else {
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
         
       }
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LBRACKET:{
+      if (jj_2_10(2)) {
         ArrayDecl();
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[8] = jj_gen;
+      } else {
         ;
       }
     } catch ( ...) {
@@ -546,21 +486,15 @@ Token* t = NULL;/*@bgen(jjtree) SimpleTypeNode */
   bool jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INT:{
+      if (jj_2_11(2)) {
         t = jj_consume_token(INT);
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      case BOOLEAN:{
+      } else if (jj_2_12(2)) {
         t = jj_consume_token(BOOLEAN);
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[9] = jj_gen;
+      } else {
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
         
@@ -591,53 +525,31 @@ void MiniJavaParser::Statement() {
 #endif
 #define __ERROR_RET__ ERROR_RET_Statement
 
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case LBRACE:{
-      BlockStatement();
-          { if (hasError) { return __ERROR_RET__; } }
-      
-      break;
-      }
-    case INTEGER_LITERAL:
-    case TRUE:
-    case FALSE:
-    case THIS:
-    case NEW:
-    case NOT:
-    case LPAREN:
-    case SEMICOLON:
-    case IDENTIFIER:{
+    if (jj_2_13(2)) {
       OptionalExprStmt();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case IF:{
+    } else if (jj_2_14(2)) {
+      BlockStatement();
+          { if (hasError) { return __ERROR_RET__; } }
+      
+    } else if (jj_2_15(2)) {
       IfStatement();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case WHILE:{
+    } else if (jj_2_16(2)) {
       WhileStatement();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case SYSTEM_OUT_PRINTLN:{
+    } else if (jj_2_17(2)) {
       PrintStatement();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case RETURN:{
+    } else if (jj_2_18(2)) {
       ReturnStatement();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    default:
-      jj_la1[10] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -662,59 +574,20 @@ void MiniJavaParser::BlockStatement() {
           { if (hasError) { return __ERROR_RET__; } }
       
       while (!hasError) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INTEGER_LITERAL:
-        case INT:
-        case BOOLEAN:
-        case TRUE:
-        case FALSE:
-        case THIS:
-        case NEW:
-        case IF:
-        case WHILE:
-        case SYSTEM_OUT_PRINTLN:
-        case NOT:
-        case RETURN:
-        case LBRACE:
-        case LPAREN:
-        case SEMICOLON:
-        case IDENTIFIER:{
+        if (jj_2_19(2)) {
           ;
-          break;
-          }
-        default:
-          jj_la1[11] = jj_gen;
+        } else {
           goto end_label_6;
         }
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INTEGER_LITERAL:
-        case TRUE:
-        case FALSE:
-        case THIS:
-        case NEW:
-        case IF:
-        case WHILE:
-        case SYSTEM_OUT_PRINTLN:
-        case NOT:
-        case RETURN:
-        case LBRACE:
-        case LPAREN:
-        case SEMICOLON:
-        case IDENTIFIER:{
+        if (jj_2_20(2)) {
           Statement();
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case INT:
-        case BOOLEAN:{
+        } else if (jj_2_21(2)) {
           VarDecl();
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[12] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -754,22 +627,11 @@ void MiniJavaParser::ReturnStatement() {
       jj_consume_token(RETURN);
           { if (hasError) { return __ERROR_RET__; } }
       
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INTEGER_LITERAL:
-      case TRUE:
-      case FALSE:
-      case THIS:
-      case NEW:
-      case NOT:
-      case LPAREN:
-      case IDENTIFIER:{
+      if (jj_2_22(2)) {
         Exp();
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[13] = jj_gen;
+      } else {
         ;
       }
       jj_consume_token(SEMICOLON);
@@ -934,22 +796,11 @@ void MiniJavaParser::OptionalExprStmt() {
   bool jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INTEGER_LITERAL:
-      case TRUE:
-      case FALSE:
-      case THIS:
-      case NEW:
-      case NOT:
-      case LPAREN:
-      case IDENTIFIER:{
+      if (jj_2_23(2)) {
         Exp();
             { if (hasError) { return __ERROR_RET__; } }
         
-        break;
-        }
-      default:
-        jj_la1[14] = jj_gen;
+      } else {
         ;
       }
       jj_consume_token(SEMICOLON);
@@ -997,13 +848,9 @@ void MiniJavaParser::AssignExp() {
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case ASSIGN:{
+      if (jj_2_24(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[15] = jj_gen;
+      } else {
         goto end_label_7;
       }
 ASTAssignNode *jjtn001 = new ASTAssignNode(JJTASSIGNNODE);
@@ -1045,13 +892,9 @@ void MiniJavaParser::OrExp() {
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case OR:{
+      if (jj_2_25(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[16] = jj_gen;
+      } else {
         goto end_label_8;
       }
 ASTOrNode *jjtn001 = new ASTOrNode(JJTORNODE);
@@ -1093,13 +936,9 @@ void MiniJavaParser::AndExp() {
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case AND:{
+      if (jj_2_26(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[17] = jj_gen;
+      } else {
         goto end_label_9;
       }
 ASTAndNode *jjtn001 = new ASTAndNode(JJTANDNODE);
@@ -1141,35 +980,24 @@ Token* t = NULL;
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case EQ:
-      case NEQ:{
+      if (jj_2_27(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[18] = jj_gen;
+      } else {
         goto end_label_10;
       }
 ASTEqualNotEqualNode *jjtn001 = new ASTEqualNotEqualNode(JJTEQUALNOTEQUALNODE);
         bool jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
       try {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case EQ:{
+        if (jj_2_28(2)) {
           t = jj_consume_token(EQ);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case NEQ:{
+        } else if (jj_2_29(2)) {
           t = jj_consume_token(NEQ);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[19] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -1207,49 +1035,32 @@ Token* t = NULL;
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LT:
-      case LTE:
-      case GT:
-      case GTE:{
+      if (jj_2_30(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[20] = jj_gen;
+      } else {
         goto end_label_11;
       }
 ASTRelationalNode *jjtn001 = new ASTRelationalNode(JJTRELATIONALNODE);
         bool jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
       try {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case LT:{
+        if (jj_2_31(2)) {
           t = jj_consume_token(LT);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case LTE:{
+        } else if (jj_2_32(2)) {
           t = jj_consume_token(LTE);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case GT:{
+        } else if (jj_2_33(2)) {
           t = jj_consume_token(GT);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case GTE:{
+        } else if (jj_2_34(2)) {
           t = jj_consume_token(GTE);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[21] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -1287,35 +1098,24 @@ Token* t = NULL;
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case PLUS:
-      case MINUS:{
+      if (jj_2_35(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[22] = jj_gen;
+      } else {
         goto end_label_12;
       }
 ASTAdditiveNode *jjtn001 = new ASTAdditiveNode(JJTADDITIVENODE);
         bool jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
       try {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case PLUS:{
+        if (jj_2_36(2)) {
           t = jj_consume_token(PLUS);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case MINUS:{
+        } else if (jj_2_37(2)) {
           t = jj_consume_token(MINUS);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[23] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -1353,35 +1153,24 @@ Token* t = NULL;
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case MULT:
-      case DIV:{
+      if (jj_2_38(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[24] = jj_gen;
+      } else {
         goto end_label_13;
       }
 ASTMultiplicativeNode *jjtn001 = new ASTMultiplicativeNode(JJTMULTIPLICATIVENODE);
         bool jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
       try {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case MULT:{
+        if (jj_2_39(2)) {
           t = jj_consume_token(MULT);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        case DIV:{
+        } else if (jj_2_40(2)) {
           t = jj_consume_token(DIV);
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[25] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -1415,8 +1204,7 @@ void MiniJavaParser::UnaryExp() {
 #endif
 #define __ERROR_RET__ ERROR_RET_UnaryExp
 Token* t = NULL;
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case NOT:{
+    if (jj_2_41(2)) {
 ASTUnaryNode *jjtn001 = new ASTUnaryNode(JJTUNARYNODE);
     bool jjtc001 = true;
     jjtree.openNodeScope(jjtn001);
@@ -1439,22 +1227,11 @@ if (jjtc001) {
 if (jjtc001) {
       jjtree.closeNodeScope(jjtn001,  1);
     }
-      break;
-      }
-    case INTEGER_LITERAL:
-    case TRUE:
-    case FALSE:
-    case THIS:
-    case NEW:
-    case LPAREN:
-    case IDENTIFIER:{
+    } else if (jj_2_42(2)) {
       PrimaryExp();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    default:
-      jj_la1[26] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1479,7 +1256,7 @@ void MiniJavaParser::PrimaryExp() {
           { if (hasError) { return __ERROR_RET__; } }
       
       while (!hasError) {
-        if (jj_2_1(3)) {
+        if (jj_2_43(3)) {
           ;
         } else {
           goto end_label_14;
@@ -1512,8 +1289,7 @@ void MiniJavaParser::BeforePrimay() {
 #endif
 #define __ERROR_RET__ ERROR_RET_BeforePrimay
 
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case IDENTIFIER:{
+    if (jj_2_44(2)) {
 ASTAccessIdentifier *jjtn001 = new ASTAccessIdentifier(JJTACCESSIDENTIFIER);
     bool jjtc001 = true;
     jjtree.openNodeScope(jjtn001);
@@ -1532,23 +1308,15 @@ if (jjtc001) {
 if (jjtc001) {
       jjtree.closeNodeScope(jjtn001, true);
     }
-      break;
-      }
-    case INTEGER_LITERAL:
-    case TRUE:
-    case FALSE:{
+    } else if (jj_2_45(2)) {
       Literal();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case THIS:{
+    } else if (jj_2_46(2)) {
       jj_consume_token(THIS);
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case LPAREN:{
+    } else if (jj_2_47(2)) {
       jj_consume_token(LPAREN);
           { if (hasError) { return __ERROR_RET__; } }
       
@@ -1558,16 +1326,11 @@ if (jjtc001) {
       jj_consume_token(RPAREN);
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case NEW:{
+    } else if (jj_2_48(2)) {
       AllocateMemory();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    default:
-      jj_la1[27] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1584,8 +1347,7 @@ void MiniJavaParser::AfterPrimary() {
 #endif
 #define __ERROR_RET__ ERROR_RET_AfterPrimary
 
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case LBRACKET:{
+    if (jj_2_52(2)) {
 ASTAccessArray *jjtn001 = new ASTAccessArray(JJTACCESSARRAY);
     bool jjtc001 = true;
     jjtree.openNodeScope(jjtn001);
@@ -1610,9 +1372,7 @@ if (jjtc001) {
 if (jjtc001) {
       jjtree.closeNodeScope(jjtn001, true);
     }
-      break;
-      }
-    case DOT:{
+    } else if (jj_2_53(2)) {
 ASTFunCall *jjtn004 = new ASTFunCall(JJTFUNCALL);
     bool jjtc004 = true;
     jjtree.openNodeScope(jjtn004);
@@ -1620,8 +1380,7 @@ ASTFunCall *jjtn004 = new ASTFunCall(JJTFUNCALL);
         jj_consume_token(DOT);
             { if (hasError) { return __ERROR_RET__; } }
         
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case IDENTIFIER:{
+        if (jj_2_49(2)) {
 ASTAccessIdentifier *jjtn002 = new ASTAccessIdentifier(JJTACCESSIDENTIFIER);
         bool jjtc002 = true;
         jjtree.openNodeScope(jjtn002);
@@ -1640,9 +1399,7 @@ if (jjtc002) {
 if (jjtc002) {
           jjtree.closeNodeScope(jjtn002, true);
         }
-          break;
-          }
-        case LENGTH:{
+        } else if (jj_2_50(2)) {
 ASTAccessLength *jjtn003 = new ASTAccessLength(JJTACCESSLENGTH);
         bool jjtc003 = true;
         jjtree.openNodeScope(jjtn003);
@@ -1661,10 +1418,7 @@ if (jjtc003) {
 if (jjtc003) {
           jjtree.closeNodeScope(jjtn003, true);
         }
-          break;
-          }
-        default:
-          jj_la1[28] = jj_gen;
+        } else {
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
           
@@ -1680,9 +1434,7 @@ if (jjtc004) {
 if (jjtc004) {
       jjtree.closeNodeScope(jjtn004, true);
     }
-      break;
-      }
-    case LPAREN:{
+    } else if (jj_2_54(2)) {
 ASTFunArgs *jjtn005 = new ASTFunArgs(JJTFUNARGS);
     bool jjtc005 = true;
     jjtree.openNodeScope(jjtn005);
@@ -1690,22 +1442,11 @@ ASTFunArgs *jjtn005 = new ASTFunArgs(JJTFUNARGS);
         jj_consume_token(LPAREN);
             { if (hasError) { return __ERROR_RET__; } }
         
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INTEGER_LITERAL:
-        case TRUE:
-        case FALSE:
-        case THIS:
-        case NEW:
-        case NOT:
-        case LPAREN:
-        case IDENTIFIER:{
+        if (jj_2_51(2)) {
           ExpList();
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[29] = jj_gen;
+        } else {
           ;
         }
         jj_consume_token(RPAREN);
@@ -1722,10 +1463,7 @@ if (jjtc005) {
 if (jjtc005) {
       jjtree.closeNodeScope(jjtn005, true);
     }
-      break;
-      }
-    default:
-      jj_la1[30] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1745,28 +1483,20 @@ void MiniJavaParser::AllocateMemory() {
     jj_consume_token(NEW);
         { if (hasError) { return __ERROR_RET__; } }
     
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case IDENTIFIER:{
+    if (jj_2_55(2)) {
       Identifier();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    case INT:
-    case BOOLEAN:{
+    } else if (jj_2_56(2)) {
       SimpleType();
           { if (hasError) { return __ERROR_RET__; } }
       
-      break;
-      }
-    default:
-      jj_la1[31] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
     }
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case LPAREN:{
+    if (jj_2_58(2)) {
 ASTAllocateIdentifier *jjtn001 = new ASTAllocateIdentifier(JJTALLOCATEIDENTIFIER);
       bool jjtc001 = true;
       jjtree.openNodeScope(jjtn001);
@@ -1774,22 +1504,11 @@ ASTAllocateIdentifier *jjtn001 = new ASTAllocateIdentifier(JJTALLOCATEIDENTIFIER
         jj_consume_token(LPAREN);
             { if (hasError) { return __ERROR_RET__; } }
         
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case INTEGER_LITERAL:
-        case TRUE:
-        case FALSE:
-        case THIS:
-        case NEW:
-        case NOT:
-        case LPAREN:
-        case IDENTIFIER:{
+        if (jj_2_57(2)) {
           ExpList();
               { if (hasError) { return __ERROR_RET__; } }
           
-          break;
-          }
-        default:
-          jj_la1[32] = jj_gen;
+        } else {
           ;
         }
         jj_consume_token(RPAREN);
@@ -1806,9 +1525,7 @@ if (jjtc001) {
 if (jjtc001) {
         jjtree.closeNodeScope(jjtn001, true);
       }
-      break;
-      }
-    case LBRACKET:{
+    } else if (jj_2_59(2)) {
 ASTAllocateArray *jjtn002 = new ASTAllocateArray(JJTALLOCATEARRAY);
       bool jjtc002 = true;
       jjtree.openNodeScope(jjtn002);
@@ -1833,10 +1550,7 @@ if (jjtc002) {
 if (jjtc002) {
         jjtree.closeNodeScope(jjtn002, true);
       }
-      break;
-      }
-    default:
-      jj_la1[33] = jj_gen;
+    } else {
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
       
@@ -1857,36 +1571,28 @@ Token* t = NULL;/*@bgen(jjtree) LiteralNode */
   bool jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case INTEGER_LITERAL:{
+      if (jj_2_60(2)) {
         t = jj_consume_token(INTEGER_LITERAL);
             { if (hasError) { return __ERROR_RET__; } }
         
 jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
 jjtn000->setValue(t->image);
-        break;
-        }
-      case TRUE:{
+      } else if (jj_2_61(2)) {
         t = jj_consume_token(TRUE);
             { if (hasError) { return __ERROR_RET__; } }
         
 jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
 jjtn000->setValue(t->image);
-        break;
-        }
-      case FALSE:{
+      } else if (jj_2_62(2)) {
         t = jj_consume_token(FALSE);
             { if (hasError) { return __ERROR_RET__; } }
         
 jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
 jjtn000->setValue(t->image);
-        break;
-        }
-      default:
-        jj_la1[34] = jj_gen;
+      } else {
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;return __ERROR_RET__;
         
@@ -1951,13 +1657,9 @@ void MiniJavaParser::ExpList() {
         { if (hasError) { return __ERROR_RET__; } }
     
     while (!hasError) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case COMMA:{
+      if (jj_2_63(2)) {
         ;
-        break;
-        }
-      default:
-        jj_la1[35] = jj_gen;
+      } else {
         goto end_label_15;
       }
       jj_consume_token(COMMA);
@@ -2002,7 +1704,6 @@ void MiniJavaParser::ReInit(TokenManager* tokenManager){
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 36; i++) jj_la1[i] = -1;
   }
 
 
@@ -2033,7 +1734,7 @@ Token * MiniJavaParser::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 63; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -2127,13 +1828,75 @@ int MiniJavaParser::jj_ntk_f(){
 
   void MiniJavaParser::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 63; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
           jj_la = p->arg; jj_lastpos = jj_scanpos = p->first;
           switch (i) {
             case 0: jj_3_1(); break;
+            case 1: jj_3_2(); break;
+            case 2: jj_3_3(); break;
+            case 3: jj_3_4(); break;
+            case 4: jj_3_5(); break;
+            case 5: jj_3_6(); break;
+            case 6: jj_3_7(); break;
+            case 7: jj_3_8(); break;
+            case 8: jj_3_9(); break;
+            case 9: jj_3_10(); break;
+            case 10: jj_3_11(); break;
+            case 11: jj_3_12(); break;
+            case 12: jj_3_13(); break;
+            case 13: jj_3_14(); break;
+            case 14: jj_3_15(); break;
+            case 15: jj_3_16(); break;
+            case 16: jj_3_17(); break;
+            case 17: jj_3_18(); break;
+            case 18: jj_3_19(); break;
+            case 19: jj_3_20(); break;
+            case 20: jj_3_21(); break;
+            case 21: jj_3_22(); break;
+            case 22: jj_3_23(); break;
+            case 23: jj_3_24(); break;
+            case 24: jj_3_25(); break;
+            case 25: jj_3_26(); break;
+            case 26: jj_3_27(); break;
+            case 27: jj_3_28(); break;
+            case 28: jj_3_29(); break;
+            case 29: jj_3_30(); break;
+            case 30: jj_3_31(); break;
+            case 31: jj_3_32(); break;
+            case 32: jj_3_33(); break;
+            case 33: jj_3_34(); break;
+            case 34: jj_3_35(); break;
+            case 35: jj_3_36(); break;
+            case 36: jj_3_37(); break;
+            case 37: jj_3_38(); break;
+            case 38: jj_3_39(); break;
+            case 39: jj_3_40(); break;
+            case 40: jj_3_41(); break;
+            case 41: jj_3_42(); break;
+            case 42: jj_3_43(); break;
+            case 43: jj_3_44(); break;
+            case 44: jj_3_45(); break;
+            case 45: jj_3_46(); break;
+            case 46: jj_3_47(); break;
+            case 47: jj_3_48(); break;
+            case 48: jj_3_49(); break;
+            case 49: jj_3_50(); break;
+            case 50: jj_3_51(); break;
+            case 51: jj_3_52(); break;
+            case 52: jj_3_53(); break;
+            case 53: jj_3_54(); break;
+            case 54: jj_3_55(); break;
+            case 55: jj_3_56(); break;
+            case 56: jj_3_57(); break;
+            case 57: jj_3_58(); break;
+            case 58: jj_3_59(); break;
+            case 59: jj_3_60(); break;
+            case 60: jj_3_61(); break;
+            case 61: jj_3_62(); break;
+            case 62: jj_3_63(); break;
           }
         }
         p = p->next;

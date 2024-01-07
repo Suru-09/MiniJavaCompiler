@@ -58,6 +58,8 @@ class SimpleNewClass extends DummyClass {
     public boolean returnBool() {
         boolField = true;
         boolField = false;
+        boolean myBool;
+        myBool = true;
         return boolField;
     }
 

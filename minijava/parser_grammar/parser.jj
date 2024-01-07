@@ -3,7 +3,7 @@
     OUTPUT_LANGUAGE = "c++";
     OUTPUT_DIRECTORY = "generated";
                             
-    LOOKAHEAD = 1;
+    LOOKAHEAD = 2;
     CHOICE_AMBIGUITY_CHECK = 3;
     OTHER_AMBIGUITY_CHECK = 3;
     STOP_ON_FIRST_ERROR = true;
@@ -106,7 +106,7 @@ TOKEN:
 | < DIV: "/" >
 | < AND: "&&" >
 | < OR: "||" >
-| < IDENTIFIER: <IDENT_START> (<IDENT_BODY>)* >
+| <IDENTIFIER: <IDENT_START> (<IDENT_BODY>)*>
 | 
   <IDENT_START:
     [
@@ -304,9 +304,7 @@ void MethodDecl()                     :
   }
 /*@egen*/              
   <LPAREN> ArgsList() <RPAREN>
-  (
-    Statement()
-  )*/*@bgen(jjtree)*/
+  (Statement())*/*@bgen(jjtree)*/
   } catch (...) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -445,9 +443,9 @@ void SimpleType()                 :
 
 void Statement() : {}
 {
-  BlockStatement()
-|
   OptionalExprStmt()
+|
+  BlockStatement()
 |
   IfStatement()
 | 
@@ -468,7 +466,7 @@ void BlockStatement()                     : {/*@bgen(jjtree) BlockStatementNode 
 /*@egen*/
   <LBRACE>
   ( 
-    Statement() 
+    Statement()
   |
     VarDecl()
   )*

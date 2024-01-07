@@ -53,13 +53,13 @@ class Circle extends Shape
 }
 
 class TestShape
-{
-    Shape s;
-    Rectangle r;
-    Circle c;
-
+{   
     public int test()
     {
+        Shape s;
+        Rectangle r;
+        Circle c;
+    
         r = new Rectangle();
         c = new Circle();
 
